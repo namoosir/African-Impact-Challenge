@@ -6,9 +6,11 @@ The application will be use in the second stage of the Challenge to help entrepr
 <br />
 
 **Installation**<br />
-Need to decide on this<br />
+While this application runs on the host machine, a sort of browser should be installed. We reccomend installing chrome.<br />
+Next, you should have database X installed, we used version x.x.x.x., however, the latest version should also work.<br />
+Make sure you also have X and Y interrupters/languages installed.<br />
 <br />
 **Contribution**<br />
-The team follows git flow, and so to work on feature, you will be working on a particular branch. Our branch names follow ....<br />
-Do you use github issues or another ticketing website?<br />
-Do you use pull requests?<br />
+The team follows git flow, and so to work on feature, you will be working on a particular branch. We are using JIRA to keep track of features and ticks. Make sure to request to joing the JIRA here ....<br />
+Our branch names generally follow the JIRA the tickets.<br />
+You will need a pull request to be able to commit to the main branch. Make sure you have the feature completed and passed the unit tests before making a pull request.
