@@ -1,0 +1,1 @@
+Done means you have pushed the feature to master with unit tests in place. These unit tests need to be reviewed by at least one other person to ensure they cover edge cases, etc. Once the review of the test cases are done, it must also pass integration testing with the rest of the application. Pages must meet usability principles and must achieve level AA of WCAG 2.0. 

@@ -1,0 +1,13 @@
+Process
+
+Our team consists of 7 members. We have been holding all our discussions and meetings on discord. So far, we have had 5 meetings on discord where all the members discuss work for the project and the work gets divided amongst all the members. The team has been very punctual about holding meetings and dividing the work amongst the members. We meet every 2-3 days to discuss our progress, plan on what all work needs to be done next and ask any questions or concerns about the project. 
+
+Most decisions in our group are made during the meetings. We used the time in meetings to decide which of the two ideas for the African impact challenge we wanted to take up. In other meetings we came to a consensus about our key users and their personas. We used the time in meetings to edit and refine previously done work, and discuss what needs to be done next. Most decisions have so far been easy for us as our team seems to have similar opinions on all major topics.
+
+In terms of roles in the project, two of our members are responsible for supervising submissions and one member  who orchestrates the team meetings. All the work is equally divided among all the members. Every member took up 1-2 users and had the task of coming up with user stories. For our UI, all members contributed to the design. 
+
+The prioritization of user stories for our project were done in a proper manner. We used the Kano model and decided to give highest priority to features that are needed in general by all the users and are needed for the basic functionality of the application such as being able to create a profile or being able to message another user. This idea was in agreement with what product owners provided as important features. Moderate priority is given to stories that are specific to certain users, but are important features such as adding events on the calendar, whereas lowest priority are given to features that are non-essential such as the instructor being able to change student replies on posts if they are not relevant or inappropriate. We addressed any disagreements by voting.
+
+To share documents and do collaborative work for the project, documents are written/published on google drive for everyone to read and improve on. This has been particularly helpful in keeping everyone on the same page. For our UI, the team made all the UI on figma to keep the pages and format consistent.
+
+The lessons we would take forward are to continue to hold regular meetings to keep all members on the same page, all major decisions should be made with the full consensus of the group and work should be divided as fair as possible, with everyone able to do work of their preference. 
