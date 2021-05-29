@@ -33,6 +33,7 @@ If a teammate drops out or gets extremely sick, the work will be distributed amo
 
 
 Signatures
-We accept these guidelines and intend to fulfill them (sign below): 
-<img src="https://drive.google.com/file/d/1wI0gwuprVY6qHE9tGGmY95Oj8p-HpBy3/view?usp=sharing">
-<img src="https://drive.google.com/file/d/158xdn05SBshsbomlSQNEXOxUgWhRxgK6/view?usp=sharing">
+We accept these guidelines and intend to fulfill them (sign below):  
+![image](https://drive.google.com/uc?export=view&id=1ty7y_sWHRdgGSDSDZ_HBt5_4RFhE90GV) 
+
+![image](https://drive.google.com/uc?export=view&id=1TCLE2EwkHIRi8mgeZiZE8J0Ki5FU25hp)
