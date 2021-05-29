@@ -6,7 +6,7 @@ The application will be use in the second stage of the Challenge to help entrepr
 <br />
 
 **Installation**<br />
-While this application runs on the host machine, a sort of browser should be installed. We reccomend installing chrome.<br />
+While this application runs on the host machine, a sort of browser should be installed. We recommend installing chrome.<br />
 Next, you should have database X installed, we used version x.x.x.x., however, the latest version should also work.<br />
 Make sure you also have X and Y interrupters/languages installed.<br />
 <br />
