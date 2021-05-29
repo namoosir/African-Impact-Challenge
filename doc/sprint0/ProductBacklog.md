@@ -13,12 +13,14 @@ High Priority:
   </ul>
 
 Medium Priority:
-As a user, I want to be able to host live meetings so that I can discuss things with my peers and/or partners.
-As a user, I want to be able to customize my public profile so that others can see who I am as a person.
-As a company administrator (Tomi), I want to be able to upload information such as financials and pitch decks so that investors get a better idea of the company.
-As an entrepreneur (Tomi), I want to be able to see my completed assignments so that I can easily tell if I handed something in or not.
-As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌make‌ ‌announcements‌ ‌to‌ ‌the‌ ‌class‌ ‌so‌ ‌that‌ ‌I‌ ‌can‌ ‌provide‌ ‌needed‌ ‌information‌ ‌to‌ ‌students‌.
-As a user, I want to be able to add events to my Calendar so that I can access and get reminders regarding the events.
+<ul>
+<li>As a user, I want to be able to host live meetings so that I can discuss things with my peers and/or partners.</li>
+<li>As a user, I want to be able to customize my public profile so that others can see who I am as a person.</li>
+<li>As a company administrator (Tomi), I want to be able to upload information such as financials and pitch decks so that investors get a better idea of the company.</li>
+<li>As an entrepreneur (Tomi), I want to be able to see my completed assignments so that I can easily tell if I handed something in or not.</li>
+<li>As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌make‌ ‌announcements‌ ‌to‌ ‌the‌ ‌class‌ ‌so‌ ‌that‌ ‌I‌ ‌can‌ ‌provide‌ ‌needed‌ ‌information‌ ‌to‌ ‌students‌.</li>
+<li>As a user, I want to be able to add events to my Calendar so that I can access and get reminders regarding the events.</li>
+  </ul>
 
 Low Priority:
 As a user, I want to be able to watch/go through a tutorial to know how to navigate and use the website.
