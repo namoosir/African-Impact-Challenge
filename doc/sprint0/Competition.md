@@ -2,21 +2,21 @@ Competition
 
 Quercus: (https://q.utoronto.ca)
 How is our product different from Quercus:
-Quercus doesn’t really have different types of users, other than professors and students. Not really a company profile
-Doesn’t really have a DM feature
-You cannot make public posts 
-Profile is lackluster. 
-Different purposes (entrepreneurs vs students)
-Quercus is open only for UofT students and there is no way to apply otherwise. On the other hand, for our product, registration is open to everyone as long as they apply and are accepted through the annual challenge application.
-How is our product better than Quercus:
-	Our product is better:
-When there is need for interaction between users within a community
-When there is need for collaboration 
-		Our product is targeted at:
-Our product would be better for entrepreneurs as compared to Quercus because Quercus is more focused on e-learning rather than community collaboration and interaction.
-		Why didn’t Quercus focus on these scenarios/users?
-Quercus didn’t focus on entrepreneurs because their main target is schools and institutions. 
-Quercus would need a considerable influx of entrepreneurs who use the application. Since the vast majority of users are either students or teachers, then it wouldn’t make sense to implement entrepreneurial features. That is, unless more entrepreneurs start learning through Quercus and so there would be a market for the incorporation of entrepreneurial features.
+- Quercus doesn’t really have different types of users, other than professors and students. Not really a company profile
+- Doesn’t really have a DM feature
+- You cannot make public posts 
+- Profile is lackluster. 
+- Different purposes (entrepreneurs vs students)
+- Quercus is open only for UofT students and there is no way to apply otherwise. On the other hand, for our product, registration is open to everyone as long as they apply and are accepted through the annual challenge application.
+- How is our product better than Quercus:
+	- Our product is better:
+		- When there is need for interaction between users within a community
+		- When there is need for collaboration 
+	- Our product is targeted at:
+		- Our product would be better for entrepreneurs as compared to Quercus because Quercus is more focused on e-learning rather than community collaboration and 			  interaction.
+	- Why didn’t Quercus focus on these scenarios/users?
+		- Quercus didn’t focus on entrepreneurs because their main target is schools and institutions. 
+		- Quercus would need a considerable influx of entrepreneurs who use the application. Since the vast majority of users are either students or teachers, then it 			  wouldn’t make sense to implement entrepreneurial features. That is, unless more entrepreneurs start learning through Quercus and so there would be a market for 		    the incorporation of entrepreneurial features.
 
 
 
