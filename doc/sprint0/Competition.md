@@ -26,22 +26,22 @@ How is our product different from Quercus:
 
 
 LinkedIn: (https://www.linkedin.com)
-	How is our product different from LinkedIn:
-LinkedIn’s purpose is to promote networking, whereas our product helps African entrepreneurs succeed and help them promote their ideas.
-LinkedIn does not have a calendar feature, whereas our product does.
-LinkedIn learning and LinkedIn are treated separately rather than one whole application. As such, we separate the interaction from the educational aspect of the application.
-Our product provides a platform for live sessions and workshops, as well as for pre-recorded lectures all in one.
-LinkedIn is open to everyone just by signing up with a valid email. Our product, however, is more selective since only selected users from the annual challenge application can be users.
-	How is product better than Linkedin:
-		Who are the users and/or what are the scenarios?
-Our product would be better for close interactions and private communities.
-Our product would be better for companies looking for funding from partners/investors.
-Our product would be better for entrepreneurs looking for live sessions/workshops.
-Our product would be better for entrepreneurs looking for a calendar feature in which to put all their itinerary.
-When there is need for companies to look for funding
-When there is a need for entrepreneurs to learn through the application
-		Why do you think the competitors didn’t focus on these users and/or
+How is our product different from LinkedIn:
+- LinkedIn’s purpose is to promote networking, whereas our product helps African entrepreneurs succeed and help them promote their ideas.
+- LinkedIn does not have a calendar feature, whereas our product does.
+- LinkedIn learning and LinkedIn are treated separately rather than one whole application. As such, we separate the interaction from the educational aspect of the application.
+- Our product provides a platform for live sessions and workshops, as well as for pre-recorded lectures all in one.
+- LinkedIn is open to everyone just by signing up with a valid email. Our product, however, is more selective since only selected users from the annual challenge application can be users.
+- How is product better than Linkedin:
+	- Who are the users and/or what are the scenarios?
+		- Our product would be better for close interactions and private communities.
+		- Our product would be better for companies looking for funding from partners/investors.
+		- Our product would be better for entrepreneurs looking for live sessions/workshops.
+		- Our product would be better for entrepreneurs looking for a calendar feature in which to put all their itinerary.
+		- When there is need for companies to look for funding
+		- When there is a need for entrepreneurs to learn through the application
+	- Why do you think the competitors didn’t focus on these users and/or
  	scenarios? And, what would it take from them to do so?
-LinkedIn didn’t focus on a live and/or educational integration to their networking platform due to the purpose of the application. LinkedIn serves as a networking platform. As such, it makes no sense to integrate education as an integral part of the application. 
-For LinkedIn to take steps towards integrating the educational platform within their networking platform, there must be a shift in which people looking for jobs and for networking are also looking to learn in the same platform. At the moment, it is not really a big need for that in the context of what LinkedIn entails.
+		- LinkedIn didn’t focus on a live and/or educational integration to their networking platform due to the purpose of the application. LinkedIn serves as a networking platform. As such, it makes no sense to integrate education as an integral part of the application. 
+		- For LinkedIn to take steps towards integrating the educational platform within their networking platform, there must be a shift in which people looking for jobs and for networking are also looking to learn in the same platform. At the moment, it is not really a big need for that in the context of what LinkedIn entails.
 
