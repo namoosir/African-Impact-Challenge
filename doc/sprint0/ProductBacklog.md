@@ -2,15 +2,15 @@
 High Priority:
 <ul>
 <li>As a user I want to be able to create an account so that I can enjoy all the features of the application.</li>
-As a user, I want to be able to direct message other users so that I can directly contact other users through the website.
-As a user, I would like to view other users and companies' profiles so that I know more about them and decide whether I want to connect with them or not
-As a user I want to be able to create public and private posts so that I can send messages and announcements to a large audience.
-As an entrepreneur (Tomi), I want to be able to upload documents to submit assignments so that I can get a sense of what I have learned.
-As an instructor (Jaime), I would like to be able to post video recordings and other notes so that the entrepreneurs can see them.
-As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌provide‌ ‌feedback‌ ‌and‌ ‌submit‌ ‌grades‌ ‌for‌ ‌students‌ ‌so‌ ‌the‌ ‌students‌ ‌can‌ ‌review‌ ‌their‌ ‌grades‌ ‌and‌ ‌work‌.
-As a partner (Kojo), I would like to see all the companies looking for funding so that the partner can decide on which company to invest in.
-As a user, I want to be able to update personal account information so that my account is accurate, secure, and up to date.
-  </ul?
+<li>As a user, I want to be able to direct message other users so that I can directly contact other users through the website.</li>
+<li>As a user, I would like to view other users and companies' profiles so that I know more about them and decide whether I want to connect with them or not.</li>
+<li>As a user I want to be able to create public and private posts so that I can send messages and announcements to a large audience.</li>
+<li>As an entrepreneur (Tomi), I want to be able to upload documents to submit assignments so that I can get a sense of what I have learned.</li>
+<li>As an instructor (Jaime), I would like to be able to post video recordings and other notes so that the entrepreneurs can see them.</li>
+<li>As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌provide‌ ‌feedback‌ ‌and‌ ‌submit‌ ‌grades‌ ‌for‌ ‌students‌ ‌so‌ ‌the‌ ‌students‌ ‌can‌ ‌review‌ ‌their‌ ‌grades‌ ‌and‌ ‌work‌.</li>
+<li>As a partner (Kojo), I would like to see all the companies looking for funding so that the partner can decide on which company to invest in.</li>
+<li>As a user, I want to be able to update personal account information so that my account is accurate, secure, and up to date.</li>
+  </ul>
 
 Medium Priority:
 As a user, I want to be able to host live meetings so that I can discuss things with my peers and/or partners.
