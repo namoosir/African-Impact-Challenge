@@ -1,6 +1,5 @@
 | Full Name        | UTORID   | Student ID | Email                | Best Way to Contact | Discord Username
 |
-|------------------|----------|------------|----------------------------------|---------|----------
 |
 | Mutasem Kharsa   | Kharsamu | 1006211083 | mutasem.kharsa@mail.utoronto.ca  | Discord | mutu#4922
 |                  
