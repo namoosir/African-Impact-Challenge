@@ -23,12 +23,14 @@ Medium Priority:
   </ul>
 
 Low Priority:
-As a user, I want to be able to watch/go through a tutorial to know how to navigate and use the website.
-As a company administrator (Tomi), I would like to be able to assign members of the company roles on the company profile so that others can see it on the company profile.
-As a company administrator (Tomi), I would like to allow company members to view private company information so that internal decisions can be made.
-As an instructor (Jaime), I would like to have the option to add events or workshops (Schedule) in a calendar which would reflect in the calendars of all the students working with me so that everyone is informed.
-As a company administrator (Tomi), I would like to be able to add events to all the company employees’ calendars so that everyone is informed.
-As an instructor (Jaime), I would like to be able to create discussion forums to create a more active learning experience and see student responses to important content.
-As an entrepreneur (Tomi), I want to be able to respond to discussion forums posted by the instructor so that I can contribute to the discussion.
-As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌view‌ ‌the‌ ‌modules progress‌ ‌of‌ ‌students‌ ‌to‌ ‌gauge‌ ‌whether‌ ‌a‌ ‌student‌ ‌is‌ ‌actively‌ ‌completing‌ ‌the‌ ‌needed‌ ‌work‌.
-As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌have‌ ‌privileges‌ ‌over‌ ‌students‌ discussion posts ‌in‌ ‌order‌ ‌to‌ ‌moderate‌ ‌what‌ ‌a‌ ‌student‌ ‌is‌ ‌posting‌ ‌to‌ ‌the‌ ‌class‌ ‌discussion.
+<ul>
+<li>As a user, I want to be able to watch/go through a tutorial to know how to navigate and use the website.</li>
+<li>As a company administrator (Tomi), I would like to be able to assign members of the company roles on the company profile so that others can see it on the company profile.</li>
+<li>As a company administrator (Tomi), I would like to allow company members to view private company information so that internal decisions can be made.</li>
+<li>As an instructor (Jaime), I would like to have the option to add events or workshops (Schedule) in a calendar which would reflect in the calendars of all the students working with me so that everyone is informed.</li>
+<li>As a company administrator (Tomi), I would like to be able to add events to all the company employees’ calendars so that everyone is informed.</li>
+<li>As an instructor (Jaime), I would like to be able to create discussion forums to create a more active learning experience and see student responses to important content.</li>
+<li>As an entrepreneur (Tomi), I want to be able to respond to discussion forums posted by the instructor so that I can contribute to the discussion.</li>
+<li>As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌view‌ ‌the‌ ‌modules progress‌ ‌of‌ ‌students‌ ‌to‌ ‌gauge‌ ‌whether‌ ‌a‌ ‌student‌ ‌is‌ ‌actively‌ ‌completing‌ ‌the‌ ‌needed‌ ‌work‌.</li>
+<li>As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌have‌ ‌privileges‌ ‌over‌ ‌students‌ discussion posts ‌in‌ ‌order‌ ‌to‌ ‌moderate‌ ‌what‌ ‌a‌ ‌student‌ ‌is‌ ‌posting‌ ‌to‌ ‌the‌ ‌class‌ ‌discussion.</li>
+  </ul>
