@@ -9,7 +9,11 @@ const InstructorSchema = new Schema({
     lastName: {
         type: String,
         required: true
-    },
+    }, 
+    username: {
+        type: String,
+        required: true
+    }, 
     classes: [{
         type: String,
     }],

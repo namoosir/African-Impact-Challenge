@@ -10,6 +10,10 @@ const PartnerSchema = new Schema({
         type: String,
         required: true
     },
+    username: {
+        type: String,
+        required: true
+    },
     company: {
         type: String,       // Could also have his company in the database (another option) and have a reference to it
         required: true
