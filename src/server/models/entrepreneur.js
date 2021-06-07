@@ -24,5 +24,5 @@ const EntrepreneurSchema = new Schema({
     image: String
 });
 
-mongoose.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
+mongoose.exports = mongoose.model("Entrepreneur", EntrepreneurSchema, 'users');
 

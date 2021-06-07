@@ -23,4 +23,4 @@ const InstructorSchema = new Schema({
     biography: String
 })
 
-module.exports = mongoose.model("Instructor", InstructorSchema);
+module.exports = mongoose.model("Instructor", InstructorSchema, 'users');

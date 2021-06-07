@@ -30,4 +30,4 @@ const CompanySchema = new Schema({
     image: String
 })
 
-module.exports = mongoose.model("Company", CompanySchema);
+module.exports = mongoose.model("Company", CompanySchema, 'users');
