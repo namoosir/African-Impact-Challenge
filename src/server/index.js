@@ -1,14 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 
-const Entrepreneur = require('./models/entrepreneur')
-const Instructor = require('./models/instructor')
+const User = require('./models/user')
+const Entrepreneur = require('./models/entrepreneur');
+const Instructor = require('./models/instructor');
 const Partner = require('./models/partner');
-const Company = require('./models/company')
+const Company = require('./models/company');
+
+const userRoutes = require('./routes/users')
 
 const app = express();
-mongoose.connect("mongodb://localhost:3000/african-impact-challenge", {
+mongoose.connect("mongodb://localhost:27017/aic", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -21,27 +25,14 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
+app.use(bodyParser.json);
+
 app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+require("./passport")(passport);
 
-app.post('/register', async(req, res, next) =>{
-    try {
-        const { firstName, lastName, email, username, password } = req.body;
-        const user = new Entrepreneur({ firstName, lastName, email, username, password });
-        const registeredUser = await Entrepreneur.register(email, username, password);
-        // req.login(registeredUser, err => {
-        //     if (err) return next(err);
-        //     req.flash('success', 'Welcome to Yelp Camp!');
-        //     res.redirect('/campgrounds');
-        // });
+app.use('', userRoutes)
 
-    } catch (e) {
-        req.flash('error', e.message);
-        res.redirect('/register')
-    }
-
-})
+app.listen(5000, () => {
+  console.log("Serving on port 5000");
+});
