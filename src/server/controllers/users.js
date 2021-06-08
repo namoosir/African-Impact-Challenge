@@ -3,21 +3,20 @@ const Instructor = require('../models/instructor')
 const Partner = require('../models/partner');
 const Company = require('../models/company')
 
-const User = require('../models/instructor')
+const User = require('../models/user')
 
 
-const user_details = (req, res) => {
+ const user_details = (req, res) => {
   const id = req.params.id;
+  //const name = req.params.typeOfUser;
   User.findById(id)
-    .then(result => {
-        res.send(result)
-      //res.render('details', { User: result, title: 'User Details' });
+    .then(result => {      
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})      // always makes sure that the client sends the general user
     })
     .catch(err => {
       console.log(err);
-      //res.render('404', { title: 'User not found' });
     });
-}
+} 
 
 /* 
 const blog_create_get = (req, res) => {

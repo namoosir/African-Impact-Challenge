@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const userRoutes = require('./routes');
-const Partner = require('./models/partner');
+const Instructor = require('./models/instructor');
+const User = require('./models/user');
 
 
 
@@ -58,23 +59,37 @@ app.use(express.urlencoded({ extended: true }));
 
 }) */
 
-//routes
-/* app.get('/add', (req, res) => {
-  const user = new Partner({
-    firstName: 'muta',
-    lastName: 'boss',
-    username: 'depressed',
-    company: 'money',
-    role: 'Chill leader'
+ //routes
+app.get('/add', (req, res) => {
+  
+  const ins = new Instructor({
+    classes: ['Money101', 'Dropping204'],
+    image: 'Coolguy.png',
+    biography: 'My name is coolguy and I have a lot of money'
   })
 
-  user.save()
+  const user = new User({
+    name: 'Muta Khs',
+    username: 'Kharsm',
+    email: 'mutase@lhars',
+    password: 'hi123',
+    typeOfUser: 'Instructor',
+    typeUser: ins._id
+  })
+
+  ins.save()
+  .then(result => {
+    user.save()
     .then(result => {
       res.send(result);
     })
     .catch(err => {
       console.log(err);
     });
-}); */
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});  
 
 app.use('/profile', userRoutes);

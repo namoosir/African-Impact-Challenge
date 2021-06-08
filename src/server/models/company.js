@@ -2,14 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    administrator: [{
+    administrator: {
         type: Schema.Types.ObjectId,    // Reference to the Entreprenur
         required: true
-    }], 
+    }, 
     employees: [{
         type: Schema.Types.ObjectId,    // References to Entrepreneurs 
         required: true
@@ -30,4 +26,4 @@ const CompanySchema = new Schema({
     image: String
 })
 
-module.exports = mongoose.model("Company", CompanySchema, 'users');
+module.exports = mongoose.model("Company", CompanySchema);
