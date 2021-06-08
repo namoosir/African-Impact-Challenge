@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react";
-
 import Routes from './components/routes'
 
-const App = () => {
-  return(
-    <div>
-      <Routes />
-    </div>
+import {Provider} from 'react-redux'
+import store from './store'
+
+function App() {
+  return (
+    <Provider store = {store}>
+      <div className="App">
+        <Routes />
+      </div>
+    </Provider>
   );
-};
+
+}
 
 export default App;
