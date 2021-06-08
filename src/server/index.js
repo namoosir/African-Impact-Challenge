@@ -4,6 +4,7 @@ const passport = require('passport');
 const userRoutes = require('./routes');
 const Instructor = require('./models/instructor');
 const User = require('./models/user');
+//const passport = require('passport');
 
 
 
