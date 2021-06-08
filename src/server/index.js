@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const passport = require('passport');
+//const passport = require('passport');
 
 const Entrepreneur = require('./models/entrepreneur')
 const Instructor = require('./models/instructor')
@@ -21,12 +21,12 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+//app.use(passport.initialize());
+//app.use(passport.session());
+//passport.use(new LocalStrategy(User.authenticate()));
 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
 
 app.post('/register', async(req, res, next) =>{
     try {

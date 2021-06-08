@@ -1,0 +1,103 @@
+
+  
+html, body {
+  max-width: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body{
+  height: 100vh;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+
+
+.App{
+  display: flex;
+  flex-direction: column;
+  background-color: wheat;
+}
+
+
+/* Banenr */
+
+
+.Banner{
+  display: flex;
+  align-items: center;
+  height: 300px;
+
+}
+
+
+.profile_img {
+  height: 150px;
+  width: 150px;
+  margin-left: 10%;
+  border-radius: 1em;
+}
+
+/* Profile Bottom Section */
+.profile_bottom{
+  
+}
+
+.name_btn{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-top: 1em;
+  background-color: white;
+}
+
+
+.msg_btn{
+  width: auto;
+  height: 35px;
+}
+
+.profile_grid{
+  margin-left: 2em;
+  margin-right: 2em;
+  display: grid;
+  height: 500px;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: 66% 34%;
+  grid-template-areas: 
+  "bio employees "
+  "docs employees";
+  background-color: green;
+}
+
+.employees{
+    grid-area: employees;
+    background-color: red;
+    padding-left: 1em;
+}
+
+
+.profile_documents{
+  grid-area: docs;
+  background-color: blueviolet;
+  padding-left: 1em;
+
+}
+
+.document_list{
+  display: flex;
+}
+.document_single{
+  margin-right: 1em;
+}
+
+.biography{
+  grid-area: bio;
+  background-color: aqua;
+  padding-left: 1em;
+
+
+}
