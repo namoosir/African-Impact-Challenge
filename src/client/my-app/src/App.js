@@ -5,6 +5,8 @@ import Footer from 'components/Footer'
 import Header from 'components/Header'
 
 import Profile1 from 'components/Profile1'
+import Banner from 'components/Banner';
+import GeneralCard from 'components/GeneralCard';
 
 function App() {
   
@@ -119,9 +121,10 @@ function App() {
 
   return (
     <div className="App">
-      <Header/>
-      <Profile1/>
-      <Footer/>
+      <GeneralCard/>
+      {/* <Header/>
+      // <Profile1/>
+      // <Footer/> */}
     </div>    
     
   );
