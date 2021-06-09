@@ -10,52 +10,30 @@ const Entrepreneur = require('../models/entrepreneur');
 const Instructor = require('../models/instructor');
 const Partner = require('../models/partner');
 const Company = require('../models/company');
-const { useReducer } = require('react');
-const { useRouteMatch } = require('react-router');
 
 const saltRounds = 10;
+let id = 0;
 
 router.post("/register", async(req, res) => {
 
+    let refUser = 0;
     const user= await User.findOne({email: req.body.email, username: req.body.username})
     if(user) {
         return res.status(400).json({user: "user already exists"});
-    } else {
-        if(req.body.typeOfUser === 'entrepreneur') {
-            const tUser = new Entrepreneur({});
-        } else if(req.body.typeOfUser === 'partner') {
-            const tUser = new Partner({});
-        } else if(req.body.typeOfUser === 'company') {
-            const tUser = new Company({});
-        } else if(req.body.typeOfUser === 'instructor') {
-            const tUser = new Instructor({});
-        }
-        const newUser = new User({
-            username: req.body.username,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password,
-            typeOfUser: req.body.typeOfUser,
-        });
     }
 
-    // bcrypt.genSalt(saltRounds, (err, salt) => {
-    //     bcrypt.hash(typeUser.password, salt, async(err, hash => {
-    //         if(err) {
-    //             throw err;
-    //         } else {
-    //             tUser.password = hash;
-    //             tUser
-    //                 .save()
-    //                 .then(ent => res.json(ent))
-    //                 .catch(err => console.log(err));
-    //         }
-    //     }))
-    // });
+    const {email} = req.body;
 
+    const newUser = new User({
+        username: req.body.username,
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        typeOfUser: req.body.typeOfUser,
+    });
+    
     bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
             if(err) {
                 throw err;
             } else {
@@ -65,15 +43,15 @@ router.post("/register", async(req, res) => {
                     .then(ent => res.json(ent))
                     .catch(err => console.log(err));
             }
-        }))
+        })
     });
 })
 
 router.post('/login', async(req, res) => {
 
-    const {email, username} = req.body;
+    const {email, password} = req.body;
 
-    const user = await User.findOne({email, username})
+    const user = await User.findOne({email})
     if(!user) {
         return res.status(404).json({user: "user does not exist"})
     }
@@ -106,3 +84,61 @@ router.post('/login', async(req, res) => {
 })
 
 module.exports = router;
+
+// if(req.body.typeOfUser === 'entrepreneur') {
+        //     const tUser = new Entrepreneur({});
+        //     const id = tUser._id
+        //     tUser
+        //     .save()
+        //     .then(ent => res.json(ent))
+        //     .catch(err => console.log(err));
+        // } else if(req.body.typeOfUser === 'partner') {
+        //     const tUser = new Partner({});
+        //     id = tUser._id
+        //     tUser
+        //     .save()
+        //     .then(ent => res.json(ent))
+        //     .catch(err => console.log(err));
+        // } else if(req.body.typeOfUser === 'company') {
+        //     const tUser = new Company({});
+        //     id = tUser.id
+        //     tUser
+        //     .save()
+        //     .then(ent => res.json(ent))
+        //     .catch(err => console.log(err));
+        // } else {
+        //     const tUser = new Instructor({});
+        //     id = tUser._id
+        //     tUser
+        //     .save()
+        //     .then(ent => res.json(ent))
+        //     .catch(err => console.log(err));
+        // }
+
+
+            // if(req.body.typeOfUser === 'entrepreneur') {
+    //     const entrepreneur = new Entrepreneur({
+    //         email: email,
+    //     })
+    //     await entrepreneur.save();
+    //     refUser = Entrepreneur.findOne({email});
+    //     console.log(refUser);
+    // } else if(req.body.typeOfUser === 'partner') {
+    //     const partner = new Partner({
+    //         email: email
+    //     })
+    //     await partner.save()
+    //     refUser = Partner.findOne({email});
+    // } else if(req.body.typeOfUser === 'company') {
+    //     const company = new Company({
+    //         email: email
+    //     })
+    //     await company.save();
+    //     refUser = Company.findOne({email});
+    // } else{
+    //     const instructor = new Instructor ({
+    //         email: email
+    //     })
+    //     await instructor.save();
+    //     refUser = Instructor.findOne({email});
+    // }

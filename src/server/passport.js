@@ -3,7 +3,6 @@ require('dotenv').config();
 const passportJWT = require('passport-jwt');
 const mongoose = require('mongoose');
 
-const secret = require('./secret')
 const Entrepreneur = require('./models/entrepreneur');
 const Instructor = require('./models/instructor');
 const Partner = require('./models/partner');
