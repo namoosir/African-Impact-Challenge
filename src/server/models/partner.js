@@ -11,6 +11,7 @@ const PartnerSchema = new Schema({
         required: true
     },
     image: String,          // url of image (profile)
+    biography: String
 
 })
 

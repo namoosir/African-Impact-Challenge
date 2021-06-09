@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const userRoutes = require('./routes');
 const Instructor = require('./models/instructor');
+const Partner = require('./models/partner')
+const Company = require('./models/company')
 const User = require('./models/user');
 //const passport = require('passport');
 
@@ -14,7 +16,7 @@ const Partner = require('./models/partner');
 const Company = require('./models/company') */
 
 const app = express();
-const server = app.listen(3000);
+const server = app.listen(3001);
 mongoose.connect("mongodb://localhost:27017/african-impact-challenge", {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -29,6 +31,11 @@ db.once("open", () => {
 });
 
 app.use(express.urlencoded({ extended: true }));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 /* app.use((req, res, next) => {
   res.locals.path = req.path;
@@ -63,18 +70,19 @@ app.use(express.urlencoded({ extended: true }));
  //routes
 app.get('/add', (req, res) => {
   
-  const ins = new Instructor({
-    classes: ['Money101', 'Dropping204'],
-    image: 'Coolguy.png',
-    biography: 'My name is coolguy and I have a lot of money'
+  const ins = new Partner({
+    company: 'Muta',
+    image: 'https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg',
+    role: 'MDF',
+    biography: " MUTA Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
   })
 
   const user = new User({
-    name: 'Muta Khs',
-    username: 'Kharsm',
-    email: 'mutase@lhars',
-    password: 'hi123',
-    typeOfUser: 'Instructor',
+    name: 'Muta',
+    username: 'mut',
+    email: 'mut@lhars',
+    password: 'mut',
+    typeOfUser: 'Partner',
     typeUser: ins._id
   })
 

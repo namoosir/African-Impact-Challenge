@@ -3,12 +3,12 @@ import Biography from 'components/Biography'
 import CompanyMembers from 'components/CompanyMembers'
 import Documents from 'components/Documents'
 
-const ProfileBottom = () => {
+const ProfileBottom = ({name}) => {
     return (
     <div className="profile_bottom">
 
         <div className="name_btn">
-            <h1 className="profile_name"> Bobby</h1>
+            <h1 className="profile_name"> {name}</h1>
             <button className="msg_btn">Message</button>
         </div>
         
