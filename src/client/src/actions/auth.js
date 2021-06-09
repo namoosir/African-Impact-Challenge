@@ -1,29 +1,30 @@
 import axios from "axios";
-import setAuthToken from "../utils/authToken";
+import authToken from "../utils/authToken";
 import jwtDecode from "jwt-decode";
 
 import {CURR_USER, USER_WAIT} from "./types";
 
+
 export const registerUser = (user, history) => dispatch => {
+  console.log(user);
   axios
-    .post("http://localhost:3000/register", user)
+    .post("http://localhost:5000/register", user)
       .then(res => history.push("/login"))
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err, "couldn't connect to server");
+      })
 };
 
 
-export const loginUser = userData => dispatch => {
+export const loginUser = (user, history) => dispatch => {
+  console.log(history);
   axios
-    .post("http://localhost:3000/login", userData)
-    .then(res => {
-      const { token } = res.data;
-
-      localStorage.setItem("jwtToken", token);
-      setAuthToken(token);
-      const decoded = jwtDecode(token);
-      dispatch(setCurrentUser(decoded));
-    })
-    .catch(err => console.log(err));
+    .post("http://localhost:5000/login", user)
+    .then(res => history.push('/home'))
+    .catch(err => {
+      console.log(err);
+      history.push('/login');
+    });
 };
 
 export const setCurrentUser = (decoded) => {
@@ -42,6 +43,13 @@ export const setUserWait= () => {
 export const logoutUser = () => dispatch => {
 
   localStorage.removeItem("jwtToken");
-  setAuthToken(false);
+  authToken(false);
   dispatch(setCurrentUser({}));
 };
+
+      // const { token } = res.data;
+
+      // localStorage.setItem("jwtToken", token);
+      // authToken(token);
+      // const decoded = jwtDecode(token);
+      // dispatch(setCurrentUser(decoded));

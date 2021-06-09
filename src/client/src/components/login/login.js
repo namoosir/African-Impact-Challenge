@@ -38,7 +38,10 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    this.props.loginUser(user);
+    this.state.email = '';
+    this.state.password = '';
+
+    this.props.loginUser(user, this.props.history);
   };
 
   render() {
@@ -55,7 +58,7 @@ class Login extends Component {
 
                 <form onSubmit={this.onSubmit}>
                   <div className="mb-3">
-                    <label className="form-label" for="email">
+                    <label className="form-label" htmlFor="email">
                       Email Address
                     </label>
                     <input
@@ -69,7 +72,7 @@ class Login extends Component {
                     />
                   </div>
                   <div className="mb-3">
-                    <label className="form-label" for="password">
+                    <label className="form-label" htmlFor="password">
                       Password
                     </label>
                     <input
@@ -85,6 +88,7 @@ class Login extends Component {
                   <button type='submit' className="btn btn-block btn-success d-block mx-auto">
                     Login
                   </button>
+                  </form>
                   <hr className="mt-3" />
                   <div className="d-flex justify-content-center">
                     <div className="card-text text-center">
@@ -94,7 +98,6 @@ class Login extends Component {
                       </Link>
                     </div>
                   </div>
-                </form>
               </div>
             </div>
           </div>
