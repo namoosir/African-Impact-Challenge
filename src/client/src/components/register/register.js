@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { registerUser } from "../../actions/auth";
 
-import register from "../../stylesheets/register.css";
+import register from "../stylesheets/register.css";
 
 class Register extends Component {
   constructor() {
@@ -21,14 +21,16 @@ class Register extends Component {
     };
   }
 
+  UNSAFE_componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/home");
+    }
+  }
+
   onChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  };
-
-  onClick = (e) => {
-    console.log("CLICKED");
   };
 
   onSubmit = (e) => {
@@ -42,7 +44,12 @@ class Register extends Component {
       typeOfUser: this.state.typeOfUser,
     };
 
-    console.log(user);
+    this.state.name = "";
+    this.state.username = "";
+    this.state.email = "";
+    this.state.password = "";
+    this.state.typeOfUser = "";
+
     this.props.registerUser(user, this.props.history);
   };
 
@@ -60,88 +67,92 @@ class Register extends Component {
                   <h1 className="card-title text-center">
                     African Impact Challenge
                   </h1>
-
-                  <form onSubmit={this.onSubmit}>
-                    <div className="my-3">
-                      <label className="form-label" for="name">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        name="name"
-                        value={this.state.name}
-                        placeholder="Name"
-                        onChange={this.onChange}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label className="form-label" for="email">
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="email"
-                        name="email"
-                        value={this.state.email}
-                        placeholder="123@abc.com"
-                        onChange={this.onChange}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label className="form-label" for="username">
-                        Username
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="username"
-                        name="username"
-                        value={this.state.username}
-                        placeholder="Username"
-                        onChange={this.onChange}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label className="form-label" for="password">
-                        Password
-                      </label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        value={this.state.password}
-                        placeholder="Password"
-                        onChange={this.onChange}
-                      />
-                    </div>
-                    <div className="mb-3">
-                      <label className="form-label" for="typeOfUser">
-                        Type of User
-                      </label>
-                      <select
-                        className="d-block form-control"
-                        name="typeOfUser"
-                        id="typeOfUser"
-                        onChange={this.onChange}
-                        value={'entrepreneur'}
-                      >
-                        <option selected value="entrepreneur">Entrepreneur</option>
-                        <option value="partner">Partner</option>
-                        <option value="company">Company</option>
-                        <option value="instructor">Instructor</option>
-                      </select>
-                    </div>
-                    <button
-                      type="submit"
-                      className="btn btn-block btn-success d-block mx-auto"
+                  <div className="form-container">
+                    <form
+                      onSubmit={this.onSubmit}
                     >
-                      Register
-                    </button>
-                  </form>
+                      <div className="my-3">
+                        <label className="form-label" htmlFor="name">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="name"
+                          name="name"
+                          value={this.state.name}
+                          placeholder="Name"
+                          onChange={this.onChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="email">
+                          Email Address
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="email"
+                          name="email"
+                          value={this.state.email}
+                          placeholder="123@abc.com"
+                          onChange={this.onChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="username">
+                          Username
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="username"
+                          name="username"
+                          value={this.state.username}
+                          placeholder="Username"
+                          onChange={this.onChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="password">
+                          Password
+                        </label>
+                        <input
+                          type="password"
+                          className="form-control"
+                          id="password"
+                          name="password"
+                          value={this.state.password}
+                          placeholder="Password"
+                          onChange={this.onChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label" htmlFor="typeOfUser">
+                          Type of User
+                        </label>
+                        <select
+                          className="d-block form-control"
+                          name="typeOfUser"
+                          id="typeOfUser"
+                          onChange={this.onChange}
+                          value={this.state.typeOfUser}
+                        >
+                          <option value="entrepreneur">Entrepreneur</option>
+                          <option value="partner">Partner</option>
+                          <option value="company">Company</option>
+                          <option value="instructor">Instructor</option>
+                        </select>
+                      </div>
+                      <button
+                        type="submit"
+                        className="btn btn-block btn-success d-block mx-auto"
+                        onClick={this.onClick}
+                      >
+                        Register
+                      </button>
+                    </form>
+                  </div>
                   <hr className="mt-3" />
                   <div className="d-flex justify-content-center">
                     <div className="card-text text-center">
@@ -168,7 +179,6 @@ const mapStateToProps = (state) => ({
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, { registerUser })(withRouter(Register));

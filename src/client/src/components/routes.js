@@ -6,8 +6,8 @@ import Login from './login/login'
 const Routes = () => {
     return (
         <Router>
-            <Route path='/register' component={Register}/>
-            <Route path='/login' component={Login}></Route>
+            <Route exact path='/register' component={Register}/>
+            <Route exact path='/login' component={Login}></Route>
         </Router>
     );
 };
