@@ -2,6 +2,7 @@ import 'css/main.css';
 import { Component, useState } from 'react'
 import React from 'react'
 import Footer from 'components/Footer'
+import Header from 'components/Header'
 
 import Profile1 from 'components/Profile1'
 
@@ -118,6 +119,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header/>
       <Profile1/>
       <Footer/>
     </div>    
