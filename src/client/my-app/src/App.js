@@ -1,6 +1,7 @@
 import 'css/main.css';
 import { Component, useState } from 'react'
 import React from 'react'
+import Footer from 'components/Footer'
 
 import Profile1 from 'components/Profile1'
 
@@ -118,7 +119,9 @@ function App() {
   return (
     <div className="App">
       <Profile1/>
-    </div>
+      <Footer/>
+    </div>    
+    
   );
 }
 
