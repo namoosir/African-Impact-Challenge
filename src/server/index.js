@@ -2,13 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const cors = require('cors');
-
-const User = require('./models/user')
-const Entrepreneur = require('./models/entrepreneur');
-const Instructor = require('./models/instructor');
-const Partner = require('./models/partner');
-const Company = require('./models/company');
 
 const userRoutes = require('./routes/users')
 
@@ -60,6 +53,6 @@ require("./passport")(passport);
 
 app.use('', userRoutes)
 
-app.listen(5000, () => {
-  console.log("Serving on port 5000");
+app.listen(3001, () => {
+  console.log("Serving on port 3001");
 });

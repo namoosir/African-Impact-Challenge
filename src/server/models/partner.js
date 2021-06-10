@@ -2,9 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PartnerSchema = new Schema({
-    email: {
-        type: String
-    },
     role: {
         type: String,       // What type of partner? (Investor, etc...)
     },
