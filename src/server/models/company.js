@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
+    email: {
+        type: String
+    },
     administrator: {
         type: Schema.Types.ObjectId,    // Reference to the Entreprenur
     }, 
