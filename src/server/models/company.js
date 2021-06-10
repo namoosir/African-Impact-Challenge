@@ -22,6 +22,7 @@ const CompanySchema = new Schema({
         type: Boolean,
         required: true
     },
+    documents: [String],
     location: String,
     image: String
 })
