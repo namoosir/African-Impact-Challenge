@@ -1,12 +1,9 @@
-import { Component, useState } from 'react'
 import React from 'react'
+import { Component, useState } from 'react'
 
-import Banner from 'components/Banner'
-import ProfileBottom from 'components/ProfileBottom'
-import ProfileBottomUser from 'components/ProfileBottomUser'
+const ProfileInfo = ({user}) => {
 
-const Profile1 = () => {
-
+    /*
     const [user, setUser] = useState({
         id: "4",
         name: "Bob",
@@ -30,7 +27,8 @@ const Profile1 = () => {
       // Given a UserId
       //Muta ID : 60bfc28261b358667d0196a3
       //Apple ID : 60bfc190247b966513e78f66
-      fetch('http://localhost:3001/profile/60bfc28261b358667d0196a3', requestOptions)
+      //http://localhost:3001/profile/:id
+      fetch(`http://localhost:3001/profile/ ${userId}`, requestOptions)
           .then(response => response.json())
           .then(data => setUser({
             id: data._id,
@@ -43,16 +41,23 @@ const Profile1 = () => {
           }))
   
     }, [])
-
+    */
 
     return (
-        <div>
-            <Banner picURL={user.typeUser.image}/>
+        
+        <div className="profile-title">
+            <h1>{user.name} - { user.typeOfUser }</h1>
 
-            <ProfileBottomUser name={user.name} bio={user.typeUser.biography}/>
-          
+            { (user.typeOfUser == 'Partner' || user.typeOfUser == 'Entrepreneur') ?
+                <h3>{ user.typeUser.company }</h3> : <h3></h3>            
+            }
+            { user.location ? <p>{ user.location }</p> : <h3></h3> }
+
+            <button type="button" class="btn btn-primary">Message</button>
         </div>
+        
+        
     )
 }
 
-export default Profile1
+export default ProfileInfo

@@ -1,13 +1,10 @@
 import { ReactComponent as SvgDocument } from 'svgs/document_icon.svg'
 
-const SingleDoc = ({docName}) => {
+const SingleDoc = ({document_url}) => {
     return (
         <div className="document_single">
-            <p className="document_text">
-                {docName}
-            </p>
-            <SvgDocument/>
-
+            <SvgDocument/> <br/>
+            <a href={document_url} target="_blank">{document_url.split('/').reverse()[0]}</a>
         </div>
     )
 }

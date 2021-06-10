@@ -139,11 +139,11 @@ app.get('/add2', (req, res) => {
   
   const ins = new Company({
     company: 'Nike',
-    administrator: "60c176b86a997baf8757c270",
-    employees: ["60c176b86a997baf8757c270"],
+    administrator: "60c178ad1908fcc56bb08fdd",
+    employees: ["60c178ad1908fcc56bb08fdd","60c178ff1908fcc56bb08fdf"],
     numEmployees: "zero",
     lookingFunding: true,
-    documents: ["hi/me/money"],
+    documents: ["/home/andy/Documents/1.txt", "/home/andy/Documents/2.txt"],
     image: 'https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg',
     role: 'MDF',
     biography: " MUTA Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."

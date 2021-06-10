@@ -18,7 +18,7 @@ body{
 .App{
   display: flex;
   flex-direction: column;
-  background-color: wheat;
+  background-color: rgb(255, 255, 255);
 }
 
 
@@ -28,7 +28,8 @@ body{
 .Banner{
   display: flex;
   align-items: center;
-  height: 300px;
+  height: 100%;
+  width: 100%;
   background-size: cover;
 }
 
@@ -38,11 +39,6 @@ body{
   width: 150px;
   margin-left: 10%;
   border-radius: 1em;
-}
-
-/* Profile Bottom Section */
-.profile_bottom{
-  
 }
 
 .name_btn{
@@ -98,8 +94,7 @@ body{
   grid-area: bio;
   background-color: aqua;
   padding-left: 1em;
-
-
+  margin-top: 10px;
 }
 
 .App-header {
@@ -125,4 +120,72 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.card {
+  background: #232526; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #414345,
+    #232526
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #414345,
+    #232526
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  box-shadow: 2px 3px 3px grey;
+}
+
+.card-body {
+
+  background: #232526;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+h1, h3, p, li, label{
+  color: white
+}
+
+.card-text {
+  color: white;
+}
+
+hr {
+  color: white;
+  background-color: white;
+}
+
+.profile-pic{
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.profile-title{
+  padding: 20px;
+}
+
+.btn{
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.container{
+  margin: 10px;
+}
+
+.profile_mini_img{
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.employeePictures{
+  display: flex;
+  flex-direction: row;
+}
+
+a {
+  text-decoration: none;
 }
