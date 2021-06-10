@@ -5,7 +5,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/auth";
+import { login1 } from "../../actions/userAction";
 
 import login from "../stylesheets/login.css";
 
@@ -18,7 +18,7 @@ class Login extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE__componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/home"); // push user to dashboard when they login
     }
@@ -30,18 +30,26 @@ class Login extends Component {
     });
   };
 
+
   onSubmit = (e) => {
     e.preventDefault();
 
-    const user = {
-      email: this.state.email,
-      password: this.state.password,
-    };
+    const {email, password} = this.state
 
-    this.state.email = '';
-    this.state.password = '';
-
-    this.props.loginUser(user, this.props.history);
+    if(email === '' 
+    || password === '') {
+      alert('Please fill all the fields to be able to log in')
+    } else {
+      const user = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+  
+      this.state.email = '';
+      this.state.password = '';
+  
+      this.props.login1(user, this.props.history);
+    }
   };
 
   render() {
@@ -108,12 +116,12 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+  login1: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  user: state.user,
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { login1 })(Login);
