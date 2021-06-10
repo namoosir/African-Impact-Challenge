@@ -9,5 +9,5 @@ const EntrepreneurSchema = new Schema({
     image: String
 });
 
-mongoose.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
+module.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
 

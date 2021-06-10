@@ -4,23 +4,18 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     name: {
         type: String,
-        required: true
     },
     username: {
         type: String,
-        required: true
     },
     email: {
         type: String,
-        required: true
     },
     password: {
         type: String,
-        required: true
     },
     typeOfUser: {
         type: String, //Entrepreneur, Partner
-        required: true
     },
     typeUser: {
         type: Schema.Types.ObjectId,

@@ -6,7 +6,6 @@ const PartnerSchema = new Schema({
         type: String,       // What type of partner? (Investor, etc...)
     },
     image: String,          // url of image (profile)
-
 })
 
 module.exports = mongoose.model('Partner', PartnerSchema);
