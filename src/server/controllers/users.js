@@ -5,7 +5,7 @@ const Company = require('../models/company')
 
 const User = require('../models/user')
 
-
+// gets user details by id
  const user_details = (req, res) => {
   const id = req.params.id;
   //const name = req.params.typeOfUser;
@@ -17,6 +17,30 @@ const User = require('../models/user')
       console.log(err);
     });
 } 
+
+/*  const update_details = (req, res) =>{
+  const id = req.params.id;
+  User.findById(id)
+  .then(result => {
+    
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}
+ */
+
+const update_details = (req, res) =>{
+  User.findByIdAndUpdate({_id: req.params.id}, req.body)
+  .then(result => {
+    res.send(result);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+
 
 /* 
 const blog_create_get = (req, res) => {
@@ -46,7 +70,8 @@ const blog_delete = (req, res) => {
 } */
 
 module.exports = {
-  user_details
+  user_details,
+  user_updates
   //blog_create_get, 
   //blog_create_post, 
   //blog_delete
