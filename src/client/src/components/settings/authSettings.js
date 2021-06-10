@@ -1,26 +1,23 @@
-import Header from "../header";
+import { Component, useState } from "react";
 
-import { Component } from "react";
-
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { login1 } from "../../actions/userAction";
+import { login2 } from "../../actions/userAction";
 
-import login from "../stylesheets/login.css";
+const settings = require("../stylesheets/settings.css");
 
-class Login extends Component {
+class AuthSettings extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
-      password: "",
+      password: ""
     };
   }
 
   UNSAFE__componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/home"); // push user to dashboard when they login
+      this.props.history.push("/update/settings"); // push user to the update settings page when done
     }
   }
 
@@ -30,42 +27,35 @@ class Login extends Component {
     });
   };
 
-
   onSubmit = (e) => {
     e.preventDefault();
-
-    const {email, password} = this.state
-
-    if(email === '' 
-    || password === '') {
-      alert('Please fill all the fields to be able to log in')
+    if (this.state.email === "" || this.state.password === "") {
+      alert("Please fill all the fields to be able to update your information");
     } else {
       const user = {
         email: this.state.email,
         password: this.state.password,
       };
-  
-      this.state.email = '';
-      this.state.password = '';
-  
-      this.props.login1(user, this.props.history);
+
+      this.state.email = "";
+      this.state.password = "";
+
+      this.props.login2(user, this.props.history);
     }
   };
 
   render() {
     return (
-      <div>
-        <Header />
-        <div className="container d-flex justify-content-center align-items-center mt-4">
-          <div className="row mt-5">
-            <div className="card my-auto">
-              <div className="card-body">
-                <h1 className="card-title text-center">
-                  African Impact Challenge
-                </h1>
+      <div className="container mx-auto d-flex justify-content-center align-items-center mt-5">
+        <div className="row">
+          <div className="card settings mt-5">
+            <div className="card-body mt-5">
+              <h1 className="card-title heading mt-2">
+                Account Authentication
+              </h1>
 
-                <form onSubmit={this.onSubmit}>
-                  <div className="mb-3">
+              <form onSubmit={this.onSubmit}>
+                <div className="mb-3">
                     <label className="form-label" htmlFor="email">
                       Email Address
                     </label>
@@ -93,20 +83,12 @@ class Login extends Component {
                       onChange={this.onChange}
                     />
                   </div>
-                  <button type='submit' className="btn btn-block btn-success d-block mx-auto">
-                    Login
+                <div className="text-center">
+                  <button type="submit" className="btn btn-light mt-4">
+                    Submit
                   </button>
-                  </form>
-                  <hr className="mt-3" />
-                  <div className="d-flex justify-content-center">
-                    <div className="card-text text-center">
-                      Don't have an account?
-                      <Link className="d-block link-light" to="/register">
-                        Register
-                      </Link>
-                    </div>
-                  </div>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -115,8 +97,8 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  login1: PropTypes.func.isRequired,
+AuthSettings.propTypes = {
+  login2: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -124,4 +106,4 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { login1 })(Login);
+export default connect(mapStateToProps, { login2 })(AuthSettings);
