@@ -102,4 +102,13 @@ app.get('/add', (req, res) => {
 });  
 
 
+/* app.put('/profile/edit/:id', function(req, res, next){
+  User.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
+    console.log(req.body);
+      User.findOne({_id: req.params.id}).then(function(user){
+          res.send(user);
+      });
+  }).catch(next);
+}); */
+
 app.use('/profile', userRoutes);

@@ -2,8 +2,12 @@ const Entrepreneur = require('../models/entrepreneur')
 const Instructor = require('../models/instructor')
 const Partner = require('../models/partner');
 const Company = require('../models/company')
-
 const User = require('../models/user')
+
+const userType = {"Entrepreneur": Entrepreneur,
+                "Instructor": Instructor,
+                "Partner": Partner,
+                "Company": Company}
 
 // gets user details by id
  const user_details = (req, res) => {
@@ -18,28 +22,21 @@ const User = require('../models/user')
     });
 } 
 
-/*  const update_details = (req, res) =>{
-  const id = req.params.id;
-  User.findById(id)
-  .then(result => {
-    
-  })
-  .catch(err => {
-    console.log(err);
-  });
-}
- */
 
-const update_details = (req, res) =>{
-  User.findByIdAndUpdate({_id: req.params.id}, req.body)
+const user_updates = (req, res) =>{
+  User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
   .then(result => {
-    res.send(result);
+    const typeofUser = result.typeOfUser;
+    userType[typeofUser].findByIdAndUpdate({_id: result.typeUser}, req.body)
+    .then(() => {
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})
+    })
+    .catch(err => {console.log(err)})
   })
   .catch(err => {
     console.log(err);
   })
 }
-
 
 
 /* 
