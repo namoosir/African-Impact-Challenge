@@ -158,7 +158,6 @@ class Register extends Component {
                       <button
                         type="submit"
                         className="btn btn-block btn-success d-block mx-auto"
-                        onClick={this.onClick}
                       >
                         Register
                       </button>

@@ -1,2 +1,2 @@
-export const USER_WAIT = "USER_WAIT";
-export const CURR_USER = "CURR_USER";
+export const LOADING_USER = "LOADING_USER";
+export const LOADING_USER_SUCCESSFUL = "LOADING_USER_SUCCESSFUL";

@@ -1,6 +1,4 @@
-import { CURR_USER, USER_WAIT} from "../actions/types";
-
-const isEmpty = require("is-empty");
+import { LOADING_USER, LOADING_USER_SUCCESSFUL} from "../actions/types";
 
   const initialState = {
     isAuthenticated: false,
@@ -9,14 +7,15 @@ const isEmpty = require("is-empty");
   };
 
   export default function(state = initialState, action) {
-    switch (action.type) {
-      case CURR_USER:
+    const{type, payload} = action;
+    switch (type) {
+      case LOADING_USER_SUCCESSFUL:
         return {
           ...state,
-          isAuthenticated: !isEmpty(action.payload),
-          user: action.payload
+          isAuthenticated: true,
+          user: payload
         };
-      case USER_WAIT:
+      case LOADING_USER:
         return {
           ...state,
           loading: true
