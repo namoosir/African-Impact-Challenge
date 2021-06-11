@@ -1,8 +1,8 @@
 # Release Planning Meeting
 
-Meeting Time: 31/5/2021 8:00pm, everyone is here
+## Meeting Time: 31/5/2021 8:00pm, everyone is here
 
-### Release Goal:
+## Release Goal:
 
 Our release goal is to create a website that helps aspiring African entrepreneurs. We aim to assist them in forming social connections as well as growing their network. Another one of our main goals is to enable these entrepreneurs to learn through the website’s e-learning platform, as well as, make it easy for the instructors to teach and evaluate the entrepreneurs. We also allow for collaboration and networking through live meetings and discussions. Another goal is to help entrepreneurs seek possible investors for their products and ideas. 
 
@@ -24,7 +24,7 @@ Users can add events and reminders to their calendar which can redirect them to 
 
 
 
-### Scope
+## Scope
 
 In Sprint 1, users should be able to register, login and have a personal profile in which they can update their personal information. The user stories that go with that are:
 
