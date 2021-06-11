@@ -1,6 +1,8 @@
 import SingleDoc from 'components/Documents/SingleDoc'
+import PropTypes from 'prop-types';
 
-const Documents = ({document_urls}) => {
+export const Documents = ({document_urls}) => {
+    console.log(typeof document_urls)
     return (
 
         <div className="container">
@@ -15,11 +17,19 @@ const Documents = ({document_urls}) => {
                     </div>
                 </div>
             </div>
-            
-        
-
         </div>
     )
 }
+
+Documents.propTypes = {
+    /**
+     * This represents the URL of the document that will be seen
+     */
+    document_urls: PropTypes.object
+};
+
+Documents.defaultProps = {
+    document_urls: ["/home/andy/Documents/1.txt","/home/andy/Documents/1.txt"]
+};
 
 export default Documents

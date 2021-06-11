@@ -6,6 +6,8 @@ import Biography from 'components/Biography/Biography';
 import Employees from 'components/Employees/Employees';
 import Documents from 'components/Documents/Documents';
 
+import PropTypes from 'prop-types';
+
 
 
 const ProfilePage = () => {
@@ -35,7 +37,12 @@ const ProfilePage = () => {
       //Muta ID : 60bfc28261b358667d0196a3
       //Apple ID : 60bfc190247b966513e78f66
       //http://localhost:3001/profile/:id
-      //60c17c3805ef1ecaebcef71d
+
+      
+      //Enterpenur Profile ID: 60c178ad1908fcc56bb08fdd  60c178ff1908fcc56bb08fdf
+      //Partner Profile ID: 60c3891c77ad162cbc804537
+      //Instructor Profile ID: 60c38af5b3e0bb3434bb2433
+      //Company Profile Id: 60c17c3805ef1ecaebcef71d
       fetch('http://localhost:3001/profile/60c17c3805ef1ecaebcef71d', requestOptions)
           .then(response => response.json())
           .then(data => setUser({
@@ -65,5 +72,6 @@ const ProfilePage = () => {
       </div>
     )
 }
+
 
 export default ProfilePage

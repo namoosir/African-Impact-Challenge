@@ -1,5 +1,6 @@
 import { Component, useState } from 'react'
 import React from 'react'
+import PropTypes from 'prop-types';
 
 const Employee = ({employeeId}) => {
 
@@ -46,5 +47,16 @@ const Employee = ({employeeId}) => {
         </div>
     )
 }
+
+Employee.propTypes = {
+  /**
+   * The user Id for this employee
+   */
+  employeeId: PropTypes.string
+};
+
+Employee.defaultProps = {
+  employeeId: "60c17c3805ef1ecaebcef71c"
+};
 
 export default Employee

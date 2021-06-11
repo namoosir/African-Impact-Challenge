@@ -1,5 +1,6 @@
-import ProfilePic from 'components/GeneralCard/profilePic'
+
 import background from 'svgs/simple-blue.jpg';
+import PropTypes from 'prop-types';
 
 const Banner = ({picURL}) => {
     return (
@@ -9,7 +10,7 @@ const Banner = ({picURL}) => {
             backgroundImage: `url(${background})`
         }}>
             <div className="profile-pic">
-                <ProfilePic picURL={picURL} />
+                <img className="profile_img" src={picURL}></img>
             </div>
         </div>
   
@@ -17,11 +18,18 @@ const Banner = ({picURL}) => {
     )
 }
 
+Banner.propTypes = {
+    /**
+     * The URL for the profile image
+     */
+    picURL: PropTypes.string
+};
+  
+Banner.defaultProps = {
+    picURL: ["http://3.bp.blogspot.com/-qDc5kIFIhb8/UoJEpGN9DmI/AAAAAAABl1s/BfP6FcBY1R8/s320/BlueHead.jpg"]
+};
+
+
+
 export default Banner
 
-{/*<div  className="Banner" style={{
-            backgroundImage: `url(${background})` 
-        }}>
-            <ProfilePic picURL={picURL}/>
-    </div>*/}
-    

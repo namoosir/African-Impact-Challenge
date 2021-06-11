@@ -73,7 +73,7 @@ function App() {
     <div className="App">
 
       <ProfilePage/>
-      <Footer/>
+      {/*<Footer/>*/}
 
     </div>
     

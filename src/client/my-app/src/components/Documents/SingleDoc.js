@@ -1,6 +1,7 @@
 import { ReactComponent as SvgDocument } from 'svgs/document_icon.svg'
+import PropTypes from 'prop-types';
 
-const SingleDoc = ({document_url}) => {
+export const SingleDoc = ({document_url}) => {
     return (
         <div className="document_single">
             <SvgDocument/> <br/>
@@ -8,5 +9,19 @@ const SingleDoc = ({document_url}) => {
         </div>
     )
 }
+
+
+
+SingleDoc.propTypes = {
+    /**
+     * This represents the URL of the document that will be seen
+     */
+    document_url: PropTypes.string,
+};
+
+SingleDoc.defaultProps = {
+    document_url: "/home/andy/Documents/1.txt"
+};
+
 
 export default SingleDoc
