@@ -24,7 +24,7 @@ Users can add events and reminders to their calendar which can redirect them to 
 
 
 
-Scope
+### Scope
 
 In Sprint 1, users should be able to register, login and have a personal profile in which they can update their personal information. The user stories that go with that are:
 
