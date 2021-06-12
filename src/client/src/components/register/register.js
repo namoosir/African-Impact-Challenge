@@ -149,6 +149,7 @@ class Register extends Component {
                           onChange={this.onChange}
                           value={this.state.typeOfUser}
                         >
+                          <option value="">Please Select a Role</option>
                           <option value="entrepreneur">Entrepreneur</option>
                           <option value="partner">Partner</option>
                           <option value="company">Company</option>
