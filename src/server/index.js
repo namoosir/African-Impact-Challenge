@@ -64,4 +64,3 @@ app.use('', userRoutes)
 app.listen(3001, () => {
   console.log("Serving on port 3001");
 });
-

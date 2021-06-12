@@ -1,4 +1,4 @@
-import { LOADING_USER, LOADING_USER_SUCCESSFUL, UPDATE_USER_SUCCESFUL} from "../actions/types";
+import { LOADING_USER, LOADING_USER_SUCCESSFUL} from "../actions/types";
 
   const initialState = {
     isAuthenticated: false,

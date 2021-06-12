@@ -17,9 +17,6 @@ const UserSchema = new Schema({
     },
     typeOfUser: {
         type: String, //Entrepreneur, Partner
-    },
-    typeOfUser: {
-        type: String, //Partner
         required: true
     },
     typeUser: {

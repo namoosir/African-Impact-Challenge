@@ -11,7 +11,6 @@ const PartnerSchema = new Schema({
     },
     image: String,          // url of image (profile)
     biography: String
-
 })
 
 module.exports = mongoose.model('Partner', PartnerSchema);
