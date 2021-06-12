@@ -1,0 +1,71 @@
+Biography(bioText: string)
+Prints the bioText on a card.
+
+Documents(document_url: object of strings)
+	Renders the SingleDocs associated with each string in document_url.
+
+SingleDoc(document_url: string)
+	Renders each document_url string along with an image of the document.
+
+Employee(employeeId: string)
+	Renders the employee with employeeId
+
+Employees(employees: object of strings)
+	Renders each Employee associated with employeeId string in employees.
+
+Banner(picURL: string)
+	Renders the banner and the profile picture
+
+GeneralCard(user: string)
+	Renders the top card of a profile
+
+ProfileInfo(user: object)
+	Renders the bottom of the top card of a profile
+
+Footer()
+	Renders the footer
+
+Header()
+	Renders the header
+
+ProfilePage()
+	Render the entire profile page
+
+Register()
+	Render the register form and send information of register form to userAction
+
+Login()
+	Render the login form and send information of login form to userAction
+
+Selection()
+	Render the selection criteria card for the African Impact Challenge
+
+authSettings()
+	Render authentication form and send information of authentication form to settingAction
+
+updateSettings()
+	Render update user information form and send it to settingAction
+
+Routes()
+	Links all the routes of the backend together
+
+Store()
+	Stores states of the application
+
+Types()
+	Constant of actions used in the application
+
+userAction()
+	Sends frontend information from login and register forms to backend through the API
+
+settingAction()
+	Sends frontend information from the update of the user to the backend through the API
+
+userReducer()
+	Declaration of actions of the application related to user login and registration
+settingReducer()
+	Declaration of actions of the application related to user update of personal information
+
+index()
+	Combines all reducers
+	

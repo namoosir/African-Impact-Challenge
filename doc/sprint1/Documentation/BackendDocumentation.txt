@@ -1,0 +1,185 @@
+GET: /profile/{id}
+	Returns all of the information for the profile associated with user {id}
+	Parameters: no parameters
+
+	Responses: 
+200 successful operation
+Example Response:
+{
+   "_id": "60c17b41738ac7b674220dc6",
+   "name": "Muta",
+   "username": "mut",
+   "email": "mut@lhars",
+   "password": "mut",
+   "typeOfUser": "Company",
+   "typeUser": {
+       "employees": [
+           "60c17b117e6c58b589b2c922",
+       ],
+       "_id": "60c17b41738ac7b674220dc5",
+       "documents": [
+           "hi/me/money"
+       ],
+       "administrator": "60c17b117e6c58b589b2c922",
+       "numEmployees": "2",
+       "lookingFunding": true,
+       "image": "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
+       "biography": "Hi my name is mutasem",
+       "__v": 0
+   },
+   "__v": 0
+}
+
+
+
+
+
+
+
+PUT: /profile/edit/{id}
+Updates information for user with {id} and returns the new information.
+	Parameters: 
+Body *required:
+Example Body:
+{
+ "biography": "New bio",
+  "documents": [“Newinfo.txt”]
+}
+
+	Responses: 
+200 successful operation
+Example Response:
+{
+   "_id": "60c17b41738ac7b674220dc6",
+   "name": "Muta",
+   "username": "mut",
+   "email": "mut@lhars",
+   "password": "mut",
+   "typeOfUser": "Company",
+   "typeUser": {
+       "employees": [
+           "60c17b117e6c58b589b2c922",
+       ],
+       "_id": "60c17b41738ac7b674220dc5",
+       "documents": [
+           “Newinfo.txt”
+       ],
+       "administrator": "60c17b117e6c58b589b2c922",
+       "numEmployees": "2",
+       "lookingFunding": true,
+       "image": "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
+       "biography": "New bio",
+       "__v": 0
+   },
+   "__v": 0
+}
+ 
+ 
+ 
+ 
+ 
+PUT: /profile/update/settings
+	Updates the user information, such as name, email and username
+	Parameters:
+	User: 
+	Example User: 
+	{
+		‘id’: ‘60c17b41738ac7b674220dc6’,
+		‘name’:  ‘Bob’,
+		‘email’: ‘123@abc.com’,
+		‘username’: ‘1234’,
+		‘typeOfUser’: ‘entrepreneur’,
+		‘typeUser’: ‘60c17b41738ac7b674560eg0’
+		
+	}
+	Responses:
+	200 successful operation
+	Example response:
+	{
+		‘id’: ‘60c17b41738ac7b674220dc6’,
+		‘name’:  ‘Bob’,
+		‘email’: ‘123@abc.com’,
+		‘username’: ‘1234’,
+		‘typeOfUser’: ‘entrepreneur’,
+		‘typeUser’: ‘60c17b41738ac7b674560eg0’
+		
+	}
+404 user not found
+Example response:
+{
+	‘msg’: ‘user not found’
+}
+POST: /login
+ 	Login the user into the application with email and password if it exists.
+	Parameters:
+	User:
+	Example User: 
+	{
+		‘email’: ‘123@abc.com’,
+		‘password’: ‘1234’,
+
+	}
+	Responses:
+	200 successful operation
+	Example response:
+	{
+		‘success’: ‘true’,
+		‘token’ : ‘bearer mockToken’
+	}
+	400 failed operation
+	Example response:
+	{
+		‘password’: ‘incorrect password’
+	}
+
+POST:/register
+Registers the user into the application with name, username, email, password and role.
+Parameters:
+User:
+Example User:
+{
+	‘name’: ‘name of the user’,
+	‘username’: ‘username of the user’,
+	‘email’: ‘email@abc.com’,
+	‘password’: ‘123456’,
+	‘typeOfUser’: ‘entrepreneur’
+}
+Responses: 
+200 successful operation
+Example Response:
+{
+}
+400 failed operation
+{
+	‘user’: ‘user already exists’,
+	‘success’: ‘false’
+}
+	
+
+POST: /profile/auth
+	Authenticate the user to be able to update their information
+Parameters:
+User:
+Example User:
+{
+	‘email’: ‘email@abc.com’,
+	‘password’: ‘123456’,
+}
+Responses: 
+200 successful operation
+Example Response:
+{
+	‘token’: ‘bearer token’
+	‘id’: ‘60c17b41738ac7b674220dc6’,
+		‘name’:  ‘Bob’,
+		‘email’: ‘123@abc.com’,
+		‘username’: ‘1234’,
+		‘typeOfUser’: ‘entrepreneur’,
+		‘typeUser’: ‘60c17b41738ac7b674560eg0’
+}
+400 failed operation
+{
+	‘user’: ‘user already exists’,
+	‘success’: ‘false’
+}
+
