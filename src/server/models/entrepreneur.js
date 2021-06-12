@@ -2,27 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EntrepreneurSchema = new Schema({
-    username: {
-        type: String,
-        required: true
-    },
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
+    company: {
+        type: String,    // Reference to the Entreprenur
         required: true
     }, 
-    company: {
-        type: String,
-        required: true
-    },
     location: String,
     age: Number,
-    biography: String,
-    image: String
-});
+    image: String,
+    biography: String
+})
 
-mongoose.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
+module.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
 
