@@ -152,7 +152,7 @@ app.get('/add2', (req, res) => {
     username: 'mut',
     email: 'mut@lhars',
     password: 'mut',
-    typeOfUser: 'Company',
+    typeOfUser: 'Partner',
     typeUser: ins._id
   })
 
