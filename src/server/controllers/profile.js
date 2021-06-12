@@ -10,8 +10,10 @@ const User = require('../models/user')
   const id = req.params.id;
   //const name = req.params.typeOfUser;
   User.findById(id)
-    .then(result => {      
-      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})      // always makes sure that the client sends the general user
+    .then(result => {   
+      //console.log(result)
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {console.log(result); res.send(result)})      // always makes sure that the client sends the general user
+
     })
     .catch(err => {
       console.log(err);

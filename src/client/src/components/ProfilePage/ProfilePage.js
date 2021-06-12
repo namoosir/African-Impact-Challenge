@@ -6,8 +6,6 @@ import Biography from './Biography/Biography';
 import Employees from './Employees/Employees';
 import Documents from './Documents/Documents';
 
-import main from '../stylesheets/main.css';
-
 import PropTypes from 'prop-types';
 
 
@@ -45,7 +43,7 @@ const ProfilePage = () => {
       //Partner Profile ID: 60c3891c77ad162cbc804537
       //Instructor Profile ID: 60c38af5b3e0bb3434bb2433
       //Company Profile Id: 60c17c3805ef1ecaebcef71d
-      fetch('http://localhost:3001/profile/60c41d6f520ccaac6a68c705', requestOptions)
+      fetch('http://localhost:3001/profile/60c43bb6e3c90bd65438b96e', requestOptions)
           .then(response => response.json())
           .then(data => setUser({
             id: data._id,

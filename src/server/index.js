@@ -19,7 +19,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/aic", {
+mongoose.connect("mongodb://localhost:27017/african-impact-challenge", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -53,7 +53,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(passport.initialize());
+//app.use(passport.initialize());
 
 //app.use('/profile', userRoutes);
 app.use('', userRoutes)
