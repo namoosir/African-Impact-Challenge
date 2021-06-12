@@ -7,8 +7,8 @@ The application will be use in the second stage of the challenge to help entrepr
 
 **Installation**<br />
 While this application runs on the host machine, a sort of browser should be installed. We recommend installing Chrome.<br />
-Next, you should have database X installed, we used version x.x.x.x., however, the latest version should also work.<br />
-Make sure you also have X and Y interrupters/languages installed.<br />
+Next, you should have mongodb installed, the latest version should work. It would also be useful to have compass if you would like easy access to the databse<br />
+Make sure you also have Nodejs, Express, and React installed as well.<br />
 <br />
 **Contribution**<br />
 The team follows git flow, and so to work on feature, you will be working on a particular branch. We are using JIRA to keep track of features and tickets.<br />
