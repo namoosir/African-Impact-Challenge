@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 const EntrepreneurSchema = new Schema({
     company: {
-        type: String,
+        type: String,    // Reference to the Entreprenur
         required: true
-    },
+    }, 
     location: String,
     age: Number,
-    biography: String,
-    image: String
-});
+    image: String,
+    biography: String
+})
 
-mongoose.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
+module.exports = mongoose.model("Entrepreneur", EntrepreneurSchema);
 

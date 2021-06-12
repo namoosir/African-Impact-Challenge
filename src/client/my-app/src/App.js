@@ -1,12 +1,8 @@
 import 'css/main.css';
 import { Component, useState } from 'react'
 import React from 'react'
+import ProfilePage from 'components/ProfilePage/ProfilePage'
 import Footer from 'components/Footer'
-import Header from 'components/Header'
-
-import Profile1 from 'components/Profile1'
-import Banner from 'components/Banner';
-import GeneralCard from 'components/GeneralCard';
 
 function App() {
   
@@ -73,59 +69,13 @@ function App() {
     }
   )
 
-  /* Fetches */
-  //const [error, setError] = useState(null);
-  //const [isLoaded, setIsLoaded] = useState(false);
-
-  const [user, setUser] = useState({
-      id: "4",
-      name: "Bob",
-      email: "Will",
-      username: "bwill",
-      password: "fsdf",
-      typeOfUser: "Insr",
-      typeUser: {
-        classes: ["B07", "CSCC01"],
-        image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
-        biography: "Lorem djklakldsal"
-      }
-
-
-
-      
-  });
-
-  React.useEffect(() => {
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      //body: JSON.stringify({ title: 'React Hooks POST Request Example' })
-    };
-  
-    fetch('http://localhost:3001/profile/60bf978d35a4fe124eaa39ff', requestOptions)
-        .then(response => response.json())
-        .then(data => setUser({
-          id: data._id,
-          name: data.name,
-          email: data.email,
-          username: data.username,
-          password: data.password,
-          typeOfUser: data.typeOfUser,
-          typeUser: data.typeUser
-        }))
-
-  }, [])
-
-  
-      
-
   return (
     <div className="App">
-      <GeneralCard/>
-      {/* <Header/>
-      // <Profile1/>
-      // <Footer/> */}
-    </div>    
+
+      <ProfilePage/>
+      {/*<Footer/>*/}
+
+    </div>
     
   );
 }

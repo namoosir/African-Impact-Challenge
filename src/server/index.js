@@ -1,12 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const userRoutes = require('./controllers/routes');
+const userRoutes = require('./routes/routes');
 const Instructor = require('./models/instructor');
 const Partner = require('./models/partner')
 const Company = require('./models/company')
 const User = require('./models/user');
 //const passport = require('passport');
+const Entrepreneur = require('./models/entrepreneur')
 
 
 
@@ -68,10 +69,79 @@ app.use(function(req, res, next) {
 }) */
 
  //routes
-app.get('/add', (req, res) => {
+app.get('/add1', (req, res) => {
   
-  const ins = new Partner({
-    company: 'Muta',
+  const ins = new Instructor({
+    image: 'https://www.vhv.rs/dpng/d/124-1246728_stock-photography-businessperson-small-business-management-business-man.png',
+    biography: " Dan2 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+  })
+
+  const user = new User({
+    name: 'Dan2',
+    username: 'mut',
+    email: 'mut@lhars',
+    password: 'mut',
+    typeOfUser: 'Instructor',
+    typeUser: ins._id
+  })
+
+  ins.save()
+  .then(result => {
+    user.save()
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
+
+app.get('/add2', (req, res) => {
+  
+  const ins = new Entrepreneur({
+    company: 'Muta2',
+    image: 'https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg',
+    role: 'MDF2',
+    biography: " 2MUTA Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+  })
+
+  const user = new User({
+    name: 'Muta2',
+    username: 'mut2',
+    email: 'mut@lhars2',
+    password: 'mut2',
+    typeOfUser: 'Entrepreneur',
+    typeUser: ins._id
+  })
+
+  ins.save()
+  .then(result => {
+    user.save()
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});  
+
+ app.get('/addCompany', (req, res) => {
+  
+  const ins = new Company({
+    company: 'Nike',
+    administrator: "60c178ad1908fcc56bb08fdd",
+    employees: ["60c178ad1908fcc56bb08fdd","60c178ff1908fcc56bb08fdf"],
+    numEmployees: "zero",
+    lookingFunding: true,
+    documents: ["/home/andy/Documents/1.txt", "/home/andy/Documents/2.txt"],
     image: 'https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg',
     role: 'MDF',
     biography: " MUTA Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
@@ -99,16 +169,6 @@ app.get('/add', (req, res) => {
   .catch(err => {
     console.log(err);
   });
-});  
+});   
 
-
-/* app.put('/profile/edit/:id', function(req, res, next){
-  User.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
-    console.log(req.body);
-      User.findOne({_id: req.params.id}).then(function(user){
-          res.send(user);
-      });
-  }).catch(next);
-}); */
-
-app.use('/profile', userRoutes);
+app.use('/profile', userRoutes);//2emlpoyees 2 addcompany

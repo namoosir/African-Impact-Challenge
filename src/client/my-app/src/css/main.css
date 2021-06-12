@@ -18,7 +18,7 @@ body{
 .App{
   display: flex;
   flex-direction: column;
-  background-color: wheat;
+  background-color: rgb(255, 255, 255);
 }
 
 
@@ -28,7 +28,8 @@ body{
 .Banner{
   display: flex;
   align-items: center;
-  height: 300px;
+  height: 100%;
+  width: 100%;
   background-size: cover;
 }
 
@@ -38,11 +39,6 @@ body{
   width: 150px;
   margin-left: 10%;
   border-radius: 1em;
-}
-
-/* Profile Bottom Section */
-.profile_bottom{
-  
 }
 
 .name_btn{
@@ -98,8 +94,7 @@ body{
   grid-area: bio;
   background-color: aqua;
   padding-left: 1em;
-
-
+  margin-top: 10px;
 }
 
 .App-header {
