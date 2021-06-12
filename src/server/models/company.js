@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const CompanySchema = new Schema({
     administrator: {
         type: Schema.Types.ObjectId,    // Reference to the Entreprenur
+        //required: true
     }, 
     employees: [{
         type: Schema.Types.ObjectId,    // References to Entrepreneurs 
@@ -17,6 +18,7 @@ const CompanySchema = new Schema({
     lookingFunding: {
         type: Boolean,
     },
+    documents: [String],
     location: String,
     image: String
 })
