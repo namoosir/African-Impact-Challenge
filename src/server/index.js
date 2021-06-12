@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const userRoutes = require('./routes/routes');
 const Instructor = require('./models/instructor');
 const Partner = require('./models/partner')
 const Company = require('./models/company')
@@ -55,8 +54,6 @@ app.use(function (req, res, next) {
 });
 
 app.use(passport.initialize());
-
-require("./passport")(passport);
 
 //app.use('/profile', userRoutes);
 app.use('', userRoutes)
