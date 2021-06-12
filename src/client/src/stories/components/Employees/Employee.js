@@ -1,13 +1,11 @@
-import React from 'react'
-import Banner from 'components/Banner'
-import ProfileInfo from 'components/ProfileInfo'
 import { Component, useState } from 'react'
+import React from 'react'
 
+const Employee = ({employeeId}) => {
 
+    console.log("HFJDSNFKJDNSKL")
 
-const GeneralCard = () => {
-
-    const [user, setUser] = useState({
+    const [user2, setUser2] = useState({
         id: "4",
         name: "Bob",
         email: "Will",
@@ -27,12 +25,10 @@ const GeneralCard = () => {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       };
-      // Given a UserId
-      //Muta ID : 60bfc28261b358667d0196a3
-      //Apple ID : 60bfc190247b966513e78f66
-      fetch('http://localhost:3001/profile/60bfc28261b358667d0196a3', requestOptions)
+
+      fetch(`http://localhost:3001/profile/${employeeId}`, requestOptions)
           .then(response => response.json())
-          .then(data => setUser({
+          .then(data => setUser2({
             id: data._id,
             name: data.name,
             email: data.email,
@@ -45,11 +41,10 @@ const GeneralCard = () => {
     }, [])
 
     return (
-        <div>
-            <Banner/>
-            <ProfileInfo user={user}/>
+        <div >
+            <img className="profile_mini_img" src={user2.typeUser.image}></img>
         </div>
     )
 }
 
-export default GeneralCard
+export default Employee

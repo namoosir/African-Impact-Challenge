@@ -1,4 +1,4 @@
-import { ReactComponent as SvgDocument } from 'svgs/document_icon.svg'
+import { ReactComponent as SvgDocument } from '../../../svgs/document_icon.svg'
 import PropTypes from 'prop-types';
 
 export const SingleDoc = ({document_url}) => {

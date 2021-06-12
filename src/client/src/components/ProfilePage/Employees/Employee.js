@@ -2,6 +2,8 @@ import { Component, useState } from 'react'
 import React from 'react'
 import PropTypes from 'prop-types';
 
+import main from '../../stylesheets/main.css';
+
 const Employee = ({employeeId}) => {
 
     console.log("HFJDSNFKJDNSKL")

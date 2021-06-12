@@ -1,4 +1,4 @@
-import Header from "../header";
+import Header from "../Header";
 import Selection from "./selection";
 import { Component } from "react";
 

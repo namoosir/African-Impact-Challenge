@@ -1,6 +1,8 @@
 
-import background from 'svgs/simple-blue.jpg';
+import background from '../../../svgs/simple-blue.jpg';
 import PropTypes from 'prop-types';
+
+import main from '../../stylesheets/main.css';
 
 const Banner = ({picURL}) => {
     return (

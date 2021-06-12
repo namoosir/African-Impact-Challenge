@@ -2,6 +2,8 @@ import React from 'react'
 import { Component, useState } from 'react'
 import PropTypes from 'prop-types';
 
+import main from '../../stylesheets/main.css';
+
 const ProfileInfo = ({user}) => {
 
     return (
