@@ -10,12 +10,14 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
+        //required: true
     },
-    password: {
+    password:{
         type: String,
     },
     typeOfUser: {
         type: String, //Entrepreneur, Partner
+        required: true
     },
     typeUser: {
         type: Schema.Types.ObjectId,

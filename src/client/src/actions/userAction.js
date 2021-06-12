@@ -23,4 +23,18 @@ export const login1 = (user, history) => dispatch => {
     });
 };
 
+export const login2 = (user, history) => dispatch => {
+  axios
+    .post(`http://localhost:3001/profile/auth`, user)
+    .then(res => {
+      dispatch({
+        type: LOADING_USER_SUCCESSFUL,
+        payload: res.data.user,
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      history.push('/home');
+    });
+};
 
