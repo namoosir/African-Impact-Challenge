@@ -1,4 +1,4 @@
-import SingleDoc from 'components/Documents/SingleDoc'
+import SingleDoc from 'components/ProfilePage/Documents/SingleDoc'
 import PropTypes from 'prop-types';
 
 export const Documents = ({document_urls}) => {

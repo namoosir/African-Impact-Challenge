@@ -1,5 +1,5 @@
 import { Component, useState } from 'react'
-import Employee from 'components/Employees/Employee'
+import Employee from 'components/ProfilePage/Employees/Employee'
 import PropTypes from 'prop-types';
 
 const Employees = ({employees}) => {

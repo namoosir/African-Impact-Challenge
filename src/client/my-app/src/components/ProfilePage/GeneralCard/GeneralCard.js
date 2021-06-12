@@ -1,6 +1,6 @@
 import React from 'react'
-import Banner from 'components/GeneralCard/Banner'
-import ProfileInfo from 'components/GeneralCard/ProfileInfo'
+import Banner from 'components/ProfilePage/GeneralCard/Banner'
+import ProfileInfo from 'components/ProfilePage/GeneralCard/ProfileInfo'
 import { Component, useState } from 'react'
 import PropTypes from 'prop-types';
 

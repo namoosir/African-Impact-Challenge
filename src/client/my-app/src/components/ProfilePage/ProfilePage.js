@@ -1,10 +1,10 @@
 import React from 'react'
 import { Component, useState } from 'react'
 
-import GeneralCard from 'components/GeneralCard/GeneralCard';
-import Biography from 'components/Biography/Biography';
-import Employees from 'components/Employees/Employees';
-import Documents from 'components/Documents/Documents';
+import GeneralCard from 'components/ProfilePage/GeneralCard/GeneralCard';
+import Biography from 'components/ProfilePage/Biography/Biography';
+import Employees from 'components/ProfilePage/Employees/Employees';
+import Documents from 'components/ProfilePage/Documents/Documents';
 
 import PropTypes from 'prop-types';
 

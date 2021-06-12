@@ -1,7 +1,7 @@
 import 'css/main.css';
 import { Component, useState } from 'react'
 
-import ProfilePage from 'components/ProfilePage'
+import ProfilePage from 'components/ProfilePage/ProfilePage'
 import Footer from 'components/Footer'
 
 function App() {
