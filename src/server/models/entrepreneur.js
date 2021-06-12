@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const EntrepreneurSchema = new Schema({
     company: {
         type: String,    // Reference to the Entreprenur
-        required: true
+        //required: true
     }, 
     location: String,
     age: Number,

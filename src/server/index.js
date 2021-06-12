@@ -6,19 +6,21 @@ const Instructor = require('./models/instructor');
 const Partner = require('./models/partner')
 const Company = require('./models/company')
 const User = require('./models/user');
-//const passport = require('passport');
 const Entrepreneur = require('./models/entrepreneur')
 
+const bodyParser = require('body-parser');
 
-
-/* const Entrepreneur = require('./models/entrepreneur')
-const Instructor = require('./models/instructor')
-const Partner = require('./models/partner');
-const Company = require('./models/company') */
+const userRoutes = require('./routes/users')
 
 const app = express();
-const server = app.listen(3001);
-mongoose.connect("mongodb://localhost:27017/african-impact-challenge", {
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
+
+mongoose.connect("mongodb://localhost:27017/aic", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -31,144 +33,35 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
-app.use(express.urlencoded({ extended: true }));
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+// app.use(cors);
+// Add headers
+app.use(function (req, res, next) {
+
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', '*');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', '*');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
   next();
 });
 
-/* app.use((req, res, next) => {
-  res.locals.path = req.path;
-  next();
-}); */
+app.use(passport.initialize());
 
-//app.use(passport.initialize());
-//app.use(passport.session());
-//passport.use(new LocalStrategy(User.authenticate()));
+require("./passport")(passport);
 
-//passport.serializeUser(User.serializeUser());
-//passport.deserializeUser(User.deserializeUser());
+//app.use('/profile', userRoutes);
+app.use('', userRoutes)
 
-/* app.post('/register', async(req, res, next) =>{
-    try {
-        const { firstName, lastName, email, username, password } = req.body;
-        const user = new Entrepreneur({ firstName, lastName, email, username, password });
-        const registeredUser = await Entrepreneur.register(email, username, password);
-        // req.login(registeredUser, err => {
-        //     if (err) return next(err);
-        //     req.flash('success', 'Welcome to Yelp Camp!');
-        //     res.redirect('/campgrounds');
-        // });
-
-    } catch (e) {
-        req.flash('error', e.message);
-        res.redirect('/register')
-    }
-
-}) */
-
- //routes
-app.get('/add1', (req, res) => {
-  
-  const ins = new Instructor({
-    image: 'https://www.vhv.rs/dpng/d/124-1246728_stock-photography-businessperson-small-business-management-business-man.png',
-    biography: " Dan2 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-  })
-
-  const user = new User({
-    name: 'Dan2',
-    username: 'mut',
-    email: 'mut@lhars',
-    password: 'mut',
-    typeOfUser: 'Instructor',
-    typeUser: ins._id
-  })
-
-  ins.save()
-  .then(result => {
-    user.save()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
+app.listen(3001, () => {
+  console.log("Serving on port 3001");
 });
 
-app.get('/add2', (req, res) => {
-  
-  const ins = new Entrepreneur({
-    company: 'Muta2',
-    image: 'https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg',
-    role: 'MDF2',
-    biography: " 2MUTA Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-  })
-
-  const user = new User({
-    name: 'Muta2',
-    username: 'mut2',
-    email: 'mut@lhars2',
-    password: 'mut2',
-    typeOfUser: 'Entrepreneur',
-    typeUser: ins._id
-  })
-
-  ins.save()
-  .then(result => {
-    user.save()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
-});  
-
- app.get('/addCompany', (req, res) => {
-  
-  const ins = new Company({
-    company: 'Nike',
-    administrator: "60c178ad1908fcc56bb08fdd",
-    employees: ["60c178ad1908fcc56bb08fdd","60c178ff1908fcc56bb08fdf"],
-    numEmployees: "zero",
-    lookingFunding: true,
-    documents: ["/home/andy/Documents/1.txt", "/home/andy/Documents/2.txt"],
-    image: 'https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg',
-    role: 'MDF',
-    biography: " MUTA Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-  })
-
-  const user = new User({
-    name: 'Muta',
-    username: 'mut',
-    email: 'mut@lhars',
-    password: 'mut',
-    typeOfUser: 'Partner',
-    typeUser: ins._id
-  })
-
-  ins.save()
-  .then(result => {
-    user.save()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  })
-  .catch(err => {
-    console.log(err);
-  });
-});   
-
-app.use('/profile', userRoutes);//2emlpoyees 2 addcompany

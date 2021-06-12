@@ -4,11 +4,10 @@ const Schema = mongoose.Schema;
 const PartnerSchema = new Schema({
     company: {
         type: String,       // Could also have his company in the database (another option) and have a reference to it
-        required: true
+        //required: true
     },
     role: {
         type: String,       // What type of partner? (Investor, etc...)
-        required: true
     },
     image: String,          // url of image (profile)
     biography: String
