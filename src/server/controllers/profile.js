@@ -20,6 +20,9 @@ const User = require('../models/user')
     });
 } 
 
+const get_all_profiles = (req, res) => {
+  User.find().sort('name').then(result => res.send(result))
+} 
 /* 
 const blog_create_get = (req, res) => {
   res.render('create', { title: 'Create a new blog' });
@@ -48,7 +51,8 @@ const blog_delete = (req, res) => {
 } */
 
 module.exports = {
-  user_details
+  user_details,
+  get_all_profiles
   //blog_create_get, 
   //blog_create_post, 
   //blog_delete
