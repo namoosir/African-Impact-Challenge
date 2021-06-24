@@ -2,8 +2,12 @@ const Entrepreneur = require('../models/entrepreneur')
 const Instructor = require('../models/instructor')
 const Partner = require('../models/partner');
 const Company = require('../models/company')
-
 const User = require('../models/user')
+
+const userType = {"Entrepreneur": Entrepreneur,
+                "Instructor": Instructor,
+                "Partner": Partner,
+                "Company": Company}
 
 
  const user_details = (req, res) => {
@@ -19,6 +23,21 @@ const User = require('../models/user')
       console.log(err);
     });
 } 
+
+const user_updates = (req, res) =>{
+  User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
+  .then(result => {
+    const typeofUser = result.typeOfUser;
+    userType[typeofUser].findByIdAndUpdate({_id: result.typeUser}, req.body)
+    .then(() => {
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})
+    })
+    .catch(err => {console.log(err)})
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
 
 /* 
 const blog_create_get = (req, res) => {
@@ -48,8 +67,8 @@ const blog_delete = (req, res) => {
 } */
 
 module.exports = {
-  user_details
-  //blog_create_get, 
+  user_details,
+  user_updates 
   //blog_create_post, 
   //blog_delete
 }
