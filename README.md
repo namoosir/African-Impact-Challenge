@@ -7,44 +7,43 @@ The application will be use in the second stage of the challenge to help entrepr
 
 ## Installation <br />
 ### Frontend-Client
-**Prerequisites:**
-- NodeJs
-- Npm
+&nbsp;&nbsp;&nbsp;&nbsp;**Prerequisites:** <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- NodeJs <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Npm <br />
 
-**How to run (after you have cloned the repo):**
-1. `$ cd /project-mjaarns/src/`
-2. `$ npm run client-install`
-3. `$ npm run client`
+&nbsp;&nbsp;&nbsp;&nbsp;**How to run (after you have cloned the repo):** <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. `$ cd /project-mjaarns/src/` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. `$ npm run client-install` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. `$ npm run client` <br />
 
 ---
 
 ### Backend-Server
-**Prerequisites:**
-- NodeJs 
-- Npm
-- MongoDB
+&nbsp;&nbsp;&nbsp;&nbsp;**Prerequisites:** <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- NodeJs <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Npm <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- MongoDB <br />
 
-**How to run (after you have cloned the repo):** <br /><br />
-*Database (Mongo):*
-1. `$ systemctl start mongod`
-2. `$ mongo`
-3. `> use african-impact-challenge`
-4. `> db.temp.insert({})`
+&nbsp;&nbsp;&nbsp;&nbsp;**How to run (after you have cloned the repo):** <br /><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Database (Mongo):* <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. `$ systemctl start mongod` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. `$ mongo` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. `> use african-impact-challenge` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. `> db.temp.insert({})` <br />
 
-*Server:*
-1. `$ cd /project-mjaarns/src/`
-2. `$ npm install`
-3. `$ npm run start`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Server:* <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. `$ cd /project-mjaarns/src/` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. `$ npm install` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. `$ npm run start` <br />
 
 ---
 
 ### Running frontend and backend concurrently
-This assumes you have the capability to run the
-backend and frontend separately already
+&nbsp;&nbsp;&nbsp;&nbsp;This assumes you have the capability to run the backend and frontend separately already.
 
-*Steps:*
-1. `$ cd /project-mjaarns/src/`
-2. `$ npm run dev`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Steps:* <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. `$ cd /project-mjaarns/src/`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. `$ npm run dev`
 
 ## Contribution <br />
 The team follows git flow, and so to work on feature, you will be working on a particular branch. We are using JIRA to keep track of features and tickets.<br />
