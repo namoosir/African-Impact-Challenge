@@ -7,7 +7,7 @@ The application will be use in the second stage of the challenge to help entrepr
 
 ## Installation <br />
 ### Frontend-Client
-**prerequisites:**
+**Prerequisites:**
 - NodeJs
 - Npm
     
@@ -22,7 +22,7 @@ The application will be use in the second stage of the challenge to help entrepr
 - Npm
 - MongoDB
 
-**How to run (after you have cloned the repo):** 
+**How to run (after you have cloned the repo):** <br /><br />
 *Database (Mongo):*
 1. `$ systemctl start mongod`
 2. `$ mongo`
@@ -34,7 +34,7 @@ The application will be use in the second stage of the challenge to help entrepr
 2. `$ npm install`
 3. `$ npm run start`
 
-#### Running frontend and backend concurrently
+### Running frontend and backend concurrently
 This assumes you have the capability to run the
 backend and frontend separately already
 
