@@ -5,44 +5,43 @@ In particular, this application serves as a combination of a learning and social
 The application will be use in the second stage of the challenge to help entrepreneurs meet other entrepreneurs and investors as well as learn with the help of instructors.<br />
 <br />
 
-##Installation##<br />
-## Frontend-Client
-    **Prerequesites:**
-        - NodeJs
-        - Npm
+## Installation <br />
+### Frontend-Client
+**prerequisites:**
+- NodeJs
+- Npm
     
-    How to run (after you have cloned the repo):
-        1. $ cd /project-mjaarns/src/
-        2. $ npm run client-install
-        3. $ npm run client
+**How to run (after you have cloned the repo):**
+1. `$ cd /project-mjaarns/src/`
+2. `$ npm run client-install`
+3. `$ npm run client`
 
-## Backend-Server
-    Prerequesites:
-        - NodeJs 
-        - Npm
-        - MongoDB
-    
-     How to run (after you have cloned the repo):
-        Database (Mongo):
-            1. $ systemctl start mongod
-            2. $ mongo
-            3. > use african-impact-challenge
-            4. > db.temp.insert({})
+### Backend-Server
+**Prerequisites:**
+- NodeJs 
+- Npm
+- MongoDB
 
-        Server:
-            1. $ cd /project-mjaarns/src/
-            2. $ npm install
-            3. $ npm run start
+**How to run (after you have cloned the repo):** 
+*Database (Mongo):*
+1. `$ systemctl start mongod`
+2. `$ mongo`
+3. `> use african-impact-challenge`
+4. `> db.temp.insert({})`
 
-### Running frontend and backend concurrently
-    This assumes you have the capability to run the
-    backend and frontend separately already
-    
-     Steps:
-        1. $ cd /project-mjaarns/src/
-        2. $ npm run dev
-       
-<br />
-**Contribution**<br />
+*Server:*
+1. `$ cd /project-mjaarns/src/`
+2. `$ npm install`
+3. `$ npm run start`
+
+#### Running frontend and backend concurrently
+This assumes you have the capability to run the
+backend and frontend separately already
+
+*Steps:*
+1. `$ cd /project-mjaarns/src/`
+2. `$ npm run dev`
+
+## Contribution <br />
 The team follows git flow, and so to work on feature, you will be working on a particular branch. We are using JIRA to keep track of features and tickets.<br />
 Our branch names generally follow the JIRA the tickets.<br />
