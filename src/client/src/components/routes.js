@@ -5,6 +5,7 @@ import Login from './login/login'
 import UpdateSettings from './settings/updateSettings'
 import AuthSettings from './settings/authSettings'
 import ProfilePage from './ProfilePage/ProfilePage'
+import ProfileSearchPage from './ProfileSearchPage/ProfileSearchPage'
 
 const Routes = () => {
     return (
@@ -14,6 +15,7 @@ const Routes = () => {
             <Route exact path='/update/settings' component={UpdateSettings}></Route>
             <Route exact path='/auth/settings' component={AuthSettings}></Route>
             <Route exact path='/profile' component={ProfilePage}></Route>
+            <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
         </Router>
     );
 };
