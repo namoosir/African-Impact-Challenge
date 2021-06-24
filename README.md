@@ -6,9 +6,42 @@ The application will be use in the second stage of the challenge to help entrepr
 <br />
 
 **Installation**<br />
-While this application runs on the host machine, a sort of browser should be installed. We recommend installing Chrome.<br />
-Next, you should have database X installed, we used version x.x.x.x., however, the latest version should also work.<br />
-Make sure you also have X and Y interrupters/languages installed.<br />
+## Frontend-Client
+    **Prerequesites:**
+        - NodeJs
+        - Npm
+    
+    How to run (after you have cloned the repo):
+        1. $ cd /project-mjaarns/src/
+        2. $ npm run client-install
+        3. $ npm run client
+
+## Backend-Server
+    Prerequesites:
+        - NodeJs 
+        - Npm
+        - MongoDB
+    
+     How to run (after you have cloned the repo):
+        Database (Mongo):
+            1. $ systemctl start mongod
+            2. $ mongo
+            3. > use african-impact-challenge
+            4. > db.temp.insert({})
+
+        Server:
+            1. $ cd /project-mjaarns/src/
+            2. $ npm install
+            3. $ npm run start
+
+### Running frontend and backend concurrently
+    This assumes you have the capability to run the
+    backend and frontend separately already
+    
+     Steps:
+        1. $ cd /project-mjaarns/src/
+        2. $ npm run dev
+       
 <br />
 **Contribution**<br />
 The team follows git flow, and so to work on feature, you will be working on a particular branch. We are using JIRA to keep track of features and tickets.<br />
