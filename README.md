@@ -5,7 +5,7 @@ In particular, this application serves as a combination of a learning and social
 The application will be use in the second stage of the challenge to help entrepreneurs meet other entrepreneurs and investors as well as learn with the help of instructors.<br />
 <br />
 
-**Installation**<br />
+##Installation##<br />
 ## Frontend-Client
     **Prerequesites:**
         - NodeJs
