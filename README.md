@@ -10,11 +10,13 @@ The application will be use in the second stage of the challenge to help entrepr
 **Prerequisites:**
 - NodeJs
 - Npm
-    
+
 **How to run (after you have cloned the repo):**
 1. `$ cd /project-mjaarns/src/`
 2. `$ npm run client-install`
 3. `$ npm run client`
+
+---
 
 ### Backend-Server
 **Prerequisites:**
@@ -33,6 +35,8 @@ The application will be use in the second stage of the challenge to help entrepr
 1. `$ cd /project-mjaarns/src/`
 2. `$ npm install`
 3. `$ npm run start`
+
+---
 
 ### Running frontend and backend concurrently
 This assumes you have the capability to run the
