@@ -6,7 +6,10 @@ export const register1 = (user, history) => dispatch => {
   axios
     .post("http://localhost:3001/register", user)
       .then(res => {
-        history.push("/login");
+        dispatch({
+          type: LOADING_USER_SUCCESSFUL,
+          payload: res.data
+        })
       })
       .catch(err => {
         console.log(err, "couldn't connect to server");
@@ -16,7 +19,12 @@ export const register1 = (user, history) => dispatch => {
 export const login1 = (user, history) => dispatch => {
   axios
     .post("http://localhost:3001/login", user)
-    .then(res => history.push('/home'))
+    .then(res => {
+      dispatch({
+        type: LOADING_USER_SUCCESSFUL,
+        payload: res.data
+      })
+    })
     .catch(err => {
       console.log(err);
       history.push('/login');
