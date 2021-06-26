@@ -1,9 +1,6 @@
-const express = require('express');
 require('dotenv').config();
 
 const userController = require('../controllers/profile');
-
-const router = express.Router();
 
 const express = require('express');
 const router = express.Router();

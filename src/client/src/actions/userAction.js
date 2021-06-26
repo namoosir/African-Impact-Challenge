@@ -1,11 +1,12 @@
 import axios from "axios";
 
-import {LOADING_USER_SUCCESSFUL} from "./types";
+import {LOADING_USER_SUCCESSFUL, LOGOUT_USER_SUCCESSFUL} from "./types";
 
 export const register1 = (user, history) => dispatch => {
   axios
     .post("http://localhost:3001/register", user)
       .then(res => {
+        console.log(res.data);
         dispatch({
           type: LOADING_USER_SUCCESSFUL,
           payload: res.data
@@ -37,7 +38,7 @@ export const login2 = (user, history) => dispatch => {
     .then(res => {
       dispatch({
         type: LOADING_USER_SUCCESSFUL,
-        payload: res.data.user,
+        payload: res.data,
       });
     })
     .catch(err => {
@@ -45,4 +46,10 @@ export const login2 = (user, history) => dispatch => {
       history.push('/home');
     });
 };
+
+export const logout = (user, history) => dispatch => {
+  dispatch({
+    type: LOGOUT_USER_SUCCESSFUL
+  })
+}
 

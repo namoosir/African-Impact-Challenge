@@ -22,7 +22,7 @@ const Register = ({ history, register1, user, isAuthenticated }) => {
   useEffect(() => {
     console.log(user);
    if(isAuthenticated) {
-     history.push("/home");
+     history.push("/login");
    }
   }, [isAuthenticated])
 
@@ -71,103 +71,6 @@ const Register = ({ history, register1, user, isAuthenticated }) => {
     }
   };
 
-<<<<<<< Updated upstream
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="container d-flex justify-content-center align-items-center mt-4">
-          <Selection />
-
-          <div className="row mt-5">
-            <div className='col-md-12'>
-              <div className="card my-auto">
-                <div className="card-body">
-                  <h1 className="card-title text-center">
-                    African Impact Challenge
-                  </h1>
-                  <div className="form-container">
-                    <form
-                      onSubmit={this.onSubmit}
-                    >
-                      <div className="my-3">
-                        <label className="form-label" htmlFor="name">
-                          Name
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="name"
-                          name="name"
-                          value={this.state.name}
-                          placeholder="Name"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="email">
-                          Email Address
-                        </label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="email"
-                          name="email"
-                          value={this.state.email}
-                          placeholder="123@abc.com"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="username">
-                          Username
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="username"
-                          name="username"
-                          value={this.state.username}
-                          placeholder="Username"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="password">
-                          Password
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          id="password"
-                          name="password"
-                          value={this.state.password}
-                          placeholder="Password"
-                          onChange={this.onChange}
-                        />
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="typeOfUser">
-                          Type of User
-                        </label>
-                        <select
-                          className="d-block form-control"
-                          name="typeOfUser"
-                          id="typeOfUser"
-                          onChange={this.onChange}
-                          value={this.state.typeOfUser}
-                        >
-                          <option value="">Please Select a Role</option>
-                          <option value="entrepreneur">Entrepreneur</option>
-                          <option value="partner">Partner</option>
-                          <option value="company">Company</option>
-                          <option value="instructor">Instructor</option>
-                        </select>
-                      </div>
-                      <button
-                        type="submit"
-                        className="btn btn-block btn-success d-block mx-auto"
-=======
   return (
     <div>
       <Header/>
@@ -249,7 +152,6 @@ const Register = ({ history, register1, user, isAuthenticated }) => {
                         id="typeOfUser"
                         onChange={onChange}
                         value={typeOfUser}
->>>>>>> Stashed changes
                       >
                         <option value="">Please Select a Role</option>
                         <option value="Entrepreneur">Entrepreneur</option>

@@ -10,7 +10,6 @@ const Entrepreneur = require('./models/entrepreneur')
 
 const bodyParser = require('body-parser');
 
-const userRoutes = require('./routes/users')
 
 const app = express();
 app.use(

@@ -9,14 +9,14 @@ import { login1 } from "../../actions/userAction";
 
 import login from "../stylesheets/login.css";
 
-const Login = ({user, history, isAuthenticated, login1}) => {
+const Login = ({user, history, isAuthenticated, login1, isLoggedOut}) => {
   const [existUser, setExistUser] = useState({
     email: "",
     password: "",
   });
 
   useEffect(() => {
-    console.log(user);
+    console.log("HERE");
     if(isAuthenticated) {
       history.push("/home");
     }
@@ -53,7 +53,7 @@ const Login = ({user, history, isAuthenticated, login1}) => {
 
   return (
     <div>
-      <Header user = {user} isAuthenticated={isAuthenticated}/>
+      <Header/>
       <div className="container d-flex justify-content-center align-items-center mt-4">
         <div className="row mt-5">
           <div className="card my-auto">
@@ -121,7 +121,8 @@ Login.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated,
+  isLoggedOut: state.user.isLoggedOut
 });
 
 export default connect(mapStateToProps, { login1 })(Login);
