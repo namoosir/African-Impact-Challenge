@@ -27,9 +27,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isLoaded: true,
-        user: payload,
         posts: payload
       };
+      case DELETE_POSTS_SUCCESSFUL:
+        return {
+          ...state, 
+          isDeleted: true
+        }
     default:
       return state;
   }

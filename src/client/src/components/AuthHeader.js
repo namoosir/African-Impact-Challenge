@@ -12,7 +12,6 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
 
 
   useEffect(() => {
-    console.log(props.isLoggedOut, props.isAuthenticated, props.history);
     if (props.isLoggedOut || !props.isAuthenticated) {
       props.history.push("/login");
     }
@@ -69,7 +68,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
           ></img>
           <li className="nav-item dropdown me-5">
             <a
-              class="nav-link dropdown-toggle"
+              className="nav-link dropdown-toggle"
               href="#"
               id="navbarDropdown"
               role="button"

@@ -24,7 +24,7 @@ export const createPost = (user, post, history) => (dispatch) => {
 
 export const loadPosts = (user, history) => (dispatch) => {
     axios
-      .get(`http://localhost:3001/getrec`, user)
+      .get("http://localhost:3001/getrec", user)
       .then((res) => {
         dispatch({
           type: LOADING_POSTS_SUCCESSFUL,
@@ -33,7 +33,7 @@ export const loadPosts = (user, history) => (dispatch) => {
       })
       .catch((err) => {
         console.log(err);
-        // history.push("/home", user);
+        history.push("/home", user);
       });
   };
 
@@ -52,17 +52,16 @@ export const loadPosts = (user, history) => (dispatch) => {
       });
   };
 
-  export const deletePost = (user, history) => (dispatch) => {
+  export const deletePost = (id, history) => (dispatch) => {
     axios
-      .put(`http://localhost:3001/deletepost`, user)
+      .put(`http://localhost:3001/deletepost`, {id: id})
       .then((res) => {
         dispatch({
-          type: DELETE_POSTS_SUCCESSFUL,
-          payload: res.data,
+          type: DELETE_POSTS_SUCCESSFUL
         });
       })
       .catch((err) => {
         console.log(err);
-        history.push("/home", user);
+        history.push("/home");
       });
   };

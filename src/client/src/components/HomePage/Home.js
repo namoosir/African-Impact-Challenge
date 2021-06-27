@@ -1,9 +1,11 @@
+import React from "react";
 import HeaderAuth from "../AuthHeader";
+import Post from "./Post";
 
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 
 import {
   createPost,
@@ -14,15 +16,16 @@ import {
 
 const Home = ({
   user,
+  posts,
   isAuthenticated,
   isLoggedOut,
+  isDeleted,
   history,
   createPost,
   loadPosts,
   editPost,
   deletePost,
 }) => {
-
   const [post, setPost] = useState({
     title: "",
     text: "",
@@ -32,14 +35,15 @@ const Home = ({
   const { title, text, image } = post;
 
   useEffect(() => {
+    console.log(isDeleted)
     loadPosts(user, history);
-  }, [])
+  }, []);
 
   useEffect(() => {
-    if(isLoggedOut) {
-      history.push('/login');
+    if (isLoggedOut) {
+      history.push("/login");
     }
-  }, [isLoggedOut])
+  }, [isLoggedOut]);
 
   const onSubmitPost = (e) => {
     e.preventDefault();
@@ -47,10 +51,15 @@ const Home = ({
     const sentPost = {
       title: post.title,
       text: post.text,
-      image: post.image
-    }
+      image: post.image,
+    };
+
+    post.title = "";
+    post.text = "";
+    post.image = "";
 
     createPost(user, sentPost, history);
+    window.location.reload();
   };
 
   const onChange = (e) => {
@@ -62,7 +71,11 @@ const Home = ({
 
   return (
     <div>
-      <HeaderAuth user={user} isAuthenticated={isAuthenticated} history={history}/>
+      <HeaderAuth
+        user={user}
+        isAuthenticated={isAuthenticated}
+        history={history}
+      />
       <div className="row justify-content-center">
         <div className="col-lg-3">
           <div className="container">
@@ -81,14 +94,17 @@ const Home = ({
                 <div className="mt-4">
                   <form onSubmit={onSubmitPost}>
                     <div className="row">
-                      <label htmlFor='title' className="col-sm-2 col-form-label text-center me-0 mt-0 pe-0">
+                      <label
+                        htmlFor="title"
+                        className="col-sm-2 col-form-label text-center me-0 mt-0 pe-0"
+                      >
                         <h5>Title</h5>
                       </label>
                       <div className="col-sm-10 ms-0 ps-0">
                         <input
                           className="form-control"
-                          id='title'
-                          name='title'
+                          id="title"
+                          name="title"
                           type="text"
                           value={title}
                           onChange={onChange}
@@ -96,14 +112,17 @@ const Home = ({
                       </div>
                     </div>
                     <div className="row">
-                      <label htmlFor='body' className="col-sm-2 col-form-label text-center me-0 pe-0">
+                      <label
+                        htmlFor="body"
+                        className="col-sm-2 col-form-label text-center me-0 pe-0"
+                      >
                         <h5>Body</h5>
                       </label>
                       <div className="col-sm-10 ms-0 ps-0">
                         <textarea
                           className="form-control"
-                          id='text'
-                          name='text'
+                          id="text"
+                          name="text"
                           rows="4"
                           value={text}
                           onChange={onChange}
@@ -111,14 +130,17 @@ const Home = ({
                       </div>
                     </div>
                     <div className="row mt-2">
-                      <label htmlFor='image' className="col-sm-2 col-form-label text-center me-0 pe-0">
+                      <label
+                        htmlFor="image"
+                        className="col-sm-2 col-form-label text-center me-0 pe-0"
+                      >
                         <h5>Image</h5>
                       </label>
                       <div className="col-sm-10 ms-0 ps-0">
                         <input
                           className="form-control"
-                          name='image'
-                          id='image'
+                          name="image"
+                          id="image"
                           type="file"
                           id="formFile"
                           value={image}
@@ -146,6 +168,13 @@ const Home = ({
           </div>
         </div>
       </div>
+      {posts.map((post) => (
+        <div className="row justify-content-center">
+          <div className="col-lg-5 mb-4">
+            <Post post={post} currentUser={user} history={history}/>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
@@ -159,8 +188,10 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
+  posts: state.post.posts[0],
+  isDeleted: state.post.isDeleted,
   isAuthenticated: state.user.isAuthenticated,
-  isLoggedOut: state.user.isLoggedOut
+  isLoggedOut: state.user.isLoggedOut,
 });
 
 export default connect(mapStateToProps, {

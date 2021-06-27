@@ -19,7 +19,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/aic", {
+mongoose.connect("mongodb://localhost:27017/african-impact-challenge", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
