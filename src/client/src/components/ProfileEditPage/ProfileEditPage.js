@@ -10,7 +10,7 @@ const ProfileEditPage = () => {
 
     const [user2, setUser2] = useState({
         id: "4",
-        name: "Bob",
+        name: "Bo",
         email: "Will",
         username: "bwill",
         password: "fsdf",
@@ -19,7 +19,7 @@ const ProfileEditPage = () => {
         image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
         typeUser: {
           classes: ["B07", "CSCC01"],
-          documents: ["fjkd", "ndfksd"]
+          documents: ["fjd", "dfksd"]
         }
     });
 
@@ -29,14 +29,15 @@ const ProfileEditPage = () => {
 
     function handleUpdate(){
         const requestOptions = {
-            method: 'GET',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: userEdit.userEdit,
           };
           
-          fetch('http://localhost:3001/profile/update', requestOptions)
+          fetch(`http://localhost:3001/profile/edit/${userEdit.userEdit.id}`, requestOptions)
               .then(response => response.json())
     }
+
 
     useEffect(() =>{
         console.log(userEdit)
