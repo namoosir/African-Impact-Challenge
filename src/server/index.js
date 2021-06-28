@@ -53,6 +53,38 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.get('/add', (req, res) => {
+
+  const ins = new Partner({
+    biography: "Hello",
+  })
+
+  const user = new User({
+    image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
+    biography: 'My name is coolguy and I have a lot of money',
+    name: 'HArry',
+    username: 'Kharsm',
+    email: 'mutase@lhars',
+    password: 'hi123',
+    typeOfUser: 'Partner',
+    typeUser: ins._id
+  })
+
+  ins.save()
+  .then(result => {
+    user.save()
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
+
 //app.use(passport.initialize());
 
 //app.use('/profile', userRoutes);
