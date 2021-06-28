@@ -21,5 +21,27 @@ router.post('/profile/auth', loginUser2)
 
 router.put('/profile/update/settings', updateUser)
 
+app.get('/add', (req, res) => {
+
+    const ins = new Instructor({
+      classes: ['Money101', 'Dropping204'],
+      image: 'Coolguy.png',
+      biography: 'My name is coolguy and I have a lot of money'
+    })
+  
+    const user = new User({
+      name: 'Muta Khs',
+      username: 'Kharsm',
+      email: 'mutase@lhars',
+      password: 'hi123',
+      typeOfUser: 'Instructor',
+      typeUser: ins._id
+    })
+  
+    ins.save()
+    .then(result => {
+      user.save()
+      .then(result => {
+
 module.exports = router;
   
