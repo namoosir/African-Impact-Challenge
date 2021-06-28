@@ -21,7 +21,7 @@ router.post('/profile/auth', loginUser2)
 
 router.put('/profile/update/settings', updateUser)
 
-router.put('profile/edit/:id', userController.user_updates)
+router.put('/profile/edit/:id', userController.user_updates)
 
 
 

@@ -19,44 +19,60 @@ const ProfilePage = () => {
         username: "bwill",
         password: "fsdf",
         typeOfUser: "Insr",
-        image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
+        image: "",
         biography: "Lorem djklakldsal",
         typeUser: {
           classes: ["B07", "CSCC01"],
         }
         
     });
+
+    const [isOnce, setIsOnce] = useState(true)
     
     React.useEffect(() => {
     
-      const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      };
-
-      fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
-          .then(response => response.json())
-          .then(data => setUser({
-            id: data._id,
-            name: data.name,
-            email: data.email,
-            username: data.username,
-            password: data.password,
-            typeOfUser: data.typeOfUser,
-            biography: data.biography,
-            typeUser: data.typeUser
-          }))
+      if(isOnce){
+        
+        const requestOptions = {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        };
+  
+        fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
+            .then(response => response.json())
+            .then(data => setUser({
+              id: data._id,
+              name: data.name,
+              email: data.email,
+              username: data.username,
+              password: data.password,
+              typeOfUser: data.typeOfUser,
+              biography: data.biography,
+              typeUser: data.typeUser,
+              image: `http://localhost:3001/profile/getimage/${data._id}`
+            }))
+        
+            /*
+            const requestOptions2 = {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json' },
+            };
       
-    
-      fetch('http://localhost:3001/getimage/60d9f89d9bafe0bd62b7187f', requestOptions)
-        .then(data => {
-          setUser(prevState => ({
-            ...prevState,
-            image: data
+      
+        fetch('http://localhost:3001/profile/getimage/60d9f89d9bafe0bd62b7187f', requestOptions2)
+          .then(data => {
+            setUser(prevState => ({
+              ...prevState,
+              image: data.url
+            })
+  
+            )
           })
-
-          )
-        })
+          */
+          setIsOnce(false)
+      }
+      
+      
 
 
 
@@ -74,6 +90,8 @@ const ProfilePage = () => {
           <Documents document_urls={user.typeUser.documents}/>
           </div> : 
           <h3></h3> }
+
+          
                           
 
       </div>

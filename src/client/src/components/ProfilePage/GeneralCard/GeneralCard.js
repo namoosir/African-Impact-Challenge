@@ -11,7 +11,7 @@ const GeneralCard = ({user}) => {
     return (
         <div className='container'>
             <div className='card'>
-            <Banner className="card-img-top" picURL={user.typeUser.image}/>
+            <Banner className="card-img-top" picURL={user.image}/>
                 <div className="card-body">
                     <ProfileInfo user={user}/>
                 </div>                

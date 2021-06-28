@@ -5,20 +5,19 @@ import { Component, useState, useEffect } from 'react'
 import profilePage from '../stylesheets/ProfileEditPage/profilePage.css'
 import { func } from 'prop-types'
 
-const ProfileEditPage = () => {
+const ProfileEditPage = ({user}) => {
 
     const [user2, setUser2] = useState({
-        id: "4",
+        id: "60d9f8cc59b742bfa5157414",
         name: "Bo",
         email: "Will",
         username: "bwill",
         password: "fsdf",
-        typeOfUser: "Company",
+        typeOfUser: "Instructor",
         biography: "Lorem djklakldsal",
         image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
         typeUser: {
           classes: ["B07", "CSCC01"],
-          documents: ["fjd", "dfksd"]
         }
     });
 
