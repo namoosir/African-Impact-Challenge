@@ -1,11 +1,10 @@
 import React from 'react'
-import { Component, useState } from 'react'
+import { Component, useState, useEffect } from 'react'
 import ProfileCards from './ProfileCards/ProfileCards'
 import SearchHeader from './SearchHeader'
 const ProfileSearchPage = () => {
 
     const [users, setUsers] = useState([
-        
         {
             id: "4",
             name: "ABob-Entrepreneur",
@@ -199,6 +198,20 @@ const ProfileSearchPage = () => {
         
 
     ]);
+
+    useEffect(() => {
+    
+        console.log("hello")
+        const requestOptions = {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        };
+        
+        fetch('http://localhost:3001/profile/getUsers', requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data))
+
+      })
 
     const [users2, setUsers2] = useState([...users])
 
