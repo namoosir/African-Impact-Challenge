@@ -33,7 +33,7 @@ export const Documents = ({user, userEdit, setUserEdit}) => {
                         <div class="image-upload">
                             
                             <label for="file-input">
-                                <SvgPlus className="little-icon"/>
+                                <SvgPlus className="little-icon plus"/>
                             </label>
 
                             <input id="file-input" type="file" onChange={handleNewFile}/>

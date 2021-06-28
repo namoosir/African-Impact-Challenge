@@ -7,7 +7,7 @@ const EditCompany = ({user ,userEdit, setUserEdit}) => {
 
 
     return (
-        <div className="container">
+        <div className="container margins">
             <Documents user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>
         </div>
        

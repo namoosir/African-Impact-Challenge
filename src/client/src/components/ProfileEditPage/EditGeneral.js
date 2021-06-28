@@ -37,7 +37,7 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
     });
     
     return (
-        <div className="container edit_general">
+        <div className="container margins edit_general">
             <div className="card">
                 <div className="card-body">
                     <div className ="edit_profile_img">

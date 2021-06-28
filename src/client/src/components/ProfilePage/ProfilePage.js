@@ -65,7 +65,7 @@ const ProfilePage = () => {
 
 
     return (
-        <div>
+        <div className="profile_edit_page">
           <GeneralCard user={user}/>
           <Biography bioText={user.typeUser.biography}/>
           {(user.typeOfUser == 'Company') ? 
