@@ -7,7 +7,7 @@ export const Documents = ({document_urls}) => {
 
         <div className="container">
             <div className="card">
-                <div className="card-body profile_documents">
+                <div className="card-body">
                     <h1>Documents</h1>
 
                     <div className="document_list"> 

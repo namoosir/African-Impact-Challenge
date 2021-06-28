@@ -24,7 +24,7 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
         setUserEdit(prevState => ({
             userEdit: {
                 ...prevState.userEdit,
-                img: URL.createObjectURL(event.target.files[0])
+                image: URL.createObjectURL(event.target.files[0])
             }
         }))
     }
@@ -35,22 +35,26 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
     useEffect(() =>{
         console.log(userEdit)
     });
-
+    
     return (
-        <div className="edit_general">
-            <div className ="edit_profile_img">
-                <img className="profile_img_profile_edit" src={user.image}></img>
-                <button className="edit_profile_btn btn btn-primary" type="button">New Photo</button>
-                <input id="expense-file" type="file" onChange={previewImage}/>
+        <div className="container edit_general">
+            <div className="card">
+                <div className="card-body">
+                    <div className ="edit_profile_img">
+                        <img className="profile_img_profile_edit" src={userEdit.userEdit.image}></img>
+                        <h3>New Photo</h3>
+                        <input className="blue-section" id="expense-file" type="file" onChange={previewImage}/>
+                    </div>
+                    <form className="edit_profile_fields">
+                        <label className="edit_profile_label">Name
+                            <input className="input_field_short" type="text" defaultValue={user.name} onChange={handleChangeName}/>
+                        </label>
+                        <label className="edit_profile_label">Biography
+                            <textarea className="input_field_big" type="text" defaultValue={user.biography} onChange={handleChangeBio}/>
+                        </label>
+                    </form>
+                </div>
             </div>
-            <form className="edit_profile_fields">
-                <label className="edit_profile_label">Name
-                    <input className="input_field_short" type="text" defaultValue={user.name} onChange={handleChangeName}/>
-                </label>
-                <label className="edit_profile_label">Biography
-                    <textarea className="input_field_big" type="text" defaultValue={user.biography} onChange={handleChangeBio}/>
-                </label>
-            </form>
         </div>
     )
 }

@@ -9,8 +9,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 700px;
-  background-color: #232526;
 }
 
 .edit_general .edit_profile_img {
@@ -66,8 +64,8 @@
 
 .edit_general .edit_profile_fields .edit_profile_label .input_field_big {
   margin-top: .5em;
-  width: 600px;
-  height: 300px;
+  width: 100%;
+  height: 8em;
 }
 
 .edit_company {
@@ -78,5 +76,17 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+}
+
+.image-upload > input {
+  display: none;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  width: 900px;
+}
+
+.container {
+  margin: 10px;
 }
 /*# sourceMappingURL=profilePage.css.map */

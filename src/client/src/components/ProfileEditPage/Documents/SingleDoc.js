@@ -3,12 +3,31 @@ import { ReactComponent as SvgRedX } from '../../../svgs/redX.svg'
 
 import PropTypes from 'prop-types';
 
-export const SingleDoc = ({document_url, user}) => {
+export const SingleDoc = ({document_url, user, userEdit, setUserEdit}) => {
+
+
+    function handleClick(event){
+        setUserEdit(prevState => ({
+            userEdit: {
+                ...prevState.userEdit,
+                typeUser: {
+                    ...prevState.userEdit.typeUser,
+                    documents : [...prevState.userEdit.typeUser.documents.filter((document) => document !== document_url)]
+                }
+            }
+        }))
+        
+    }
+
     return (
         <div className="document_single">
-            <SvgDocument/> <br/>
-            <a href={document_url} target="_blank">{document_url.split('/').reverse()[0]}</a>
-            <SvgRedX/>
+                <SvgDocument className="little-icon" />
+                <a href={document_url} target="_blank"> {document_url.split('/').reverse()[0].length > 5 ? 
+                                                        document_url.split('/').reverse()[0].slice(0,5) + '...' :
+                                                        document_url.split('/').reverse()[0]}</a>
+                
+                <SvgRedX className="little-icon" onClick={handleClick}/>
+                          
         </div>
     )
 }
