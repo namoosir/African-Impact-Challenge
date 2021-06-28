@@ -1,7 +1,7 @@
 const ProfileCard = ({user}) => {
     return (
         <div className="profile_search_card">
-            <img className="profile_search_profile_img" src={user.typeUser.image}></img>
+            <img className="profile_search_profile_img" src={user.image}></img>
             <div className="profile_search_body">
                 <h1>{user.name}-{user.typeOfUser}</h1>
 

@@ -9,7 +9,12 @@ const SearchHeader = ({users, setUsers, users2, setUsers2}) => {
         options: [{entity: 'Company', id: 1},{entity: 'Partner', id: 2},{entity: 'Entrepreneur', id: 3},{entity: 'Instructor', id: 4}]
     })
     const [options_company, setOptions_company] = useState({
-        options: [{status: 'Seeks Funds', id: 1}]
+        options: [
+                {status: 'Seeks Funds',
+                    id: 1,
+                    set: false
+                }
+                ]
     })
 
     const [company_selected, setCompany_selected] = useState(true)

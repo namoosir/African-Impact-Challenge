@@ -199,21 +199,33 @@ const ProfileSearchPage = () => {
 
     ]);
 
-    useEffect(() => {
+    const [users2, setUsers2] = useState([])
+    const [isOnce, setIsOnce] = useState(true)
+
+
+    //useEffect(() => {
     
         console.log("hello")
+    if(isOnce){
         const requestOptions = {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        };
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          };
+          
+          fetch('http://localhost:3001/profile/getUsers', requestOptions)
+              .then(response => response.json())
+              .then(data => {
+                  setUsers([...data])
+                  setUsers2([...data])
+          })
+
+          setIsOnce(false)
+    }
         
-        fetch('http://localhost:3001/profile/getUsers', requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data))
 
-      })
+    //})
 
-    const [users2, setUsers2] = useState([...users])
+   
 
     return (
         <div className="profile_search">
