@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     image: {
         type: String                // Url of image
     },
-    biography: String
+    biography: String,
     typeUser: {
         type: Schema.Types.ObjectId,
     }
