@@ -4,9 +4,10 @@ const Partner = require('../models/partner');
 const Company = require('../models/company')
 
 const User = require('../models/user')
+const imagesPath = './images'
 
 
- const user_details = (req, res) => {
+const user_details = (req, res) => {
   const id = req.params.id;
   //const name = req.params.typeOfUser;
   User.findById(id)
@@ -19,6 +20,8 @@ const User = require('../models/user')
       console.log(err);
     });
 } 
+
+const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
 
 const user_updates = (req, res) =>{
   User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
@@ -34,6 +37,16 @@ const user_updates = (req, res) =>{
     console.log(err);
   })
 }
+
+const get_image = (req, res) =>{
+  const id = req.body.id;
+  User.findById(id)
+    .then(result => {
+      res.sendFile(result.image, {root: imagesPath })   
+    }) 
+}
+
+//timestamp = new Date().getTime().toString();
 
 /* 
 const blog_create_get = (req, res) => {
@@ -64,7 +77,8 @@ const blog_delete = (req, res) => {
 
 module.exports = {
   user_details,
-  user_updates
+  user_updates,
+  get_image
   //blog_create_get, 
   //blog_create_post, 
   //blog_delete
