@@ -4,7 +4,7 @@ import EditCompany from './EditCompany'
 import { Component, useState, useEffect } from 'react'
 import profilePage from '../stylesheets/ProfilePage/profilePage.css'
 import { func } from 'prop-types'
-
+import img from '../../../download.png'
 
 const ProfileEditPage = () => {
 
@@ -16,7 +16,7 @@ const ProfileEditPage = () => {
         password: "fsdf",
         typeOfUser: "Company",
         biography: "Lorem djklakldsal",
-        image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
+        image: img,
         typeUser: {
           classes: ["B07", "CSCC01"],
           documents: ["fjd", "dfksd"]

@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 
 const EditGeneral = ({user, userEdit, setUserEdit}) => {
 
@@ -20,6 +20,18 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
         }))
     }
 
+    function previewImage(event){
+        setUserEdit(prevState => ({
+            userEdit: {
+                ...prevState.userEdit,
+                img: URL.createObjectURL(event.target.files[0])
+            }
+        }))
+    }
+
+
+
+
     useEffect(() =>{
         console.log(userEdit)
     });
@@ -29,6 +41,7 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
             <div className ="edit_profile_img">
                 <img className="profile_img_profile_edit" src={user.image}></img>
                 <button className="edit_profile_btn btn btn-primary" type="button">New Photo</button>
+                <input id="expense-file" type="file" onChange={previewImage}/>
             </div>
             <form className="edit_profile_fields">
                 <label className="edit_profile_label">Name
