@@ -1,7 +1,9 @@
 import React from 'react'
 import EditGeneral from './EditGeneral'
 import EditCompany from './EditCompany'
-import { Component, useState } from 'react'
+import { Component, useState, useEffect } from 'react'
+import profilePage from '../stylesheets/ProfilePage/profilePage.css'
+import { func } from 'prop-types'
 
 
 const ProfileEditPage = () => {
@@ -21,12 +23,34 @@ const ProfileEditPage = () => {
         }
     });
 
+    const [userEdit, setUserEdit] = useState({
+        userEdit: user2
+    });
+
+    function handleUpdate(){
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: userEdit.userEdit,
+          };
+          
+          fetch('http://localhost:3001/profile/update', requestOptions)
+              .then(response => response.json())
+    }
+
+    useEffect(() =>{
+        console.log(userEdit)
+    });
+
 
     return (
         <div className="profile_edit_page">
-            <EditGeneral user={user2}/>
-            {user2.typeOfUser == "Company" ? <EditCompany user={user2}/>:<h3></h3>}
-            <button className="apply_btn btn btn-primary">Apply</button>
+
+            <EditGeneral user={user2} userEdit={userEdit} setUserEdit={setUserEdit}/>
+
+            {user2.typeOfUser == "Company" ? <EditCompany user={user2} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
+
+            <button className="apply_btn btn btn-primary" onChange={handleUpdate}>Apply</button>
 
         </div>
     )

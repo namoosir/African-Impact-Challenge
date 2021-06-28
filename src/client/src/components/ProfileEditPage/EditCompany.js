@@ -1,7 +1,7 @@
 import React from 'react'
 import Documents from './Documents/Documents'
 import { Component, useState } from 'react'
-const EditCompany = ({user}) => {
+const EditCompany = ({user ,userEdit, setUserEdit}) => {
 
 
     return (

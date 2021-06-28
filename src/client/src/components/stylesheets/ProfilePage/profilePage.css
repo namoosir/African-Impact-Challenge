@@ -1,1 +1,82 @@
-/* No CSS *//*# sourceMappingURL=profilePage.css.map */
+.profile_edit_page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 700px;
+  background-color: #232526;
+}
+
+.edit_general .edit_profile_img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.edit_general .edit_profile_img .edit_profile_btn {
+  color: black;
+}
+
+.edit_general .edit_profile_img .profile_img_profile_edit {
+  height: 150px;
+  width: 150px;
+}
+
+.edit_general .edit_profile_fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.edit_general .edit_profile_fields .edit_profile_label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding-top: 1.5em;
+}
+
+.edit_general .edit_profile_fields .edit_profile_label .input_field_short {
+  margin-top: .5em;
+  width: 250px;
+}
+
+.edit_general .edit_profile_fields .edit_profile_label .input_field_big {
+  margin-top: .5em;
+  width: 600px;
+  height: 300px;
+}
+
+.edit_company {
+  padding-left: 5em;
+}
+
+.apply_btn {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+/*# sourceMappingURL=profilePage.css.map */
