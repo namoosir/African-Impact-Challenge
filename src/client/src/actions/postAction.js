@@ -5,6 +5,7 @@ import {
   LOADING_POSTS_SUCCESSFUL,
   EDIT_POSTS_SUCCESSFUL,
   DELETE_POSTS_SUCCESSFUL,
+  CREATING_COMMENT_SUCCESSFUL,
 } from "./types";
 
 export const createPost = (user, post, history) => (dispatch) => {
@@ -23,6 +24,7 @@ export const createPost = (user, post, history) => (dispatch) => {
 };
 
 export const loadPosts = (user, history) => (dispatch) => {
+
     axios
       .get("http://localhost:3001/getrec", user)
       .then((res) => {
@@ -51,6 +53,21 @@ export const loadPosts = (user, history) => (dispatch) => {
         history.push("/home", user);
       });
   };
+
+  export const addComment = (commentInfo, history) => dispatch => {
+      alert('here adding comments');
+      axios
+        .put("http://localhost:3001/comment", commentInfo)
+        .then((res) => {
+            dispatch({
+                type: CREATING_COMMENT_SUCCESSFUL
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+            history.push("/home");
+        })
+  }
 
   export const deletePost = (id, history) => (dispatch) => {
     axios

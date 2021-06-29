@@ -35,7 +35,6 @@ const Home = ({
   const { title, text, image } = post;
 
   useEffect(() => {
-    console.log(isDeleted)
     loadPosts(user, history);
   }, []);
 
@@ -188,7 +187,7 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
-  posts: state.post.posts[0],
+  posts: state.post.posts,
   isDeleted: state.post.isDeleted,
   isAuthenticated: state.user.isAuthenticated,
   isLoggedOut: state.user.isLoggedOut,

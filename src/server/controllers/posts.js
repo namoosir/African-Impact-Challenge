@@ -9,7 +9,6 @@ const { post } = require('../routes/routes');
 
 const create_post = async (req, res) => {
 
-  
     const {title, text, image} = req.body.post;
     const post = new Posts({
         title: title,
@@ -25,7 +24,7 @@ const create_post = async (req, res) => {
 
 const add_comment = async (req, res) => {
 
-    postid = req.body.id;
+    postid = req.body.post;
     commenter = req.body.commenter;
     comment = req.body.comment;
 
@@ -37,29 +36,33 @@ const add_comment = async (req, res) => {
   
     post.comments.push({comment:comment, user:commenter});
 
-  
     await post.save();
+
     res.status(200).json(post);
 }
 
 const get_recent_posts = async (req, res) => {
   const posts = await Posts.find({}).sort('-date');
   const result = posts.slice(0, 10);
-  let ans = [];
+  var ans = [];
  
-  // for (const post of result) {
+  for (const post of result) {
+     var populated1 = await myPop(post, 'poster').then(function(result) {
+      return result 
+   }) 
 
-  //  var populated2 = await myPop(populated1, 'comments.user').then(function(result) {
-  //     return result
-  //  })
+
+   var populated2 = await myPop(populated1, 'comments.user').then(function(result) {
+      return result
+   })
     
-  //  ans.push(populated2)
+   ans.push(populated2)
 
-  // };  
+  };  
 
-  ans.push(posts);
+  const sentPosts = ans;
 
-  res.status(200).json(ans);
+  res.status(200).json(sentPosts);
 }
 
 async function myPop(post, field) {

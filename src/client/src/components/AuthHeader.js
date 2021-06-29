@@ -23,7 +23,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
       <div className="container-fluid">
         <a className="navbar-brand" href="/home">
           <img
@@ -37,9 +37,6 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
             <Link className="nav-link" to="/home">
               Home
             </Link>
-            {/* <a className="nav-link" aria-current="page" href="/home">
-              Home
-            </a> */}
             <Link className="nav-link" to="/calendar">
               Calendar
             </Link>
@@ -49,15 +46,6 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
             <Link className="nav-link" to="/messages">
               Messages
             </Link>
-            {/* <a className="nav-link" href="/calendar">
-              Calendar
-            </a>
-            <a className="nav-link" href="/lectures">
-              Lectures
-            </a>
-            <a className="nav-link" href="/message">
-              Message
-            </a> */}
           </div>
         </div>
         <div className="navbar-nav mx-5 offset-3">
