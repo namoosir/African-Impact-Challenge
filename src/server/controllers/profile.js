@@ -27,7 +27,7 @@ const user_updates = (req, res) =>{
   User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
   .then(result => {
     const typeofUser = result.typeOfUser;
-    userType[typeofUser].findByIdAndUpdate({_id: result.typeUser}, req.body)
+    userType[typeofUser].findByIdAndUpdate({_id: result.typeUser}, req.body.typeUser)
     .then(() => {
       result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})
     })
