@@ -12,12 +12,14 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/routes')
 
 const app = express();
-app.use(
+/* app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
-app.use(bodyParser.json());
+app.use(bodyParser.json()); */
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 mongoose.connect("mongodb://localhost:27017/african-impact-challenge", {
   useNewUrlParser: true,
