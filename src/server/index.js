@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const userRoutes = require('./routes/routes');
 const Instructor = require('./models/instructor');
 const Partner = require('./models/partner')
 const Company = require('./models/company')
@@ -9,7 +10,6 @@ const Entrepreneur = require('./models/entrepreneur')
 
 const bodyParser = require('body-parser');
 
-const userRoutes = require('./routes/routes')
 
 const app = express();
 /* app.use(
