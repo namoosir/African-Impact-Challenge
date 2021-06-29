@@ -5,12 +5,13 @@ import GeneralCard from './GeneralCard/GeneralCard';
 import Biography from './Biography/Biography';
 import Employees from './Employees/Employees';
 import Documents from './Documents/Documents';
+import { connect } from "react-redux"
 
 import PropTypes from 'prop-types';
 
 
 
-const ProfilePage = () => {
+const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
     
     const [user, setUser] = useState({
         id: "4",
@@ -21,7 +22,9 @@ const ProfilePage = () => {
         typeOfUser: "Insr",
         image: "",
         biography: "Lorem djklakldsal",
+        
         typeUser: {
+          id : "4",
           classes: ["B07", "CSCC01"],
         }
         
@@ -71,17 +74,11 @@ const ProfilePage = () => {
           */
           setIsOnce(false)
       }
-      
-      
-
-
-
-
     })
-
 
     return (
         <div className="profile_edit_page">
+          {isAuthenticated ? <h1>ISAUt</h1>:<h1>nah</h1>}
           <GeneralCard user={user}/>
           <Biography bioText={user.typeUser.biography}/>
           {(user.typeOfUser == 'Company') ? 
@@ -90,13 +87,16 @@ const ProfilePage = () => {
           <Documents document_urls={user.typeUser.documents}/>
           </div> : 
           <h3></h3> }
-
-          
-                          
-
       </div>
     )
 }
 
+const mapStateToProps = (state) => ({
+  loggedInUser: state.user.loggedInUser.sentUser,
+  isAuthenticated: state.loggedInUser.isAuthenticated,
+  isLoggedOut: state.loggedInUser.isLoggedOut,
+})
 
-export default ProfilePage
+export default connect(mapStateToProps, {
+  
+})(ProfilePage);
