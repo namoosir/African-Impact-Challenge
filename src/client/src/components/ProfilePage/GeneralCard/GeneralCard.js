@@ -9,7 +9,7 @@ import main from '../../stylesheets/main.css';
 const GeneralCard = ({user}) => {
 
     return (
-        <div className='container'>
+        <div className='container margins'>
             <div className='card'>
             <Banner className="card-img-top" picURL={user.image}/>
                 <div className="card-body">
