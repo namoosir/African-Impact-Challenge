@@ -20,7 +20,7 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
         username: "bwill",
         password: "fsdf",
         typeOfUser: "Insr",
-        image: "",
+        image: "http://localhost:3001/profile/getimage/60d9f89d9bafe0bd62b7187f",
         biography: "Lorem djklakldsal",
         
         typeUser: {
@@ -43,17 +43,21 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
   
         fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
             .then(response => response.json())
-            .then(data => setUser({
-              id: data._id,
-              name: data.name,
-              email: data.email,
-              username: data.username,
-              password: data.password,
-              typeOfUser: data.typeOfUser,
-              biography: data.biography,
-              typeUser: data.typeUser,
-              image: `http://localhost:3001/profile/getimage/${data._id}`
-            }))
+            .then(data => {
+              console.log(data)
+              setUser({
+                id: data._id,
+                name: data.name,
+                email: data.email,
+                username: data.username,
+                password: data.password,
+                typeOfUser: data.typeOfUser,
+                biography: data.biography,
+                typeUser: data.typeUser,
+                image: `http://localhost:3001/profile/getImage/${data._id}`
+              })
+            }
+             )
         
             /*
             const requestOptions2 = {
@@ -91,6 +95,7 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
     )
 }
 
+/*
 const mapStateToProps = (state) => ({
   loggedInUser: state.user.loggedInUser.sentUser,
   isAuthenticated: state.loggedInUser.isAuthenticated,
@@ -100,3 +105,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   
 })(ProfilePage);
+*/
+
+export default ProfilePage

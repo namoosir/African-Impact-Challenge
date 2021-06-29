@@ -6,6 +6,9 @@ const Company = require('../models/company')
 const User = require('../models/user')
 const imagesPath = './server/images'
 
+const { expect } = require('chai');
+
+
 
 const user_details = (req, res) => {
   const id = req.params.id;
@@ -46,6 +49,17 @@ const get_image = (req, res) =>{
     }) 
 }
 
+const save_image = (req, res) =>{
+  
+  expect(req.files.imageURL, 'file needed').to.exist;
+  const expensesFile = req.files.imageURL[0];
+
+  const fileName = (expensesFile.path).split('/');
+
+  User.findByIdAndUpdate(req.params.id, {image: fileName[fileName.length-1] }).then(result => res.sendStatus(200))
+  
+}
+
 //timestamp = new Date().getTime().toString();
 
 /* 
@@ -78,7 +92,8 @@ const blog_delete = (req, res) => {
 module.exports = {
   user_details,
   user_updates,
-  get_image
+  get_image,
+  save_image,
   //blog_create_get, 
   //blog_create_post, 
   //blog_delete
