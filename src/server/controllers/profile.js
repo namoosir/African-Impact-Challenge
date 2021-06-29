@@ -4,7 +4,7 @@ const Partner = require('../models/partner');
 const Company = require('../models/company')
 
 const User = require('../models/user')
-const imagesPath = './images'
+const imagesPath = './server/images'
 
 
 const user_details = (req, res) => {
@@ -39,7 +39,7 @@ const user_updates = (req, res) =>{
 }
 
 const get_image = (req, res) =>{
-  const id = req.body.id;
+  const id = req.params.id;
   User.findById(id)
     .then(result => {
       res.sendFile(result.image, {root: imagesPath })   

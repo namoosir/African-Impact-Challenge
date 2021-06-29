@@ -9,7 +9,7 @@ const {registerUser} = require('../controllers/register')
 const {loginUser1} = require('../controllers/login')
 const {loginUser2, updateUser} = require('../controllers/setting')
 
-router.get('/profile/getimage', userController.get_image)
+router.get('/profile/getimage/:id', userController.get_image)
 
 router.get('/profile/:id', userController.user_details);
 

@@ -5,9 +5,9 @@ export const Documents = ({document_urls}) => {
     console.log(typeof document_urls)
     return (
 
-        <div className="container">
+        <div className="container margins">
             <div className="card">
-                <div className="card-body profile_documents">
+                <div className="card-body">
                     <h1>Documents</h1>
 
                     <div className="document_list"> 

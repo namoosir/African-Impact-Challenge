@@ -87,6 +87,9 @@ body{
 }
 .document_single{
   margin-right: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .biography{
@@ -170,9 +173,7 @@ hr {
   margin-bottom: 0px;
 }
 
-.container{
-  margin: 10px;
-}
+
 
 .profile_mini_img{
   width: 30px;
@@ -187,4 +188,15 @@ hr {
 
 a {
   text-decoration: none;
+}
+
+.blue-section{
+  background-color: #0d6efd;
+  padding: 5px;
+  color: white;
+}
+
+.little-icon{
+  height: 40px;
+  width: 40px;
 }

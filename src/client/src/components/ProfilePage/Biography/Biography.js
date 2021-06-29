@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 
 const Biography = ({bioText}) => {
     return (
-        <div className="container">
+        <div className="container margins">
             <div className="card">
-                <div className="biography card-body">
+                <div className="card-body">
                     <h1>Biography</h1>
                     <p>{bioText}</p>
                 </div>

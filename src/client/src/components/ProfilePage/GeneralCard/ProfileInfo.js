@@ -8,7 +8,7 @@ const ProfileInfo = ({user}) => {
 
     return (
         
-        <div className="profile-title">
+        <div>
             <h1>{user.name} - { user.typeOfUser }</h1>
 
             { (user.typeOfUser == 'Partner' || user.typeOfUser == 'Entrepreneur') ?
