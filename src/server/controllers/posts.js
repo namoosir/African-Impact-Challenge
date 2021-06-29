@@ -73,7 +73,6 @@ return itemPopulated
 
 const edit_post = async (req, res) => {
   text = req.body.text;
-  image = req.body.image;
   postid = req.body.id;
 
   const post = await Posts.findById(postid);
@@ -83,7 +82,6 @@ const edit_post = async (req, res) => {
   }
 
   post.text = text;
-  post.image = image;
 
   await post.save();
   res.status(200).send(post);
