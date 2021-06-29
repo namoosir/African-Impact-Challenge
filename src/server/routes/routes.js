@@ -1,4 +1,8 @@
 require('dotenv').config();
+const multer  = require('multer')
+const upload = multer({ dest: 'server/images/' })
+
+const userController = require('../controllers/profile');
 
 // const userController = require('../controllers/profile');
 const postController = require('../controllers/posts')
@@ -10,9 +14,9 @@ const {registerUser} = require('../controllers/register')
 const {loginUser1} = require('../controllers/login')
 const {loginUser2, updateUser} = require('../controllers/setting')
 
-// router.get('/profile/:id', userController.user_details);
-// router.put('/edit/:id', userController.user_updates)
+router.get('/profile/getImage/:id', userController.get_image)
 
+router.get('/profile/:id', userController.user_details);
 
 router.post("/register", registerUser)
 
@@ -29,6 +33,14 @@ router.put("/editpost", postController.edit_post)
 router.put("/deletepost", postController.remove_post)
 
 
+router.put('/profile/edit/:id', userController.user_updates)
+
+router.post('/profile/editImage/:id',
+	upload.fields([
+		{ name: 'imageURL', maxCount: 1 },
+	]),
+    userController.save_image
+);
 
 module.exports = router;
   

@@ -1,0 +1,49 @@
+.profile_edit_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.edit_general .edit_profile_img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .edit_general .edit_profile_img .edit_profile_btn {
+    color: black; }
+  .edit_general .edit_profile_img .profile_img_profile_edit {
+    height: 150px;
+    width: 150px; }
+.edit_general .edit_profile_fields {
+  display: flex;
+  flex-direction: column; }
+  .edit_general .edit_profile_fields .edit_profile_label {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.5em; }
+    .edit_general .edit_profile_fields .edit_profile_label .input_field_short {
+      margin-top: .5em;
+      width: 250px; }
+    .edit_general .edit_profile_fields .edit_profile_label .input_field_big {
+      margin-top: .5em;
+      width: 100%;
+      height: 8em; }
+
+.edit_company {
+  padding-left: 5em; }
+
+.apply_btn {
+  width: fit-content; }
+
+.image-upload > input {
+  display: none; }
+
+.margins, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  width: 900px; }
+
+.margins {
+  margin: 10px; }
+
+.plus {
+  cursor: pointer; }
+
+/*# sourceMappingURL=profilePage.css.map */
