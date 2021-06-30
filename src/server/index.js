@@ -55,6 +55,41 @@ app.use(function (req, res, next) {
   next();
 });
 
+
+app.get('/add', (req, res) => {
+
+  const ins = new Company({
+    documents: ['Mon', 'fd'],
+    
+  })
+
+  const user = new User({
+    image: 'Coolguy.png',
+    biography: 'My name is coolguy and I have a lot of money',
+    name: 'Muta Khs',
+    username: 'Kharsm',
+    email: 'mutase@lhars',
+    password: 'hi123',
+    typeOfUser: 'Company',
+    typeUser: ins._id
+  })
+
+  ins.save()
+  .then(result => {
+    user.save()
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
+
+
 //app.use(passport.initialize());
 
 //app.use('/profile', userRoutes);
