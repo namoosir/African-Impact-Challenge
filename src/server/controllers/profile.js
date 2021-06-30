@@ -24,6 +24,28 @@ const user_details = (req, res) => {
     });
 } 
 
+const get_all_profiles = async (req, res) => {
+  var ans = [];
+  var final = [];
+  ans = await User.find().sort('name').then(result => { return result })
+
+  for (const user of ans) {
+    var populated1 = await myPop2(user).then(function (result) {
+      return result
+    })
+
+    final.push(populated1)
+  }
+
+  res.send(final)
+}
+
+
+async function myPop2(post) {
+  let itemPopulated = await post.populate({path: "typeUser", model: post.typeOfUser}).execPopulate();
+  return itemPopulated
+  
+  } 
 const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
 
 const user_updates = (req, res) =>{
@@ -91,6 +113,7 @@ const blog_delete = (req, res) => {
 
 module.exports = {
   user_details,
+  get_all_profiles,
   user_updates,
   get_image,
   save_image,
