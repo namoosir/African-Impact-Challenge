@@ -1,6 +1,7 @@
 import React from 'react'
 import { Component, useState } from 'react'
 import PropTypes from 'prop-types';
+import { Link, withRouter } from "react-router-dom";
 
 import main from '../../stylesheets/main.css';
 
@@ -18,8 +19,12 @@ const ProfileInfo = ({user, loggedInUser}) => {
 
             {user && loggedInUser ? (
               user.id === loggedInUser.id ? 
-              <button type="button" class="btn btn-primary">Edit Profile</button> 
-              : <button type="button" class="btn btn-primary">Message</button>
+              <Link to="/profile_edit">
+                <button type="button" className="btn btn-primary">
+                  Edit Profile
+                </button> 
+              </Link>
+              : <button type="button" className="btn btn-primary"><Link to="/profile_edit"></Link>Message</button>
              ) : ""}
 
         </div>
