@@ -9,7 +9,7 @@ export const getProfile = (profiler, history) => (dispatch) => {
     .then((res) => {
       console.log(res);
       axios
-        .get(`http://localhost:3001/profile/getImage/${res.data.typeUser._id}}`)
+        .get(`http://localhost:3001/profile/getImage/${res.data.typeUser._id}`)
         .then((res2) => {
           imageRes = res2;
         });
