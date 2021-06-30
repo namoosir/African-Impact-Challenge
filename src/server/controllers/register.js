@@ -27,13 +27,13 @@ module.exports.registerUser = async (req, res) => {
     res.redirect("/register");
   }
 
-  if (req.body.typeOfUser === "entrepreneur") {
+  if (req.body.typeOfUser === "Entrepreneur") {
     const ent = new Ent({});
     refUser = await ent.save();
-  } else if (req.body.typeOfUser === "partner") {
+  } else if (req.body.typeOfUser === "Partner") {
     const partner = new Partner({});
     refUser = await partner.save();
-  } else if (req.body.typeOfUser === "company") {
+  } else if (req.body.typeOfUser === "Company") {
     const company = new Company({});
     refUser = await company.save();
   } else {
