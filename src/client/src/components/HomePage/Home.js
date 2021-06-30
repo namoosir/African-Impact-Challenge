@@ -38,12 +38,6 @@ const Home = ({
     loadPosts(user, history);
   }, []);
 
-  useEffect(() => {
-    if (isLoggedOut) {
-      history.push("/login");
-    }
-  }, [isLoggedOut]);
-
   const onSubmitPost = (e) => {
     e.preventDefault();
 

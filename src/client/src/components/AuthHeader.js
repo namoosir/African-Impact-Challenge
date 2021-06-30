@@ -10,9 +10,8 @@ import PropTypes from "prop-types";
 
 const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
 
-
   useEffect(() => {
-    if (props.isLoggedOut || !props.isAuthenticated) {
+    if (props.isLoggedOut && !props.isAuthenticated) {
       props.history.push("/login");
     }
   }, [props.isLoggedOut]);
