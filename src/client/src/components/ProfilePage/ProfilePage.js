@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 
 
-const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
+const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut}) => {
     
     const [user, setUser] = useState({
         id: "4",
@@ -33,6 +33,8 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
     const [isOnce, setIsOnce] = useState(true)
     
     React.useEffect(() => {
+
+      console.log(userProfile)
     
       if(isOnce){
         
@@ -41,23 +43,23 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
           headers: { 'Content-Type': 'application/json' },
         };
   
-        fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-              console.log(data)
-              setUser({
-                id: data._id,
-                name: data.name,
-                email: data.email,
-                username: data.username,
-                password: data.password,
-                typeOfUser: data.typeOfUser,
-                biography: data.biography,
-                typeUser: data.typeUser,
-                image: `http://localhost:3001/profile/getImage/${data._id}`
-              })
-            }
-             )
+        // fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //       console.log(data)
+        //       setUser({
+        //         id: data._id,
+        //         name: data.name,
+        //         email: data.email,
+        //         username: data.username,
+        //         password: data.password,
+        //         typeOfUser: data.typeOfUser,
+        //         biography: data.biography,
+        //         typeUser: data.typeUser,
+        //         image: `http://localhost:3001/profile/getImage/${data._id}`
+        //       })
+        //     }
+            //  )
         
             /*
             const requestOptions2 = {
@@ -82,13 +84,12 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
 
     return (
         <div className="profile_edit_page">
-          {loggedInUser ? <h1>{loggedInUser.username}</h1>:<h1>nah</h1>}
-          <GeneralCard user={user} loggedInUser={loggedInUser}/>
-          <Biography bioText={user.typeUser.biography}/>
+          <GeneralCard user={userProfile} loggedInUser={loggedInUser}/>
+          <Biography bioText={userProfile.biography}/>
           {(user.typeOfUser == 'Company') ? 
           <div>
-          <Employees employees={user.typeUser.employees}/> 
-          <Documents document_urls={user.typeUser.documents}/>
+          <Employees employees={userProfile.typeUser.employees}/> 
+          <Documents document_urls={userProfile.typeUser.documents}/>
           </div> : 
           <h3></h3> }
       </div>
@@ -100,6 +101,7 @@ const mapStateToProps = (state) => ({
   loggedInUser: state.user.user.sentUser,
   isAuthenticated: state.user.isAuthenticated,
   isLoggedOut: state.user.isLoggedOut,
+  userProfile: state.profile.profile
 })
 
 export default connect(mapStateToProps, {

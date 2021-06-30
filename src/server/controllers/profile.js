@@ -15,8 +15,8 @@ const user_details = (req, res) => {
   //const name = req.params.typeOfUser;
   User.findById(id)
     .then(result => {   
-      //console.log(result)
-      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {console.log(result); res.send(result)})      // always makes sure that the client sends the general user
+      console.log("In backend", result)
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {console.log(result); res.status(200).json((result))})      // always makes sure that the client sends the general user
 
     })
     .catch(err => {

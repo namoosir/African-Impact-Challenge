@@ -17,7 +17,7 @@ const ProfileInfo = ({user, loggedInUser}) => {
             { user.location ? <p>{ user.location }</p> : <h3></h3> }
 
             {user && loggedInUser ? (
-              user.id === loggedInUser.id ? 
+              user._id === loggedInUser.id ? 
               <button type="button" class="btn btn-primary">Edit Profile</button> 
               : <button type="button" class="btn btn-primary">Message</button>
              ) : ""}

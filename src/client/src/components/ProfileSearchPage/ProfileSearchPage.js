@@ -2,7 +2,7 @@ import React from 'react'
 import { Component, useState, useEffect } from 'react'
 import ProfileCards from './ProfileCards/ProfileCards'
 import SearchHeader from './SearchHeader'
-const ProfileSearchPage = () => {
+const ProfileSearchPage = ({history}) => {
 
     const [users, setUsers] = useState([
         {
@@ -192,11 +192,6 @@ const ProfileSearchPage = () => {
             lookingFunding: false
             }
         },
-
-        
-        
-        
-
     ]);
 
     const [users2, setUsers2] = useState([])
@@ -229,8 +224,8 @@ const ProfileSearchPage = () => {
 
     return (
         <div className="profile_search">
-            <SearchHeader users={users} setUsers={setUsers} users2={users2} setUsers2={setUsers2}/>
-            <ProfileCards users={users2}/>
+            <SearchHeader users={users} setUsers={setUsers} users2={users2} setUsers2={setUsers2} history={history}/>
+            <ProfileCards users={users2} history={history}/>
         </div>
     )
 }
