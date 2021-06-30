@@ -82,8 +82,8 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
 
     return (
         <div className="profile_edit_page">
-          {isAuthenticated ? <h1>ISAUt</h1>:<h1>nah</h1>}
-          <GeneralCard user={user}/>
+          {loggedInUser ? <h1>{loggedInUser.username}</h1>:<h1>nah</h1>}
+          <GeneralCard user={user} loggedInUser={loggedInUser}/>
           <Biography bioText={user.typeUser.biography}/>
           {(user.typeOfUser == 'Company') ? 
           <div>
@@ -95,16 +95,15 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
     )
 }
 
-/*
+
 const mapStateToProps = (state) => ({
-  loggedInUser: state.user.loggedInUser.sentUser,
-  isAuthenticated: state.loggedInUser.isAuthenticated,
-  isLoggedOut: state.loggedInUser.isLoggedOut,
+  loggedInUser: state.user.user.sentUser,
+  isAuthenticated: state.user.isAuthenticated,
+  isLoggedOut: state.user.isLoggedOut,
 })
 
 export default connect(mapStateToProps, {
-  
 })(ProfilePage);
-*/
 
-export default ProfilePage
+
+// export default ProfilePage

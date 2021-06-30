@@ -2,13 +2,11 @@ import React from 'react'
 import { Component, useState } from 'react'
 import PropTypes from 'prop-types';
 
-import main from '../../stylesheets/main.css';
-
-const ProfileInfo = ({user, loggedInUser}) => {
+const ProfileInfo = ({user}) => {
 
     return (
         
-        <div>
+        <div className="profile-title">
             <h1>{user.name} - { user.typeOfUser }</h1>
 
             { (user.typeOfUser == 'Partner' || user.typeOfUser == 'Entrepreneur') ?
@@ -16,12 +14,7 @@ const ProfileInfo = ({user, loggedInUser}) => {
             }
             { user.location ? <p>{ user.location }</p> : <h3></h3> }
 
-            {user && loggedInUser ? (
-              user.id === loggedInUser.id ? 
-              <button type="button" class="btn btn-primary">Edit Profile</button> 
-              : <button type="button" class="btn btn-primary">Message</button>
-             ) : ""}
-
+            <button type="button" class="btn btn-primary">Message</button>
         </div>
         
         

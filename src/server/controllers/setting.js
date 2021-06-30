@@ -13,6 +13,8 @@ const saltRounds = 10;
 let id = 0;
 
 module.exports.loginUser2 = async (req, res) => {
+  console.log(req.body);
+
   
   const { email, password } = req.body;
 
@@ -70,5 +72,6 @@ module.exports.updateUser = async (req, res) => {
 
   await updateUser.save();
   const user = { id, email, name, username, typeUser, typeOfUser };
+  console.log('here backend');
   res.status(200).json({ user });
 };

@@ -1,19 +1,19 @@
 import React from 'react'
-import Banner from './Banner'
-import ProfileInfo from './ProfileInfo'
+import Banner from 'components/ProfilePage/GeneralCard/Banner'
+import ProfileInfo from 'components/ProfilePage/GeneralCard/ProfileInfo'
 import { Component, useState } from 'react'
 import PropTypes from 'prop-types';
 
-import main from '../../stylesheets/main.css';
 
-const GeneralCard = ({user, loggedInUser}) => {
+
+const GeneralCard = ({user}) => {
 
     return (
-        <div className='container margins'>
+        <div className='container'>
             <div className='card'>
-            <Banner className="card-img-top" picURL={user.image}/>
                 <div className="card-body">
-                    <ProfileInfo user={user} loggedInUser={loggedInUser}/>
+                    <Banner className="card-img-top"picURL={user.typeUser.image}/>
+                    <ProfileInfo user={user}/>
                 </div>                
             </div>
         </div>

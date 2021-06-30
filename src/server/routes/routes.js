@@ -6,6 +6,9 @@ const uploadImage = multer({ dest: 'server/images/' })
 
 const userController = require('../controllers/profile');
 
+// const userController = require('../controllers/profile');
+const postController = require('../controllers/posts')
+
 const express = require('express');
 const router = express.Router();
 
@@ -26,6 +29,13 @@ router.post('/login', loginUser1)
 router.post('/profile/auth', loginUser2)
 
 router.put('/profile/update/settings', updateUser)
+
+router.put("/post", postController.create_post)
+router.put("/comment", postController.add_comment)
+router.get("/getrec", postController.get_recent_posts)
+router.put("/editpost", postController.edit_post)
+router.put("/deletepost", postController.remove_post)
+
 
 router.put('/profile/edit/:id', userController.user_updates)
 
