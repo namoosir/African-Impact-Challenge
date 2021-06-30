@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderAuth from "../AuthHeader";
 import Post from "./Post";
+import ModuleCard from "./ModuleCard"
 
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
@@ -38,12 +39,6 @@ const Home = ({
     loadPosts(user, history);
   }, []);
 
-  useEffect(() => {
-    if (isLoggedOut) {
-      history.push("/login");
-    }
-  }, [isLoggedOut]);
-
   const onSubmitPost = (e) => {
     e.preventDefault();
 
@@ -75,12 +70,15 @@ const Home = ({
         isAuthenticated={isAuthenticated}
         history={history}
       />
-      <div className="row justify-content-center">
+      <div className="row d-flex justify-content-center">
         <div className="col-lg-3">
           <div className="container">
             <div className="card mt-5">
-              <div className="card-body">
-                <h3 className="card-title text-center">Courses</h3>
+              <div className="card-body text-center">
+                <h3 className="card-title text-center">Modules</h3>
+
+                <ModuleCard/>
+
               </div>
             </div>
           </div>
@@ -170,7 +168,7 @@ const Home = ({
       {posts.map((post) => (
         <div className="row justify-content-center">
           <div className="col-lg-5 mb-4">
-            <Post post={post} currentUser={user} history={history}/>
+            <Post post={post} currentUser={user} history={history} />
           </div>
         </div>
       ))}
