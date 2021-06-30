@@ -5,12 +5,13 @@ import GeneralCard from './GeneralCard/GeneralCard';
 import Biography from './Biography/Biography';
 import Employees from './Employees/Employees';
 import Documents from './Documents/Documents';
+import { connect } from "react-redux"
 
 import PropTypes from 'prop-types';
 
 
 
-const ProfilePage = () => {
+const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
     
     const [user, setUser] = useState({
         id: "4",
@@ -19,47 +20,70 @@ const ProfilePage = () => {
         username: "bwill",
         password: "fsdf",
         typeOfUser: "Insr",
+        image: "http://localhost:3001/profile/getimage/60d9f89d9bafe0bd62b7187f",
+        biography: "Lorem djklakldsal",
+        
         typeUser: {
+          id : "4",
           classes: ["B07", "CSCC01"],
-          image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
-          biography: "Lorem djklakldsal"
         }
         
     });
+
+    const [isOnce, setIsOnce] = useState(true)
     
     React.useEffect(() => {
     
-      const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      };
-      // Given a UserId
-      //Muta ID : 60bfc28261b358667d0196a3
-      //Apple ID : 60bfc190247b966513e78f66
-      //http://localhost:3001/profile/:id
-
+      if(isOnce){
+        
+        const requestOptions = {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        };
+  
+        fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+              console.log(data)
+              setUser({
+                id: data._id,
+                name: data.name,
+                email: data.email,
+                username: data.username,
+                password: data.password,
+                typeOfUser: data.typeOfUser,
+                biography: data.biography,
+                typeUser: data.typeUser,
+                image: `http://localhost:3001/profile/getImage/${data._id}`
+              })
+            }
+             )
+        
+            /*
+            const requestOptions2 = {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json' },
+            };
       
-      //Enterpenur Profile ID: 60c178ad1908fcc56bb08fdd  60c178ff1908fcc56bb08fdf
-      //Partner Profile ID: 60c3891c77ad162cbc804537
-      //Instructor Profile ID: 60c38af5b3e0bb3434bb2433
-      //Company Profile Id: 60c17c3805ef1ecaebcef71d
-      fetch('http://localhost:3001/profile/60c43bb6e3c90bd65438b96e', requestOptions)
-          .then(response => response.json())
-          .then(data => setUser({
-            id: data._id,
-            name: data.name,
-            email: data.email,
-            username: data.username,
-            password: data.password,
-            typeOfUser: data.typeOfUser,
-            typeUser: data.typeUser
-          }))
-    }, [])
-
+      
+        fetch('http://localhost:3001/profile/getimage/60d9f89d9bafe0bd62b7187f', requestOptions2)
+          .then(data => {
+            setUser(prevState => ({
+              ...prevState,
+              image: data.url
+            })
+  
+            )
+          })
+          */
+          setIsOnce(false)
+      }
+    })
 
     return (
-        <div className="ProfilePage">
-          <GeneralCard user={user}/>
+        <div className="profile_edit_page">
+          {loggedInUser ? <h1>{loggedInUser.username}</h1>:<h1>nah</h1>}
+          <GeneralCard user={user} loggedInUser={loggedInUser}/>
           <Biography bioText={user.typeUser.biography}/>
           {(user.typeOfUser == 'Company') ? 
           <div>
@@ -67,11 +91,19 @@ const ProfilePage = () => {
           <Documents document_urls={user.typeUser.documents}/>
           </div> : 
           <h3></h3> }
-                          
-
       </div>
     )
 }
 
 
-export default ProfilePage
+const mapStateToProps = (state) => ({
+  loggedInUser: state.user.user.sentUser,
+  isAuthenticated: state.user.isAuthenticated,
+  isLoggedOut: state.user.isLoggedOut,
+})
+
+export default connect(mapStateToProps, {
+})(ProfilePage);
+
+
+// export default ProfilePage

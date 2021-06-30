@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 import main from '../../stylesheets/main.css';
 
-const ProfileInfo = ({user}) => {
+const ProfileInfo = ({user, loggedInUser}) => {
 
     return (
         
-        <div className="profile-title">
+        <div>
             <h1>{user.name} - { user.typeOfUser }</h1>
 
             { (user.typeOfUser == 'Partner' || user.typeOfUser == 'Entrepreneur') ?
@@ -16,7 +16,12 @@ const ProfileInfo = ({user}) => {
             }
             { user.location ? <p>{ user.location }</p> : <h3></h3> }
 
-            <button type="button" class="btn btn-primary">Message</button>
+            {user && loggedInUser ? (
+              user.id === loggedInUser.id ? 
+              <button type="button" class="btn btn-primary">Edit Profile</button> 
+              : <button type="button" class="btn btn-primary">Message</button>
+             ) : ""}
+
         </div>
         
         
