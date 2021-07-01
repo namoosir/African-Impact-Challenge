@@ -4,19 +4,105 @@ const Partner = require('../models/partner');
 const Company = require('../models/company')
 
 const User = require('../models/user')
+const imagesPath = './server/images'
+const documentPath = './server/documents'
+
+const { expect } = require('chai');
 
 
- const user_details = (req, res) => {
+
+const user_details = (req, res) => {
   const id = req.params.id;
   //const name = req.params.typeOfUser;
   User.findById(id)
-    .then(result => {      
-      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})      // always makes sure that the client sends the general user
+    .then(result => {   
+      //console.log(result)
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {console.log(result); res.send(result)})      // always makes sure that the client sends the general user
+
     })
     .catch(err => {
       console.log(err);
     });
 } 
+
+const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
+
+const user_updates = (req, res) =>{
+  User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
+  .then(result => {
+    const typeofUser = result.typeOfUser;
+    userType[typeofUser].findByIdAndUpdate({_id: result.typeUser}, req.body.typeUser)
+    .then(() => {
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})
+    })
+    .catch(err => {console.log(err)})
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+const get_image = (req, res) =>{
+  const id = req.params.id;
+  User.findById(id)
+    .then(result => {
+      res.sendFile(result.image, {root: imagesPath })   
+    }) 
+}
+
+const save_image = (req, res) =>{
+  
+  expect(req.files.imageURL, 'file needed').to.exist;
+  const expensesFile = req.files.imageURL[0];
+
+  const fileName = (expensesFile.path).split('/');
+  console.log(fileName[fileName.length-1])
+  User.findByIdAndUpdate(req.params.id, {image: fileName[fileName.length-1] }).then(result => res.sendStatus(200))
+  
+}
+
+const get_document = (req, res) =>{
+  const name = req.params.name;
+  res.sendFile(name, {root: documentPath })   
+}
+
+const save_documents = (req, res) =>{
+
+  expect(req.files.documents, 'file needed').to.exist;
+
+  var fileNames = [];
+
+  var expensesFile = [];
+  var filePath = [];
+  var fileName;
+
+  for (let i = 0; i < req.files.documents.length; i++) {
+
+    filePath = (req.files.documents[i].path).split('/');
+    fileName = filePath[filePath.length-1];
+    fileNames.push(fileName)
+
+  }
+
+  var documentsList = []
+  const id = req.params.id
+
+  User.findById(id).then(result => 
+    {
+      userType[result.typeOfUser].findById(result.typeUser).then(result2=>{
+        documentsList = result2.documents;
+        documentsList = documentsList.concat(fileNames);
+        userType[result.typeOfUser].findByIdAndUpdate(result.typeUser,{documents: documentsList}).then(x=>res.sendStatus(200))
+      })
+    }) 
+}
+
+
+/* documentsList = result.documents;
+documentsList.push(fileName);
+User.findByIdAndUpdate(req.params.id, {documents: documentsList }).then(result => res.sendStatus(200)) */
+
+//timestamp = new Date().getTime().toString();
 
 /* 
 const blog_create_get = (req, res) => {
@@ -46,7 +132,12 @@ const blog_delete = (req, res) => {
 } */
 
 module.exports = {
-  user_details
+  user_details,
+  user_updates,
+  get_image,
+  save_image,
+  get_document,
+  save_documents
   //blog_create_get, 
   //blog_create_post, 
   //blog_delete

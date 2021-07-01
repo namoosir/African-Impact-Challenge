@@ -1,25 +1,21 @@
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
-import Home from './HomePage/Home'
 import Register from './register/register';
 import Login from './login/login'
 import UpdateSettings from './settings/updateSettings'
 import AuthSettings from './settings/authSettings'
 import ProfilePage from './ProfilePage/ProfilePage'
-import ProfileEditPage from './ProfileEditPage/ProfileEditPage'
-import Module from "./modules/module"
+import ProfileEditPage from './ProfileEditPage/ProfileEditPage';
 
 const Routes = () => {
     return (
         <Router>
-            <Route exact path='/home' component={Home}/>
             <Route exact path='/register' component={Register}/>
             <Route exact path='/login' component={Login}></Route>
             <Route exact path='/update/settings' component={UpdateSettings}></Route>
             <Route exact path='/auth/settings' component={AuthSettings}></Route>
             <Route exact path='/profile' component={ProfilePage}></Route>
             <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
-            <Route exact path='/module' component={Module}></Route>
         </Router>
     );
 };
