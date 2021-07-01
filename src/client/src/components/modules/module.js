@@ -1,10 +1,17 @@
 import AuthHeader from "../AuthHeader";
 
+import { useEffect } from "react";
+
 import { connect } from "react-redux";
 
 import moduleStylesheet from "../stylesheets/module.css";
 
 const Module = ({ user, isAuthenticated, history, module }) => {
+
+  useEffect(() => {
+    console.log(module)
+  }, [])
+
   return (
     <div>
       <AuthHeader
