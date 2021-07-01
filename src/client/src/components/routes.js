@@ -8,6 +8,8 @@ import AuthSettings from './settings/authSettings'
 import ProfilePage from './ProfilePage/ProfilePage'
 import ProfileSearchPage from './ProfileSearchPage/ProfileSearchPage'
 import ProfileEditPage from './ProfileEditPage/ProfileEditPage'
+import Module from "./modules/module"
+
 
 const Routes = () => {
     return (
@@ -17,9 +19,14 @@ const Routes = () => {
             <Route exact path='/login' component={Login}></Route>
             <Route exact path='/update/settings' component={UpdateSettings}></Route>
             <Route exact path='/auth/settings' component={AuthSettings}></Route>
+
             <Route exact path='/profile' component={ProfilePage}></Route>
             <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
             <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
+
+            <Route exact path='/module' component={Module}></Route>
+
+
         </Router>
     );
 };

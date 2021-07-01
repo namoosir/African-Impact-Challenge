@@ -90,7 +90,6 @@ const edit_post = async (req, res) => {
 
 const remove_post = async (req, res) => {
   postid = req.body.id;
-
   await Posts.deleteOne({_id: postid});
 }
 

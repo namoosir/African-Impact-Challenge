@@ -25,7 +25,7 @@ Documents.propTypes = {
     /**
      * This represents the URL of the document that will be seen
      */
-    document_urls: PropTypes.object
+    document_urls: PropTypes.array
 };
 
 Documents.defaultProps = {

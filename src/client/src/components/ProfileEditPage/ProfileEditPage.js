@@ -9,21 +9,27 @@ import axios from "axios";
 const ProfileEditPage = ({user}) => {
 
     const [user2, setUser2] = useState({
-        "id": "60d9f89d9bafe0bd62b7187f",
-        "image": "yoda.jpeg",
+        "id": "60dbc77aeda7da46a1baa945",
+        "image": "5ef7c4986f5bab2e3b01580989de5ba8",
         "biography": "y is coolguy and I have a lot of money",
         "name": " hs",
         "username": "arsm",
         "email": "muse@lhars",
         "password": "i123",
-        "typeOfUser": "Instructor",
+
+        "typeOfUser": "Company",
         "typeUser": {
-            "classes": [
-                "M"
+            "documents":[
+                "<nameofDoc1>",
+                "<nameofDoc2>"
             ],
-            "_id": "60d9f89d9bafe0bd62b7187e"
+            "documentsDis":[
+                "http://localhost:3001/profile/getDoc/<nameofDoc1>"
+            ],
+            "documentsNewFormData":[],
+            "_id": "60dbc77aeda7da46a1baa944"
         },
-        "imageURL": "http://localhost:3001/profile/getimage/60d9f89d9bafe0bd62b7187f",
+        "imageURL": "http://localhost:3001/profile/getimage/60dbc77aeda7da46a1baa945",
         "imageFormData": "None"
     });
 
@@ -63,19 +69,62 @@ const ProfileEditPage = ({user}) => {
 
         */  
 
-            console.log("formata?", userEdit.userEdit.imageFormData)
-            const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
+//             console.log("formata?", userEdit.userEdit.imageFormData)
+//             const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
 
-            let imageFormData = new FormData();
-            imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
-            const formData = imageFormData
+//             let imageFormData = new FormData();
+//             imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
+//             const formData = imageFormData
 
-            console.log("format2?", formData)
-            const config = {     
+//             console.log("format2?", formData)
+//             const config = {     
+//                 headers: { 'content-type': 'multipart/form-data' }
+//             }
+
+//             axios.post(url, formData, config)
+
+            if(userEdit.userEdit.imageFormData !== "None") {
+                const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
+
+                let imageFormData = new FormData();
+                imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
+                const formData = imageFormData
+
+                const config = {     
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+
+                axios.post(url, formData, config)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+
+            }  else{
+                console.log("NOFORMDATA")
+            }       
+            
+            
+            
+            
+            const url2 = `http://localhost:3001/profile/addDocuments/${userEdit.userEdit.id}`
+
+            let documentsFormData = new FormData();
+            userEdit.userEdit.typeUser.documentsNewFormData.forEach(document => {
+                console.log("this is a doc", document)
+                documentsFormData.append("documents", document);
+            });
+            console.log("this entire a docs", documentsFormData)
+            const formData2 = documentsFormData
+
+            const config2 = {     
                 headers: { 'content-type': 'multipart/form-data' }
             }
 
-            axios.post(url, formData, config)
+            axios.post(url2, formData2, config2)
+
             .then(response => {
                 console.log(response);
             })

@@ -1,0 +1,14 @@
+.module {
+    height: 85vh;
+    width: 150vh;
+}
+
+.divider {
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.assignment {
+    color: black;
+    border-radius: 5px;
+}
