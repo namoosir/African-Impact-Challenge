@@ -25,6 +25,7 @@ const user_details = (req, res) => {
     });
 } 
 
+
 const get_all_profiles = async (req, res) => {
   var ans = [];
   var final = [];
@@ -47,6 +48,7 @@ async function myPop2(post) {
   return itemPopulated
   
   } 
+
 const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
 
 const user_updates = (req, res) =>{
