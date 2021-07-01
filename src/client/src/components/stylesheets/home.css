@@ -1,0 +1,19 @@
+.card-modules {
+    width: 25rem;
+}
+
+.card-body-modules {
+    background-color: white;    
+    background: white;
+    color: white;
+}
+
+.cover {
+    border-radius: 5px;
+    height: 10vh;
+    color: black;
+}
+
+.titl {
+    color: black;
+}

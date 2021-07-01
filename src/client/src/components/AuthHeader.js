@@ -13,6 +13,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
 
   useEffect(() => {
     if (props.isLoggedOut || !props.isAuthenticated) {
+
       props.history.push("/login");
     }
   }, [props.isLoggedOut]);

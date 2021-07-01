@@ -19,9 +19,14 @@ const UserSchema = new Schema({
         type: String, //Entrepreneur, Partner
         required: true
     },
+    image: {
+        type: String                // Url of image
+    },
+    biography: String,
     typeUser: {
         type: Schema.Types.ObjectId,
     }
+
 })
 
 module.exports = mongoose.model("User", UserSchema);

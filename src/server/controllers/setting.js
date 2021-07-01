@@ -15,6 +15,7 @@ let id = 0;
 module.exports.loginUser2 = async (req, res) => {
   console.log(req.body);
 
+
   const { email, password } = req.body;
 
   const userCheck = await User.findOne({ email });
