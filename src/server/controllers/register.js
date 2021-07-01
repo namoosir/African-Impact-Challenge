@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const bcrypt = require("bcryptjs");
-const jsonwebtoken = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 const Ent = require("../models/entrepreneur");
@@ -64,6 +64,31 @@ module.exports.registerUser = async (req, res) => {
       }
     });
   });
+
+  const sentUser = {
+    username: req.body.username,
+    name: req.body.name,
+    email: req.body.email,
+    typeOfUser: req.body.typeOfUser,
+    typeUser: refUser._id
+  };
+
+  const payload = {
+    username: sentUser.username
+  };
+
+  jwt.sign(
+    payload,
+    process.env.secretOrKey,
+    {
+      expiresIn: 360000,
+    },
+    (err, token) => {
+      if (err) throw err;
+      console.log(token);
+      res.status(200).json({ token, sentUser });
+    }
+  );
 };
 
 

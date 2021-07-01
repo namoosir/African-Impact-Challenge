@@ -5,9 +5,9 @@ export const Documents = ({document_urls}) => {
     console.log(typeof document_urls)
     return (
 
-        <div className="container">
+        <div className="container margins">
             <div className="card">
-                <div className="card-body profile_documents">
+                <div className="card-body">
                     <h1>Documents</h1>
 
                     <div className="document_list"> 
@@ -25,7 +25,7 @@ Documents.propTypes = {
     /**
      * This represents the URL of the document that will be seen
      */
-    document_urls: PropTypes.object
+    document_urls: PropTypes.array
 };
 
 Documents.defaultProps = {

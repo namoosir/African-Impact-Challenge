@@ -22,6 +22,9 @@ body{
 }
 
 
+
+
+
 /* Banenr */
 
 
@@ -97,6 +100,12 @@ body{
   margin-top: 10px;
 }
 
+
+
+
+
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -107,6 +116,44 @@ body{
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 body {
   margin: 0;

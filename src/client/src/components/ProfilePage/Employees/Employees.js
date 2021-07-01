@@ -10,7 +10,7 @@ const Employees = ({employees}) => {
     console.log(employees, "KDSFljdsljfklds")
 
     return (
-        <div className="container">
+        <div className="container margins">
             <div className="card">
             <div className="card-body employees">
                 <h1>Employees</h1>
@@ -34,7 +34,7 @@ Employees.propTypes = {
     /**
      * The user Ids for this employee
      */
-    employees: PropTypes.object
+    employees: PropTypes.array
 };
   
 Employees.defaultProps = {
