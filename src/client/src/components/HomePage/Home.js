@@ -183,12 +183,12 @@ const Home = ({
                 )}
 
                 {modules.length > 0 ? (
-                  modules.map((module) => <ModuleCard module={module} history={history} />)
+                  modules.map((module) => (
+                    <ModuleCard module={module} history={history} />
+                  ))
                 ) : (
                   <div className="text-center mt-3">
-                    <h4 className="text-light">
-                      Modules on the work!
-                    </h4>
+                    <h4 className="text-light">Modules on the work!</h4>
                   </div>
                 )}
               </div>
@@ -264,11 +264,25 @@ const Home = ({
                       Create
                     </button>
                   </form>
-                </div>
+                </div>       
               </div>
             </div>
           </div>
+          <div className="mt-4">
+                    {posts.map((post) => (
+                      <div className="row justify-content-center">
+                        <div className="col-lg-5 mb-4">
+                          <Post
+                            post={post}
+                            currentUser={user}
+                            history={history}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
         </div>
+        
         <div className="col-lg-3">
           <div className="card mt-5">
             <div className="card-body">
@@ -280,13 +294,6 @@ const Home = ({
           </div>
         </div>
       </div>
-      {posts ? posts.map((post) => (
-        <div className="row justify-content-center">
-          <div className="col-lg-5 mb-4">
-            <Post post={post} currentUser={user} history={history} />
-          </div>
-        </div>
-      )) : ""}
     </div>
   );
 };
