@@ -10,8 +10,6 @@ import { connect } from "react-redux"
 import PropTypes from 'prop-types';
 
 
-
-
 const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut}) => {
     
     const [user, setUser] = useState({
@@ -89,7 +87,6 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut}) 
         //       })
         //     }
             //  )
-
         
             /*
             const requestOptions2 = {
@@ -117,13 +114,12 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut}) 
           <GeneralCard user={userProfile} loggedInUser={loggedInUser}/>
           <Biography bioText={userProfile.biography}/>
           {(user.typeOfUser == 'Company') ? 
+
           <Employees employees={userProfile.typeUser.employees}/>  : 
           <h3></h3> }
           {(user.typeOfUser == 'Company') ? 
           <Documents document_urls={userProfile.typeUser.documents}/>  : 
           <h3></h3> }
-
-
       </div>
     )
 }

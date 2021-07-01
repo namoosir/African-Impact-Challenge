@@ -1,7 +1,9 @@
 import React from "react";
 import HeaderAuth from "../AuthHeader";
 import Post from "./Post";
+
 import ModuleCard from "./ModuleCard"
+
 
 
 import { useState, useEffect } from "react";
@@ -78,6 +80,7 @@ const Home = ({
         isAuthenticated={isAuthenticated}
         history={history}
       />
+
 
       <div className="row d-flex justify-content-center">
         <div className="col-lg-3">

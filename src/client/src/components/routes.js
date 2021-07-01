@@ -10,6 +10,7 @@ import ProfileSearchPage from './ProfileSearchPage/ProfileSearchPage'
 import ProfileEditPage from './ProfileEditPage/ProfileEditPage'
 import Module from "./modules/module"
 
+
 const Routes = () => {
     return (
         <Router>
@@ -22,7 +23,9 @@ const Routes = () => {
             <Route exact path='/profile' component={ProfilePage}></Route>
             <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
             <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
+
             <Route exact path='/module' component={Module}></Route>
+
 
         </Router>
     );

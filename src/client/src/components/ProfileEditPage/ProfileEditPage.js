@@ -16,6 +16,7 @@ const ProfileEditPage = ({user}) => {
         "username": "arsm",
         "email": "muse@lhars",
         "password": "i123",
+
         "typeOfUser": "Company",
         "typeUser": {
             "documents":[
@@ -32,8 +33,6 @@ const ProfileEditPage = ({user}) => {
         "imageFormData": "None"
     });
 
-    
-
     const [userEdit, setUserEdit] = useState({
         userEdit: user2
     });
@@ -45,7 +44,6 @@ const ProfileEditPage = ({user}) => {
 
         //basic update request
 
-        
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -56,6 +54,37 @@ const ProfileEditPage = ({user}) => {
               .then(response => response.json())
               .then(data => console.log(data))
 
+
+
+
+        // image update request
+        /*
+        const requestOptions2 = {
+            method: 'POST',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            body: userEdit.userEdit.imageFormData,
+          };
+          
+          fetch(`http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`, requestOptions2)
+              .then(response => response.json())
+              .then(data => console.log(data))
+          
+
+        */  
+
+//             console.log("formata?", userEdit.userEdit.imageFormData)
+//             const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
+
+//             let imageFormData = new FormData();
+//             imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
+//             const formData = imageFormData
+
+//             console.log("format2?", formData)
+//             const config = {     
+//                 headers: { 'content-type': 'multipart/form-data' }
+//             }
+
+//             axios.post(url, formData, config)
 
             if(userEdit.userEdit.imageFormData !== "None") {
                 const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
@@ -98,14 +127,13 @@ const ProfileEditPage = ({user}) => {
             }
 
             axios.post(url2, formData2, config2)
+
             .then(response => {
                 console.log(response);
             })
             .catch(error => {
                 console.log(error);
             });
-
-            
 
 
     }

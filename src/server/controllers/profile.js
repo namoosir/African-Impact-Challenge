@@ -4,6 +4,7 @@ const Partner = require('../models/partner');
 const Company = require('../models/company')
 
 const User = require('../models/user')
+const imagesPath = './server/images'
 
 const imagesPath = './server/images'
 const documentPath = './server/documents'
@@ -26,8 +27,6 @@ const user_details = (req, res) => {
     });
 } 
 
-
-
 const get_all_profiles = async (req, res) => {
   var ans = [];
   var final = [];
@@ -42,6 +41,57 @@ const get_all_profiles = async (req, res) => {
   }
 
   res.send(final)
+
+}
+
+
+async function myPop2(post) {
+  let itemPopulated = await post.populate({path: "typeUser", model: post.typeOfUser}).execPopulate();
+  return itemPopulated
+  
+  } 
+const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
+
+const user_updates = (req, res) =>{
+  User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
+  .then(result => {
+    const typeofUser = result.typeOfUser;
+    userType[typeofUser].findByIdAndUpdate({_id: result.typeUser}, req.body.typeUser)
+    .then(() => {
+      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})
+    })
+    .catch(err => {console.log(err)})
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+const get_image = (req, res) =>{
+  const id = req.params.id;
+  User.findById(id)
+    .then(result => {
+      res.sendFile(result.image, {root: imagesPath })   
+    }) 
+}
+
+const save_image = (req, res) =>{
+  
+  expect(req.files.imageURL, 'file needed').to.exist;
+  const expensesFile = req.files.imageURL[0];
+
+  const fileName = (expensesFile.path).split('/');
+
+  User.findByIdAndUpdate(req.params.id, {image: fileName[fileName.length-1] }).then(result => res.sendStatus(200))
+  
+}
+
+//timestamp = new Date().getTime().toString();
+
+/* 
+const blog_create_get = (req, res) => {
+  res.render('create', { title: 'Create a new blog' });
+
 }
 
 
@@ -140,4 +190,5 @@ module.exports = {
   save_image,
   get_document,
   save_documents
+
 }
