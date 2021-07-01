@@ -5,7 +5,6 @@ const Company = require('../models/company')
 const User = require('../models/user')
 const imagesPath = './server/images'
 
-const imagesPath = './server/images'
 const documentPath = './server/documents'
 
 const userType = {"Entrepreneur": Entrepreneur,
@@ -14,9 +13,6 @@ const userType = {"Entrepreneur": Entrepreneur,
                 "Company": Company}
 
 const { expect } = require('chai');
-
-const { expect } = require('chai');
-
 
 const user_details = (req, res) => {
   const id = req.params.id;
@@ -53,8 +49,7 @@ async function myPop2(post) {
   let itemPopulated = await post.populate({path: "typeUser", model: post.typeOfUser}).execPopulate();
   return itemPopulated
   
-  } 
-const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
+}
 
 const user_updates = (req, res) =>{
   User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
@@ -89,57 +84,12 @@ const save_image = (req, res) =>{
   User.findByIdAndUpdate(req.params.id, {image: fileName[fileName.length-1] }).then(result => res.sendStatus(200))
   
 }
-
-//timestamp = new Date().getTime().toString();
-
-/* 
-const blog_create_get = (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
-
-}
-
 
 async function myPop2(post) {
   let itemPopulated = await post.populate({path: "typeUser", model: post.typeOfUser}).execPopulate();
   return itemPopulated
   
-  } 
-
-const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
-
-const user_updates = (req, res) =>{
-  User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
-  .then(result => {
-    const typeofUser = result.typeOfUser;
-    userType[typeofUser].findByIdAndUpdate({_id: result.typeUser}, req.body.typeUser)
-    .then(() => {
-      result.populate({path: "typeUser", model: result.typeOfUser}, function (err,result) {res.send(result)})
-    })
-    .catch(err => {console.log(err)})
-  })
-  .catch(err => {
-    console.log(err);
-  })
-}
-
-const get_image = (req, res) =>{
-  const id = req.params.id;
-  User.findById(id)
-    .then(result => {
-      res.sendFile(result.image, {root: imagesPath })   
-    }) 
-}
-
-const save_image = (req, res) =>{
-  
-  expect(req.files.imageURL, 'file needed').to.exist;
-  const expensesFile = req.files.imageURL[0];
-
-  const fileName = (expensesFile.path).split('/');
-  console.log(fileName[fileName.length-1])
-  User.findByIdAndUpdate(req.params.id, {image: fileName[fileName.length-1] }).then(result => res.sendStatus(200))
-  
-}
+  }
 
 const get_document = (req, res) =>{
   const name = req.params.name;
@@ -176,15 +126,6 @@ const save_documents = (req, res) =>{
       })
     }) 
 }
-
-
-/* documentsList = result.documents;
-documentsList.push(fileName);
-User.findByIdAndUpdate(req.params.id, {documents: documentsList }).then(result => res.sendStatus(200)) */
-
-//timestamp = new Date().getTime().toString();
-
-
 
 module.exports = {
   user_details,

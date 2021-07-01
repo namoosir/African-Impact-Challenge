@@ -9,10 +9,14 @@ import ProfilePage from './ProfilePage/ProfilePage'
 import ProfileSearchPage from './ProfileSearchPage/ProfileSearchPage'
 import ProfileEditPage from './ProfileEditPage/ProfileEditPage'
 import Module from "./modules/module"
+import header from "./AuthHeader"
+import {connect} from "react-redux"
 
 
-const Routes = () => {
+const Routes = ({user, isAuthenticated}) => {
     return (
+        <div>
+        <header user={user} isAuthenticated={isAuthenticated}/>
         <Router>
             <Route exact path='/home' component={Home}/>
             <Route exact path='/register' component={Register}/>
@@ -28,8 +32,15 @@ const Routes = () => {
 
 
         </Router>
+        </div>
     );
 };
 
-export default Routes
+const mapStateToProps = (state) => ({
+    user: state.user.user.sentUser,
+    isAuthenticated: state.user.isAuthenticated,  
+  })
+  
+  export default connect(mapStateToProps, {
+  })(Routes);
 
