@@ -9,20 +9,22 @@ const { post } = require('../routes/routes');
 
 const create_post = async (req, res) => {
 
+    const {title, text, image} = req.body.post;
     const post = new Posts({
-        text: req.body.text,
-        image: req.body.image,
-        poster: req.body.id,
+        title: title,
+        text: text,
+        image: image,
+        poster: req.body.user.id,
     });
 
     refPost = await post.save();
 
-    res.send(refPost);
+    res.status(200).json(refPost);
 }
 
 const add_comment = async (req, res) => {
 
-    postid = req.body.id;
+    postid = req.body.post;
     commenter = req.body.commenter;
     comment = req.body.comment;
 
@@ -34,9 +36,9 @@ const add_comment = async (req, res) => {
   
     post.comments.push({comment:comment, user:commenter});
 
-  
     await post.save();
-    res.send(post);
+
+    res.status(200).json(post);
 }
 
 const get_recent_posts = async (req, res) => {
@@ -58,7 +60,9 @@ const get_recent_posts = async (req, res) => {
 
   };  
 
-  res.send(ans);
+  const sentPosts = ans;
+
+  res.status(200).json(sentPosts);
 }
 
 async function myPop(post, field) {
@@ -69,7 +73,6 @@ return itemPopulated
 
 const edit_post = async (req, res) => {
   text = req.body.text;
-  image = req.body.image;
   postid = req.body.id;
 
   const post = await Posts.findById(postid);
@@ -79,16 +82,15 @@ const edit_post = async (req, res) => {
   }
 
   post.text = text;
-  post.image = image;
 
   await post.save();
-  res.send(post);
+  res.status(200).send(post);
 
 }
 
 const remove_post = async (req, res) => {
-  postid = req.id;
-  await Posts.deleteOne({id: postid});
+  postid = req.body.id;
+  await Posts.deleteOne({_id: postid});
 }
 
 
