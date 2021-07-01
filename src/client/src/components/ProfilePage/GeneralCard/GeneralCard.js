@@ -9,7 +9,6 @@ import main from '../../stylesheets/main.css';
 const GeneralCard = ({user, loggedInUser}) => {
 
     return (
-
         <div className='container margins'>
             <div className='card'>
             <Banner className="card-img-top" picURL={user.image}/>

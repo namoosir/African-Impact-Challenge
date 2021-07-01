@@ -13,6 +13,9 @@ const postController = require('../controllers/posts')
 // const userController = require('../controllers/profile');
 const postController = require('../controllers/posts')
 
+// const userController = require('../controllers/profile');
+const postController = require('../controllers/posts')
+
 const express = require('express');
 const router = express.Router();
 

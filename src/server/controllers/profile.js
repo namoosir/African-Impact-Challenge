@@ -15,6 +15,7 @@ const userType = {"Entrepreneur": Entrepreneur,
 
 const { expect } = require('chai');
 
+const { expect } = require('chai');
 
 
 const user_details = (req, res) => {
@@ -45,7 +46,6 @@ const get_all_profiles = async (req, res) => {
   }
 
   res.send(final)
-
 }
 
 

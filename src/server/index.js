@@ -69,7 +69,6 @@ app.get('/add', (req, res) => {
     email: 'mutase@lhars',
     password: 'hi123',
     typeOfUser: 'Partner',
-
     typeUser: ins._id
   })
 
@@ -87,7 +86,6 @@ app.get('/add', (req, res) => {
     console.log(err);
   });
 });
-
 
 //app.use(passport.initialize());
 

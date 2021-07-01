@@ -42,7 +42,6 @@ const Home = ({
     loadPosts(user, history);
   }, []);
 
-
   useEffect(() => {
     if (isLoggedOut) {
       history.push("/login");

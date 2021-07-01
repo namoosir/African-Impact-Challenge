@@ -38,12 +38,10 @@ const ProfileEditPage = ({user}) => {
     });
 
     function handleUpdate(){
-
         console.log('handle');
         console.log(userEdit.userEdit);
 
         //basic update request
-
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -53,7 +51,6 @@ const ProfileEditPage = ({user}) => {
           fetch(`http://localhost:3001/profile/edit/${userEdit.userEdit.id}`, requestOptions)
               .then(response => response.json())
               .then(data => console.log(data))
-
 
 
 
@@ -134,7 +131,6 @@ const ProfileEditPage = ({user}) => {
             .catch(error => {
                 console.log(error);
             });
-
 
     }
 
