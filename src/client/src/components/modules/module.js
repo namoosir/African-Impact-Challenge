@@ -16,8 +16,8 @@ const Module = ({ user, isAuthenticated, history, module }) => {
         <div className="card module my-4">
           <div className="card-body">
             <h1 className="card-title text-center">
-              {module && module.nameOfModule
-                ? module.nameOfModule
+              {module && module.name
+                ? module.name
                 : "CSCC01: Introduction to Software Engineering"}
             </h1>
             <div className="bg-light">
@@ -40,6 +40,7 @@ const Module = ({ user, isAuthenticated, history, module }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
+  module: state.module.clickedModule,
   isAuthenticated: state.user.isAuthenticated,
 });
 

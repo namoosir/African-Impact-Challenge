@@ -90,9 +90,7 @@ export const editingPost = () => (dispatch) => {
 };
 
 export const cancelEdit = () => (dispatch) => {
-    dispatch({
-        type: CANCEL_EDIT
-    })
-}
-
-
+  dispatch({
+    type: CANCEL_EDIT,
+  });
+};

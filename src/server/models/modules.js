@@ -6,7 +6,7 @@ const ModulesSchema = new Schema({
         type: String,
     },
     user: {
-        type: Schema.Types.ObjectId, ref: "Instructor"
+        type: Schema.Types.ObjectId, ref: "User"
     },
     assignments: [{
         type: String, //array of assignment document names
