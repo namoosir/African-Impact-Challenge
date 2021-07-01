@@ -25,6 +25,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isCreatingModule: true,
+        hasCreatedModule: false,
       };
     case CREATE_MODULE:
       return {

@@ -21,6 +21,7 @@ import {
   loadModules,
   cancelCreatingModule,
 } from "../../actions/moduleAction";
+import { has } from "express-mongo-sanitize";
 
 const Home = ({
   user,
@@ -57,7 +58,7 @@ const Home = ({
   useEffect(() => {
     loadPosts(user, history);
     loadModules(history);
-    console.log(modules);
+    console.log(modules, isCreatingModule, hasCreatedModule);
   }, []);
 
   const onSubmitPost = (e) => {
@@ -89,6 +90,7 @@ const Home = ({
     });
 
     createModules(module, user, history);
+    onCancelCreateModule(e);
     window.location.reload();
   };
 
@@ -264,25 +266,21 @@ const Home = ({
                       Create
                     </button>
                   </form>
-                </div>       
+                </div>
               </div>
             </div>
           </div>
           <div className="mt-4">
-                    {posts.map((post) => (
-                      <div className="row justify-content-center">
-                        <div className="col-lg-5 mb-4">
-                          <Post
-                            post={post}
-                            currentUser={user}
-                            history={history}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+            {posts.map((post) => (
+              <div className="row justify-content-center">
+                <div className="col-lg-5 mb-4">
+                  <Post post={post} currentUser={user} history={history} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        
+
         <div className="col-lg-3">
           <div className="card mt-5">
             <div className="card-body">
