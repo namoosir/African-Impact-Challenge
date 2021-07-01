@@ -1,7 +1,7 @@
 import React from "react";
 import HeaderAuth from "../AuthHeader";
 import Post from "./Post";
-import ModuleCard from "./ModuleCard"
+import ModuleCard from "./ModuleCard";
 
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
@@ -15,6 +15,13 @@ import {
   deletePost,
 } from "../../actions/postAction";
 
+import {
+  createModules,
+  isCreating,
+  loadModules,
+  cancelCreatingModule,
+} from "../../actions/moduleAction";
+
 const Home = ({
   user,
   posts,
@@ -26,6 +33,12 @@ const Home = ({
   loadPosts,
   editPost,
   deletePost,
+  createModules,
+  loadModules,
+  isCreating,
+  isCreatingModule,
+  hasCreatedModule,
+  cancelCreatingModule,
 }) => {
   const [post, setPost] = useState({
     title: "",
@@ -33,10 +46,16 @@ const Home = ({
     image: "",
   });
 
+  const [newModule, setNewModule] = useState({
+    nameModule: "",
+  });
+
   const { title, text, image } = post;
+  const { nameModule } = newModule;
 
   useEffect(() => {
     loadPosts(user, history);
+    loadModules(history);
   }, []);
 
   const onSubmitPost = (e) => {
@@ -56,9 +75,44 @@ const Home = ({
     window.location.reload();
   };
 
+  const onSubmitModule = (e) => {
+    e.preventDefault();
+
+    const module = {
+      title: nameModule,
+    };
+
+    setNewModule({
+      nameModule: "",
+    });
+
+    createModules(module, user, history);
+  };
+
+  const onCreateModule = (e) => {
+    e.preventDefault();
+
+    isCreating();
+    history.push("/home");
+  };
+
+  const onCancelCreateModule = (e) => {
+    e.preventDefault();
+
+    cancelCreatingModule();
+    history.push("/home");
+  };
+
   const onChange = (e) => {
     setPost({
       ...post,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onChangeModule = (e) => {
+    setNewModule({
+      ...newModule,
       [e.target.name]: e.target.value,
     });
   };
@@ -74,11 +128,58 @@ const Home = ({
         <div className="col-lg-3">
           <div className="container">
             <div className="card mt-5">
-              <div className="card-body text-center">
-                <h3 className="card-title text-center">Modules</h3>
+              <div className="card-body">
+                <h2 className="card-title text-center">Modules</h2>
+                {user &&
+                user.typeOfUser === "Instructor" &&
+                !isCreatingModule ? (
+                  <form onSubmit={onCreateModule}>
+                    <div className="text-center">
+                      <button className="btn btn-success text-center">
+                        Create Module
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  ""
+                )}
 
-                <ModuleCard/>
+                {isCreatingModule ? (
+                  <>
+                    <hr></hr>
+                    <form onSubmit={onSubmitModule} className="mt-3 text-left">
+                      <label htmlFor="nameModule" className="text-left mb-0">
+                        <h5>Name of Module</h5>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="nameModule"
+                        id="nameModule"
+                        value={nameModule}
+                        onChange={onChangeModule}
+                      ></input>
+                      <div className="text-center">
+                        <button type="submit" className="btn btn-success mt-3">
+                          Create Module
+                        </button>
+                      </div>
+                    </form>
+                    <form
+                      className="text-center"
+                      onSubmit={onCancelCreateModule}
+                    >
+                      <button type="submit" className="btn btn-danger mt-2">
+                        Cancel
+                      </button>
+                    </form>
+                    <hr></hr>
+                  </>
+                ) : (
+                  ""
+                )}
 
+                <ModuleCard />
               </div>
             </div>
           </div>
@@ -160,7 +261,10 @@ const Home = ({
         <div className="col-lg-3">
           <div className="card mt-5">
             <div className="card-body">
-              <h3 className="card-title text-center"> Upcoming Events </h3>
+              <h3 className="card-title text-center mb-3"> Upcoming Events </h3>
+              <h5 className="text-center">
+                This section is currently under development!!
+              </h5>
             </div>
           </div>
         </div>
@@ -186,9 +290,12 @@ Home.propTypes = {
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
   posts: state.post.posts,
+  modules: state.module.modules,
   isDeleted: state.post.isDeleted,
   isAuthenticated: state.user.isAuthenticated,
   isLoggedOut: state.user.isLoggedOut,
+  isCreatingModule: state.module.isCreatingModule,
+  hasCreatedModule: state.module.hasCreatedModule,
 });
 
 export default connect(mapStateToProps, {
@@ -196,4 +303,8 @@ export default connect(mapStateToProps, {
   loadPosts,
   editPost,
   deletePost,
+  createModules,
+  isCreating,
+  loadModules,
+  cancelCreatingModule,
 })(Home);
