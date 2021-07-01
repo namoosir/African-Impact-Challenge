@@ -1,7 +1,7 @@
 import React from 'react'
 import Banner from './Banner'
 import ProfileInfo from './ProfileInfo'
-import { Component, useState } from 'react'
+import { Component, useState, useEffect } from 'react'
 import PropTypes from 'prop-types';
 
 import main from '../../stylesheets/main.css';
@@ -9,6 +9,7 @@ import main from '../../stylesheets/main.css';
 const GeneralCard = ({user, loggedInUser}) => {
 
     return (
+
         <div className='container margins'>
             <div className='card'>
             <Banner className="card-img-top" picURL={user.image}/>
