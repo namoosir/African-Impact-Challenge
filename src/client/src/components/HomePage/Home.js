@@ -25,6 +25,7 @@ import {
 const Home = ({
   user,
   posts,
+  modules,
   isAuthenticated,
   isLoggedOut,
   isDeleted,
@@ -56,6 +57,7 @@ const Home = ({
   useEffect(() => {
     loadPosts(user, history);
     loadModules(history);
+    console.log(modules);
   }, []);
 
   const onSubmitPost = (e) => {
@@ -79,7 +81,7 @@ const Home = ({
     e.preventDefault();
 
     const module = {
-      title: nameModule,
+      name: nameModule,
     };
 
     setNewModule({
@@ -87,6 +89,7 @@ const Home = ({
     });
 
     createModules(module, user, history);
+    window.location.reload();
   };
 
   const onCreateModule = (e) => {
@@ -179,7 +182,15 @@ const Home = ({
                   ""
                 )}
 
-                <ModuleCard />
+                {modules.length > 0 ? (
+                  modules.map((module) => <ModuleCard module={module} history={history} />)
+                ) : (
+                  <div className="text-center mt-3">
+                    <h4 className="text-light">
+                      Modules on the work!
+                    </h4>
+                  </div>
+                )}
               </div>
             </div>
           </div>

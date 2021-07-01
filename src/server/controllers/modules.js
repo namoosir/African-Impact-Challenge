@@ -12,11 +12,13 @@ const create_module = async (req, res) => {
     const module = new Modules({
         name: req.body.name,
         user: req.params.id,
-        assignments: req.body.assignments,
-        content: req.body.content
+        assignments: [],
+        content: []
     });
 
-    refModule = await post.save();
+    console.log(module);
+
+    const refModule = await module.save();
 
     res.status(200).json(refModule);
 }
@@ -28,15 +30,19 @@ const get_recent_modules = async (req, res) => {
     var ans = [];
    
     for (const module of result) {
-       var populated = await myPop(module, 'user').then(function(result) {
+       var populated = await myPop(module, "user").then(function(result) {
         return result 
      }) 
+
+     console.log(populated);
       
      ans.push(populated)
   
     };  
   
     const sentModules = ans;
+
+    console.log(sentModules);
   
     res.status(200).json(sentModules);
 }

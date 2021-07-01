@@ -3,12 +3,14 @@ import {
   CREATE_MODULE,
   CREATE_MODULE_TRY,
   CANCEL_CREATE_MODULE,
+  GET_CLICKED_MODULE,
 } from "../actions/types";
 
 const initialState = {
   isCreatingModule: false,
   hasCreatedModule: false,
   modules: {},
+  clickedModule: {},
 };
 
 export default function (state = initialState, action) {
@@ -22,20 +24,25 @@ export default function (state = initialState, action) {
     case CREATE_MODULE_TRY:
       return {
         ...state,
-        isCreatingModule: true
+        isCreatingModule: true,
       };
     case CREATE_MODULE:
       return {
-          ...state,
-          isCreatingModule: false,
-          hasCreatedModule: true
-      }
+        ...state,
+        isCreatingModule: false,
+        hasCreatedModule: true,
+      };
     case CANCEL_CREATE_MODULE:
-        return {
-            ...state,
-            isCreatingModule: false
-        }
-      default:
-          return state
+      return {
+        ...state,
+        isCreatingModule: false,
+      };
+    case GET_CLICKED_MODULE:
+      return {
+        ...state,
+        clickedModule: payload,
+      };
+    default:
+      return state;
   }
 }
