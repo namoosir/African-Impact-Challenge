@@ -5,6 +5,7 @@ const uploadDocument = multer({ dest: 'server/documents/' })
 const uploadImage = multer({ dest: 'server/images/' })
 
 const userController = require('../controllers/profile');
+const postController = require('../controllers/posts')
 
 // const userController = require('../controllers/profile');
 const postController = require('../controllers/posts')
@@ -26,6 +27,8 @@ router.get('/profile/getImage/:id', userController.get_image)
 router.get('/profile/getDocument/:name', userController.get_document)
 
 router.get('/profile/:id', userController.user_details);
+router.put('/edit/:id', userController.user_updates)
+
 
 router.post("/register", registerUser)
 

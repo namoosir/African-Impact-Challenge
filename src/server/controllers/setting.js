@@ -59,7 +59,7 @@ module.exports.loginUser2 = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   const { id, email, name, username, typeUser, typeOfUser } = req.body;
-  console.log("req.body: " + id);
+  //console.log("req.body: " + id);
 
   const updateUser = await User.findById(id);
   if (!updateUser) {

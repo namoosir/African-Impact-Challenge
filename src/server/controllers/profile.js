@@ -2,12 +2,16 @@ const Entrepreneur = require('../models/entrepreneur')
 const Instructor = require('../models/instructor')
 const Partner = require('../models/partner');
 const Company = require('../models/company')
-
 const User = require('../models/user')
 const imagesPath = './server/images'
 
 const imagesPath = './server/images'
 const documentPath = './server/documents'
+
+const userType = {"Entrepreneur": Entrepreneur,
+                "Instructor": Instructor,
+                "Partner": Partner,
+                "Company": Company}
 
 const { expect } = require('chai');
 
@@ -190,5 +194,4 @@ module.exports = {
   save_image,
   get_document,
   save_documents
-
 }
