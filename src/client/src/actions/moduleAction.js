@@ -38,7 +38,6 @@ export const createModules = (module, user, history) => (dispatch) => {
 };
 
 export const clickedModule = (module) => (dispatch) => {
-  alert(module.name);
   dispatch({
     type: GET_CLICKED_MODULE,
     payload: module,

@@ -1,12 +1,18 @@
 import AuthHeader from "../AuthHeader";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
+
+import Assignment from "./AssignmentUploadCard/Assignment"
 
 import moduleStylesheet from "../stylesheets/module.css";
 
 const Module = ({ user, isAuthenticated, history, module }) => {
+
+  const [moduleEdit, setModuleEdit] = useState({
+    moduleEdit: module
+});
 
   useEffect(() => {
     console.log(module)
@@ -33,6 +39,7 @@ const Module = ({ user, isAuthenticated, history, module }) => {
 
             <div className="text-center my-3">
                 <h3 className="ms-3 bg-light assignment d-inline-block px-2 py-2">Assignments</h3>
+                <Assignment module={module} moduleEdit={moduleEdit} setModuleEdit={setModuleEdit}/>
             </div>
 
             <div className="text-center mt-3">
