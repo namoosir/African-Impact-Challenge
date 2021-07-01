@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { LOAD_PROFILE } from "./types";
+import { LOAD_PROFILE, LOAD_SELF_PROFILE } from "./types";
 
 export const getProfile = (profiler, history) => (dispatch) => {
   let imageRes;
@@ -34,3 +34,10 @@ export const getProfile = (profiler, history) => (dispatch) => {
       console.log(err);
     });
 };
+
+export const loadSelfProfile = (profile) => (dispatch) => {
+  dispatch({
+    type: LOAD_SELF_PROFILE,
+    payload: profile
+  })
+}
