@@ -36,6 +36,10 @@ router.get("/getrec", postController.get_recent_posts)
 router.put("/editpost", postController.edit_post)
 router.put("/deletepost", postController.remove_post)
 
+router.put("/createModule/:id", moduleController.create_module)
+router.get("/getrecmodules", moduleController.get_recent_modules)
+router.put("/deletemodule", moduleController.delete_module)
+
 
 router.put('/profile/edit/:id', userController.user_updates)
 
