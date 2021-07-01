@@ -4,6 +4,7 @@ const Partner = require('../models/partner');
 const Company = require('../models/company')
 
 const User = require('../models/user')
+
 const imagesPath = './server/images'
 const documentPath = './server/documents'
 
@@ -24,6 +25,7 @@ const user_details = (req, res) => {
       console.log(err);
     });
 } 
+
 
 
 const get_all_profiles = async (req, res) => {
@@ -128,32 +130,7 @@ User.findByIdAndUpdate(req.params.id, {documents: documentsList }).then(result =
 
 //timestamp = new Date().getTime().toString();
 
-/* 
-const blog_create_get = (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
-}
 
-const blog_create_post = (req, res) => {
-  const blog = new Blog(req.body);
-  blog.save()
-    .then(result => {
-      res.redirect('/blogs');
-    })
-    .catch(err => {
-      console.log(err);
-    });
-}
-
-const blog_delete = (req, res) => {
-  const id = req.params.id;
-  Blog.findByIdAndDelete(id)
-    .then(result => {
-      res.json({ redirect: '/blogs' });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-} */
 
 module.exports = {
   user_details,
@@ -163,7 +140,4 @@ module.exports = {
   save_image,
   get_document,
   save_documents
-  //blog_create_get, 
-  //blog_create_post, 
-  //blog_delete
 }

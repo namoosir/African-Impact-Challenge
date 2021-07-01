@@ -18,10 +18,12 @@ const Routes = () => {
             <Route exact path='/login' component={Login}></Route>
             <Route exact path='/update/settings' component={UpdateSettings}></Route>
             <Route exact path='/auth/settings' component={AuthSettings}></Route>
+
             <Route exact path='/profile' component={ProfilePage}></Route>
             <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
             <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
             <Route exact path='/module' component={Module}></Route>
+
         </Router>
     );
 };

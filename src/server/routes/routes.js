@@ -9,6 +9,9 @@ const userController = require('../controllers/profile');
 // const userController = require('../controllers/profile');
 const postController = require('../controllers/posts')
 
+// const userController = require('../controllers/profile');
+const postController = require('../controllers/posts')
+
 const express = require('express');
 const router = express.Router();
 
@@ -40,6 +43,7 @@ router.put("/editpost", postController.edit_post)
 router.put("/deletepost", postController.remove_post)
 
 
+
 router.put('/profile/edit/:id', userController.user_updates)
 
 router.post('/profile/editImage/:id',
@@ -55,6 +59,7 @@ router.post('/profile/addDocuments/:id',
 	]),
     userController.save_documents
 );
+
 
 module.exports = router;
   
