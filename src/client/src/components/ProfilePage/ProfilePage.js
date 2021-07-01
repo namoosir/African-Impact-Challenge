@@ -1,5 +1,5 @@
 import React from 'react'
-import { Component, useState } from 'react'
+import { Component, useState, useEffect } from 'react'
 
 import GeneralCard from './GeneralCard/GeneralCard';
 import Biography from './Biography/Biography';
@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 
 
 
-const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
+const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut, history}) => {
     
     const [user, setUser] = useState({
       "_id": "60dbc77aeda7da46a1baa945",
@@ -59,6 +59,11 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut}) => {
         }
     )
     */
+    useEffect(() => {
+      if (!isAuthenticated) {
+        history.push('/login');
+      }
+    }, [isAuthenticated])
 
     React.useEffect(() => {
     

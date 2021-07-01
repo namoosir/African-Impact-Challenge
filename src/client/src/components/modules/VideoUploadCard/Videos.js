@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ReactComponent as SvgPlus } from '../../../svgs/Plus.svg'
 import banner from '../../../svgs/simple-blue.jpg'
 
-export const Videos = ({user, userEdit, setUserEdit}) => {
+export const Videos = ({user, userEdit, setUserEdit, module}) => {
 
     function handleNewFile(event){
         // setUserEdit(prevState => ({
@@ -49,7 +49,7 @@ export const Videos = ({user, userEdit, setUserEdit}) => {
     )
 }
 
-Documents.propTypes = {
+Videos.propTypes = {
     /**
      * This represents the URL of the document that will be seen
      */

@@ -34,14 +34,14 @@ export const SingleVideo = ({video_url, user, userEdit, setUserEdit}) => {
 
 
 
-SingleDoc.propTypes = {
+SingleVideo.propTypes = {
     /**
      * This represents the URL of the document that will be seen
      */
     video_url: PropTypes.string,
 };
 
-SingleDoc.defaultProps = {
+SingleVideo.defaultProps = {
     video_url: "/home/andy/Documents/1.mp4"
 };
 
