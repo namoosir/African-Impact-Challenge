@@ -90,6 +90,7 @@ const Home = ({
     });
 
     createModules(module, user, history);
+    onCancelCreateModule(e);
     window.location.reload();
   };
 
