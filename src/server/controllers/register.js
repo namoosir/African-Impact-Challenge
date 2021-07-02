@@ -42,7 +42,6 @@ module.exports.registerUser = async (req, res) => {
     refUser = await instructor.save();
   }
 
-
   const newUser = new User({
     username: req.body.username,
     name: req.body.name,
@@ -52,15 +51,21 @@ module.exports.registerUser = async (req, res) => {
     typeUser: refUser._id,
   });
 
-  bcrypt.genSalt(saltRounds, async (err, salt) => {
-    bcrypt.hash(newUser.password, salt, async (err, hash) => {
-      if (err) {
-        throw err;
-      } else {
-        newUser.password = hash;
-      }
-    });
-  });
+  await Promise.all([
+    new Promise((resolve, reject) => {
+      bcrypt.genSalt(saltRounds, async (err, salt) => {
+        bcrypt.hash(newUser.password, salt, async (err, hash) => {
+          if (err) {
+            resolve();
+            throw err;
+          } else {
+            resolve();
+            newUser.password = hash;
+          }
+        });
+      });
+    }),
+  ]);
 
   savedUser = await newUser.save();
 
@@ -70,11 +75,11 @@ module.exports.registerUser = async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     typeOfUser: req.body.typeOfUser,
-    typeUser: refUser._id
+    typeUser: refUser._id,
   };
 
   const payload = {
-    username: sentUser.username
+    username: sentUser.username,
   };
 
   jwt.sign(
@@ -85,10 +90,7 @@ module.exports.registerUser = async (req, res) => {
     },
     (err, token) => {
       if (err) throw err;
-      console.log(token);
       res.status(200).json({ token, sentUser });
     }
   );
 };
-
-

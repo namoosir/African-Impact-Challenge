@@ -8,9 +8,6 @@ const Modules = require('../models/modules');
 
 
 const create_module = async (req, res) => {
-    console.log(req.body.name)
-    console.log(req.params.id)
-
 
     const module = new Modules({
         name: req.body.name,
@@ -19,7 +16,6 @@ const create_module = async (req, res) => {
         content: []
     });
 
-    console.log(module);
 
     const refModule = await module.save();
 
@@ -36,16 +32,12 @@ const get_recent_modules = async (req, res) => {
        var populated = await myPop(module, "user").then(function(result) {
         return result 
      }) 
-
-     console.log(populated);
       
      ans.push(populated)
   
     };  
   
     const sentModules = ans;
-
-    console.log(sentModules);
   
     res.status(200).json(sentModules);
 }

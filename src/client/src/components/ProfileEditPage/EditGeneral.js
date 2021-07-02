@@ -47,13 +47,6 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
         return URL.createObjectURL(user.imageFile)
 
     }
-
-
-
-
-    useEffect(() =>{
-        console.log(userEdit)
-    });
     
     return (
         <div className="container margins edit_general">

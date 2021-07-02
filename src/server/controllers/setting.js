@@ -13,8 +13,6 @@ const saltRounds = 10;
 let id = 0;
 
 module.exports.loginUser2 = async (req, res) => {
-  console.log(req.body);
-
   
   const { email, password } = req.body;
 
@@ -45,9 +43,8 @@ module.exports.loginUser2 = async (req, res) => {
           typeOfUser: userCheck.typeOfUser,
           typeUser: userCheck.typeUser,
         };
-        console.log(user);
         res.json({
-          token: "Bearer " + token,
+          token: token,
           user,
         });
       }
@@ -59,7 +56,6 @@ module.exports.loginUser2 = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
   const { id, email, name, username, typeUser, typeOfUser } = req.body;
-  //console.log("req.body: " + id);
 
   const updateUser = await User.findById(id);
   if (!updateUser) {
@@ -72,6 +68,5 @@ module.exports.updateUser = async (req, res) => {
 
   await updateUser.save();
   const user = { id, email, name, username, typeUser, typeOfUser };
-  console.log('here backend');
   res.status(200).json({ user });
 };

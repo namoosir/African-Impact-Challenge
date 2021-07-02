@@ -58,7 +58,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}
         <div className="navbar-nav mx-5 offset-3">
           <img
             className="profilepic"
-            src="https://thispersondoesnotexist.com/image"
+            src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
             width="50"
           ></img>
           <li className="nav-item dropdown me-5">
