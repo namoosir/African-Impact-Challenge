@@ -151,7 +151,7 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
               setUserEdit={setUserEdit}
             />
     
-            {user.typeOfUser === "Company" ? (
+            {user && user.typeOfUser === "Company" ? (
               <EditCompany
                 user={userProfile}
                 userEdit={userEdit}
