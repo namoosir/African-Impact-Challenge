@@ -1,22 +1,32 @@
-import SingleDoc from './SingleDoc'
-import PropTypes from 'prop-types';
-import { ReactComponent as SvgPlus } from '../../../svgs/Plus.svg'
-import banner from '../../../svgs/simple-blue.jpg'
+import SingleDoc from "./SingleDoc";
+import PropTypes from "prop-types";
+import { ReactComponent as SvgPlus } from "../../../svgs/Plus.svg";
+import banner from "../../../svgs/simple-blue.jpg";
 
-export const Documents = ({user, userEdit, setUserEdit}) => {
+import { connect } from "react-redux";
 
-    function handleNewFile(event){
-        setUserEdit(prevState => ({
-            userEdit: {
-                ...prevState.userEdit,
-                typeUser: {
-                    ...prevState.userEdit.typeUser,
-                    documentFiles : [...prevState.userEdit.typeUser.documentFiles, event.target.files[0]]
-                }
-            }
-        }))
+export const Documents = ({ user, userEdit, setUserEdit, loggedInUser }) => {
+  function handleNewFile(event) {
+    setUserEdit((prevState) => ({
+      userEdit: {
+        ...prevState.userEdit,
+        typeUser: {
+          ...prevState.userEdit.typeUser,
+          documentFiles: [
+            ...prevState.userEdit.typeUser.documentFiles,
+            event.target.files[0],
+          ],
+        },
+      },
+    }));
+  }
 
-    }
+  function getDocumentURL(docName) {
+    return `http://localhost:3001/profile/getDocument/${docName}`;
+  }
+  function getDocumentFile(docFile) {
+    return URL.createObjectURL(docFile);
+  }
 
 
     return (
@@ -46,16 +56,19 @@ export const Documents = ({user, userEdit, setUserEdit}) => {
                     
                 </div>
             </div>
-        </div>
-    )
-}
-
-Documents.propTypes = {
-    /**
-     * This represents the URL of the document that will be seen
-     */
-    user: PropTypes.object
+          </div>
+  );
 };
 
+Documents.propTypes = {
+  /**
+   * This represents the URL of the document that will be seen
+   */
+  user: PropTypes.object,
+};
 
-export default Documents
+const mapStateToProps = (state) => ({
+  loggedInUser: state.user.user.sentUser,
+});
+
+export default connect(mapStateToProps, {})(Documents);

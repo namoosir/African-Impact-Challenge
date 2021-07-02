@@ -1,14 +1,14 @@
-import React from 'react'
-import { Component, useState, useEffect } from 'react'
+import React from "react";
+import { Component, useState, useEffect } from "react";
 
-import GeneralCard from './GeneralCard/GeneralCard';
-import Biography from './Biography/Biography';
-import Employees from './Employees/Employees';
-import Documents from './Documents/Documents';
-import { connect } from "react-redux"
-import AuthHeader from '../AuthHeader';
+import GeneralCard from "./GeneralCard/GeneralCard";
+import Biography from "./Biography/Biography";
+import Employees from "./Employees/Employees";
+import Documents from "./Documents/Documents";
+import { connect } from "react-redux";
+import AuthHeader from "../AuthHeader";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 
 const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history}) => {
@@ -53,34 +53,33 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
     }, [isAuthenticated])
 
 
-    return (
-      <>
-        <AuthHeader
+  return (
+    <>
+      <AuthHeader
         user={loggedInUser}
         isAuthenticated={isAuthenticated}
         history={history}
       />
-        <div className="profile_edit_page mt-4">
-          <GeneralCard user={userProfile} loggedInUser={loggedInUser}/>
-          <Biography bioText={userProfile.biography}/>
-          {(userProfile.typeOfUser == 'Company') ? 
-          <Documents documents={userProfile.typeUser.documents}/>  : 
-          <h3></h3> }
+      <div className="profile_edit_page mt-4">
+        <GeneralCard user={userProfile} loggedInUser={loggedInUser} />
+        <Biography bioText={userProfile.biography} />
+        {loggedInUser && loggedInUser.typeOfUser === "Company" ? (
+          <Documents documents={userProfile.typeUser.documents} />
+        ) : (
+          <h3></h3>
+        )}
       </div>
-      </>
-    )
-}
-
+    </>
+  );
+};
 
 const mapStateToProps = (state) => ({
   loggedInUser: state.user.user.sentUser,
   isAuthenticated: state.user.isAuthenticated,
   isLoggedOut: state.user.isLoggedOut,
-  userProfile: state.profile.profile
-})
+  userProfile: state.profile.profile,
+});
 
-export default connect(mapStateToProps, {
-})(ProfilePage);
-
+export default connect(mapStateToProps, {})(ProfilePage);
 
 // export default ProfilePage

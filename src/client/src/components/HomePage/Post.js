@@ -136,7 +136,7 @@ const Post = (props) => {
               </div>
               <div className="bg-light mx-3 py-2 px-2 align-items-center title mt-3">
                 <img
-                  src="https://thispersondoesnotexist.com/image"
+                  src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                   width="75"
                   height="75"
                   className="d-inline"

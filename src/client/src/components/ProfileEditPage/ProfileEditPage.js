@@ -1,11 +1,11 @@
-import React from 'react'
-import EditGeneral from './EditGeneral'
-import EditCompany from './EditCompany'
-import { Component, useState, useEffect } from 'react'
-import profilePage from '../stylesheets/ProfileEditPage/profilePage.css'
-import { func } from 'prop-types'
+import React from "react";
+import EditGeneral from "./EditGeneral";
+import EditCompany from "./EditCompany";
+import { Component, useState, useEffect } from "react";
+import profilePage from "../stylesheets/ProfileEditPage/profilePage.css";
+import { func } from "prop-types";
 import axios from "axios";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import AuthHeader from "../AuthHeader";
 import { loadSelfProfile } from '../../actions/profileAction'
 
@@ -129,43 +129,50 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
                 })
         ])
 
-        //console.log("Promised returned");
-        loadSelfProfile(userProfile, history);
-        history.push("/profile");    
-        
+        loadSelfProfile(userProfile);
+        history.push("/profile");
         
     }
 
-
-
-
     return (
         <>
-        <AuthHeader
-        user={user}
-        isAuthenticated={isAuthenticated}
-        history={history}
-      />
-        <div className="profile_edit_page mt-4">
-            <EditGeneral user={userProfile} userEdit={userEdit} setUserEdit={setUserEdit}/>
-
-            {userProfile.typeOfUser == "Company" ? <EditCompany user={userProfile} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
-
-            <button className="apply_btn btn btn-light" onClick={handleUpdate}>Apply</button>
-
-        </div>
+          <AuthHeader
+            user={user}
+            isAuthenticated={isAuthenticated}
+            history={history}
+          />
+          <div className="profile_edit_page mt-4">
+            <EditGeneral
+              user={userProfile}
+              userEdit={userEdit}
+              setUserEdit={setUserEdit}
+            />
+    
+            {user.typeOfUser === "Company" ? (
+              <EditCompany
+                user={userProfile}
+                userEdit={userEdit}
+                setUserEdit={setUserEdit}
+              />
+            ) : (
+              <h3></h3>
+            )}
+    
+            <button className="apply_btn btn btn-light" onClick={handleUpdate}>
+              Apply
+            </button>
+          </div>
         </>
-    )
-}
+      );
+
+  }
+
 
 const mapStateToProps = (state) => ({
-    user: state.user.user.sentUser,
-    userProfile: state.profile.profile,
-    isAuthenticated: state.user.isAuthenticated,
-    isLoggedOut: state.user.isLoggedOut,
+  user: state.user.user.sentUser,
+  userProfile: state.profile.profile,
+  isAuthenticated: state.user.isAuthenticated,
+  isLoggedOut: state.user.isLoggedOut,
+});
 
-  })
-  
-  export default connect(mapStateToProps, { loadSelfProfile
-  })(ProfileEditPage);
-
+export default connect(mapStateToProps, { loadSelfProfile })(ProfileEditPage);
