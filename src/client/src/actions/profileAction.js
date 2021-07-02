@@ -20,7 +20,7 @@ export const getProfile = (profiler, history) => (dispatch) => {
         typeOfUser: res.data.typeOfUser,
         biography: res.data.biography,
         typeUser: res.data.typeUser,
-        image: `http://localhost:3001/profile/getImage/${res.data.typeUser._id}`,
+        image: `http://localhost:3001/profile/getImage/${res.data._id}`,
       };
       console.log(user);
       dispatch({
@@ -46,7 +46,7 @@ export const loadSelfProfile = (profile) => (dispatch) => {
       typeOfUser: res.data.typeOfUser,
       biography: res.data.biography,
       typeUser: res.data.typeUser,
-      image: `http://localhost:3001/profile/getImage/${res.data.typeUser._id}`,
+      image: `http://localhost:3001/profile/getImage/${res.data._id}`,
     };
     console.log(user);
     dispatch({

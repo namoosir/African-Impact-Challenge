@@ -42,7 +42,16 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history}) => {
       }, [isAuthenticated])
 
     const [userEdit, setUserEdit] = useState({
-        userEdit: userProfile
+
+        userEdit : {
+            ...userProfile,
+            imageFile : "NULL",
+            typeUser: {
+                ...userProfile.typeUser,
+                documentFiles: []
+            }
+        }
+        
     });
 
     function handleUpdate(){

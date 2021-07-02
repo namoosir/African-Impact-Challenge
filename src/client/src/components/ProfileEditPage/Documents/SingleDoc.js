@@ -12,7 +12,8 @@ export const SingleDoc = ({document_url, user, userEdit, setUserEdit}) => {
                 ...prevState.userEdit,
                 typeUser: {
                     ...prevState.userEdit.typeUser,
-                    documents : [...prevState.userEdit.typeUser.documents.filter((document) => document !== document_url)]
+                    documents : [...prevState.userEdit.typeUser.documents.filter((document) => document !== document_url)],
+                    documentFiles : [...prevState.userEdit.typeUser.documentFiles.filter((documentFile) => documentFile !== document_url)]
                 }
             }
         }))

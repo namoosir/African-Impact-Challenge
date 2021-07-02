@@ -9,6 +9,8 @@ const { post } = require('../routes/routes');
 
 const create_post = async (req, res) => {
 
+  console.log("THISISREQ",req.body)
+
     const {title, text, image} = req.body.post;
     const post = new Posts({
         title: title,
