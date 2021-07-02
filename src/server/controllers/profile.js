@@ -28,6 +28,12 @@ const user_details = (req, res) => {
     });
 } 
 
+/* documentsList = result.documents;
+documentsList.push(fileName);
+User.findByIdAndUpdate(req.params.id, {documents: documentsList }).then(result => res.sendStatus(200)) */
+
+//timestamp = new Date().getTime().toString();
+
 const get_all_profiles = async (req, res) => {
   var ans = [];
   var final = [];

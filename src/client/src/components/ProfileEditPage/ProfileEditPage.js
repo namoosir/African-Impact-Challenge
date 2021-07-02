@@ -5,8 +5,11 @@ import { Component, useState, useEffect } from 'react'
 import profilePage from '../stylesheets/ProfileEditPage/profilePage.css'
 import { func } from 'prop-types'
 import axios from "axios";
+import {connect} from "react-redux"
+import AuthHeader from "../AuthHeader";
+import { loadSelfProfile } from '../../actions/profileAction'
 
-const ProfileEditPage = ({user}) => {
+const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfProfile}) => {
 
     const [user2, setUser2] = useState({
         "id": "60dbc77aeda7da46a1baa945",
@@ -17,7 +20,6 @@ const ProfileEditPage = ({user}) => {
         "username": "arsm",
         "email": "muse@lhars",
         "password": "i123",
-
         "typeOfUser": "Company",
         "typeUser": {
             "documents":[
@@ -32,20 +34,28 @@ const ProfileEditPage = ({user}) => {
         "imageFormData": "None"
     });
 
+    
+    useEffect(() => {
+        if (!isAuthenticated) {
+          history.push('/login');
+        }
+      }, [isAuthenticated])
+
     const [userEdit, setUserEdit] = useState({
 
         userEdit : {
-            ...user2,
+            ...userProfile,
             imageFile : "NULL",
             typeUser: {
-                ...user2.typeUser,
+                ...userProfile.typeUser,
                 documentFiles: []
             }
         }
 
     });
 
-    function handleUpdate(){
+    async function handleUpdate(){
+
         console.log('handle');
         console.log(userEdit.userEdit);
 
@@ -91,73 +101,106 @@ const ProfileEditPage = ({user}) => {
 
 //             axios.post(url, formData, config)
 
-            if(userEdit.userEdit.imageFormData !== "None") {
-                const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
 
-                let imageFormData = new FormData();
-                imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
-                const formData = imageFormData
+        await Promise.all([
 
-                const config = {     
+            new Promise((resolve, reject) => {
+                if(userEdit.userEdit.imageFile !== "NULL") {
+                    const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
+    
+                    console.log("IMAGEFILE", userEdit.userEdit.imageFile)
+                    let imageFormData = new FormData();
+                    imageFormData.append("imageURL", userEdit.userEdit.imageFile);
+                    const formData = imageFormData
+    
+                    const config = {     
+                        headers: { 'content-type': 'multipart/form-data' }
+                    }
+    
+                    axios.post(url, formData, config)
+                    .then(response => {
+                        resolve();
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        resolve();
+                        console.log(error);
+                    });
+    
+                }  else{
+                    resolve()
+                    console.log("NOFORMDATA")
+                }   
+
+            }),
+
+            new Promise((resolve, reject)=> {
+                const url2 = `http://localhost:3001/profile/addDocuments/${userEdit.userEdit.id}`
+
+                let documentsFormData = new FormData();
+                console.log("HELDOS",userEdit.userEdit.typeUser);
+                userEdit.userEdit.typeUser.documentFiles.forEach(document => {
+                    console.log("this is a doc", document)
+                    documentsFormData.append("documents", document);
+                });
+                console.log("this entire a docs", documentsFormData)
+                const formData2 = documentsFormData
+
+                const config2 = {     
                     headers: { 'content-type': 'multipart/form-data' }
                 }
 
-                axios.post(url, formData, config)
+                axios.post(url2, formData2, config2)
                 .then(response => {
                     console.log(response);
+                    resolve()
                 })
                 .catch(error => {
+                    resolve()
                     console.log(error);
                 });
+                })
+        ])
 
-            }  else{
-                console.log("NOFORMDATA")
-            }       
+        loadSelfProfile(userProfile);
+        history.push("/profile");
+                
             
             
+
             
-            
-            const url2 = `http://localhost:3001/profile/addDocuments/${userEdit.userEdit.id}`
-
-            let documentsFormData = new FormData();
-            userEdit.userEdit.typeUser.documentsNewFormData.forEach(document => {
-                console.log("this is a doc", document)
-                documentsFormData.append("documents", document);
-            });
-            console.log("this entire a docs", documentsFormData)
-            const formData2 = documentsFormData
-
-            const config2 = {     
-                headers: { 'content-type': 'multipart/form-data' }
-            }
-
-            axios.post(url2, formData2, config2)
-
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
 
     }
 
 
-    useEffect(() =>{
-        console.log(userEdit)
-    });
-
 
     return (
-        <div className="profile_edit_page">
-            <EditGeneral user={user2} userEdit={userEdit} setUserEdit={setUserEdit}/>
+        <>
+        <AuthHeader
+        user={user}
+        isAuthenticated={isAuthenticated}
+        history={history}
+      />
+        <div className="profile_edit_page mt-4">
+            <EditGeneral user={userProfile} userEdit={userEdit} setUserEdit={setUserEdit}/>
 
-            {user2.typeOfUser == "Company" ? <EditCompany user={user2} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
+            {userProfile.typeOfUser == "Company" ? <EditCompany user={userProfile} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
 
-            <button className="apply_btn btn btn-primary" onClick={handleUpdate}>Apply</button>
+            <button className="apply_btn btn btn-light" onClick={handleUpdate}>Apply</button>
 
         </div>
+        </>
     )
 }
 
-export default ProfileEditPage
+const mapStateToProps = (state) => ({
+    user: state.user.user.sentUser,
+    userProfile: state.profile.profile,
+    isAuthenticated: state.user.isAuthenticated,
+    isLoggedOut: state.user.isLoggedOut,
+
+  })
+  
+  export default connect(mapStateToProps, { loadSelfProfile
+  })(ProfileEditPage);
+

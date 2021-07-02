@@ -11,9 +11,8 @@ import PropTypes from "prop-types";
 
 const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}) => {
 
-
   useEffect(() => {
-    if (props.isLoggedOut || !props.isAuthenticated) {
+    if (props.isLoggedOut && !props.isAuthenticated) {
       props.history.push("/login");
     }
   }, [props.isLoggedOut]);
@@ -48,8 +47,8 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}
             <Link className="nav-link" to="/calendar">
               Calendar
             </Link>
-            <Link className="nav-link" to="/lectures">
-              Lectures
+            <Link className="nav-link" to="/profile_search">
+              Search
             </Link>
             <Link className="nav-link" to="/messages">
               Messages

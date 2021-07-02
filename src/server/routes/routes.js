@@ -14,6 +14,7 @@ const {registerUser} = require('../controllers/register')
 const {loginUser1} = require('../controllers/login')
 const {loginUser2, updateUser} = require('../controllers/setting')
 
+const moduleController = require('../controllers/modules')
 router.get('/profile/getUsers', userController.get_all_profiles);
 
 router.get('/profile/getImage/:id', userController.get_image)
@@ -21,8 +22,6 @@ router.get('/profile/getImage/:id', userController.get_image)
 router.get('/profile/getDocument/:name', userController.get_document)
 
 router.get('/profile/:id', userController.user_details);
-router.put('/edit/:id', userController.user_updates)
-
 
 router.post("/register", registerUser)
 
@@ -38,12 +37,15 @@ router.get("/getrec", postController.get_recent_posts)
 router.put("/editpost", postController.edit_post)
 router.put("/deletepost", postController.remove_post)
 
+router.post("/createModule/:id", moduleController.create_module)
+router.get("/getrecmodules", moduleController.get_recent_modules)
+router.put("/deletemodule", moduleController.delete_module)
+
 
 router.put('/profile/edit/:id', userController.user_updates)
 
 router.post('/profile/editImage/:id',
 	uploadImage.fields([
-
 		{ name: 'imageURL', maxCount: 1 },
 	]),
     userController.save_image

@@ -42,10 +42,6 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
       "__v": 0
   });
 
-  useEffect(() => {
-    console.log(userProfile);
-  }, [])
-
     const [isOnce, setIsOnce] = useState(true)
 /*
     console.log("Rin")
@@ -63,9 +59,14 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
         }
     )
     */
+    useEffect(() => {
+      console.log(userProfile);
+      if (!isAuthenticated) {
+        history.push('/login');
+      }
+    }, [isAuthenticated])
 
     React.useEffect(() => {
-
     
       if(isOnce){
         
@@ -124,10 +125,6 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
         <div className="profile_edit_page mt-4">
           <GeneralCard user={userProfile} loggedInUser={loggedInUser}/>
           <Biography bioText={userProfile.biography}/>
-          {(user.typeOfUser == 'Company') ? 
-
-          <Employees employees={userProfile.typeUser.employees}/>  : 
-          <h3></h3> }
           {(user.typeOfUser == 'Company') ? 
           <Documents documents={userProfile.typeUser.documents}/>  : 
           <h3></h3> }

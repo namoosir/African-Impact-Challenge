@@ -14,6 +14,19 @@
     color: black;
 }
 
-.titl {
+.titl, .mod-title, .inst {
     color: black;
 }
+
+
+.but {
+    width: 25rem;
+    height: 5rem;
+}
+
+.but:hover {
+    background-color: grey;
+    border: grey;
+    color: white;
+}
+

@@ -28,12 +28,9 @@ const Post = (props) => {
   let { titleEdit, textEdit, imageEdit } = postEdit;
   const { textComment } = comment;
 
-  // useEffect(() => {
-  //   if(!props.isEditing) {
-  //     window.location.reload();
-  //   }
-    
-  // }, [props.isEditing])
+  useEffect(() => {
+    console.log(props);
+  }, [])
 
   const onChange = (e) => {
     setComment({
@@ -113,6 +110,7 @@ const Post = (props) => {
                 </h2>
                 {props.post &&
                 props.currentUser &&
+                props.post.poster &&
                 props.post.poster._id === props.currentUser.id ? (
                   <div className="d-flex justify-content-right me-2">
                     <form onSubmit={onEditing}>

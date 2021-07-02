@@ -13,6 +13,7 @@ const saltRounds = 10;
 let id = 0;
 
 module.exports.registerUser = async (req, res) => {
+  let savedUser;
   let refUser = 0;
   const user = await User.findOne({
     email: req.body.email,
@@ -51,21 +52,20 @@ module.exports.registerUser = async (req, res) => {
     typeUser: refUser._id,
   });
 
-  bcrypt.genSalt(saltRounds, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
+  bcrypt.genSalt(saltRounds, async (err, salt) => {
+    bcrypt.hash(newUser.password, salt, async (err, hash) => {
       if (err) {
         throw err;
       } else {
         newUser.password = hash;
-        newUser
-          .save()
-          .then((ent) => res.json(ent))
-          .catch((err) => console.log(err));
       }
     });
   });
 
+  savedUser = await newUser.save();
+
   const sentUser = {
+    id: savedUser._id,
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,

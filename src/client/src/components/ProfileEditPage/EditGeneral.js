@@ -34,8 +34,8 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
 
         if (user.imageFile === "NULL"){
             return `http://localhost:3001/profile/getImage/${user.id}`;
-        } 
-        return URL.createObjectURL(user.imageURL)
+        }
+        return URL.createObjectURL(user.imageFile)
 
     }
 
@@ -53,15 +53,13 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
                     <div className ="edit_profile_img">
                         <img className="profile_img_profile_edit" src={getImageURL(userEdit.userEdit)}></img>
                         <h3>New Photo</h3>
-                        <input className="blue-section" id="expense-file" type="file" onChange={previewImage}/>
+                        <input className="form-control" id="expense-file" type="file" onChange={previewImage}/>
                     </div>
                     <form className="edit_profile_fields">
-                        <label className="edit_profile_label">Name
-                            <input className="input_field_short" type="text" defaultValue={user.name} onChange={handleChangeName}/>
-                        </label>
-                        <label className="edit_profile_label">Biography
-                            <textarea className="input_field_big" type="text" defaultValue={user.biography} onChange={handleChangeBio}/>
-                        </label>
+                        <label className="edit_profile_label">Name</label>
+                            <input className="input_field_short form-control" type="text" defaultValue={user.name} onChange={handleChangeName}/>
+                        <label className="edit_profile_label">Biography</label>
+                            <textarea className="input_field_big form-control" type="text" defaultValue={user.biography} onChange={handleChangeBio}/>
                     </form>
                 </div>
             </div>
