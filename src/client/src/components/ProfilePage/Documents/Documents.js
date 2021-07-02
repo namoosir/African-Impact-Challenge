@@ -10,13 +10,10 @@ import { Component, useState, useEffect } from 'react'
 
 export const Documents = ({documents}) => {
 
-    
-    console.log("RHHS",typeof documents)
-    console.log("RHHS",typeof documents)
 
 
     useEffect(() => {
-        console.log("TSISDOC",documents);
+        //console.log("TSISDOC",documents);
       }, [])
     
     

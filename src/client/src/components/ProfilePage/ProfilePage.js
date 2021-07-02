@@ -13,6 +13,8 @@ import PropTypes from 'prop-types';
 
 const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history}) => {
     
+  
+  /*
     const [user, setUser] = useState({
       "_id": "60dbc77aeda7da46a1baa945",
       "image": "5ef7c4986f5bab2e3b01580989de5ba8",
@@ -41,79 +43,15 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
       },
       "__v": 0
   });
+  */
 
-    const [isOnce, setIsOnce] = useState(true)
-/*
-    console.log("Rin")
-  
-    const requestOptions = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    };
-
-    fetch('http://localhost:3001/profile/60dbc77aeda7da46a1baa945', requestOptions)
-        .then(response => response.json())
-        .then(data => {
-          console.log("fecthData",data)
-          setUser(data)
-        }
-    )
-    */
     useEffect(() => {
-      console.log(userProfile);
+      console.log("THIS IS UserProfile", userProfile);
       if (!isAuthenticated) {
         history.push('/login');
       }
     }, [isAuthenticated])
 
-    React.useEffect(() => {
-    
-      if(isOnce){
-        
-        console.log("Rin")
-        const requestOptions = {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        };
-  
-        // fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //       console.log(data)
-        //       setUser({
-        //         id: data._id,
-        //         name: data.name,
-        //         email: data.email,
-        //         username: data.username,
-        //         password: data.password,
-        //         typeOfUser: data.typeOfUser,
-        //         biography: data.biography,
-        //         typeUser: data.typeUser,
-        //         image: `http://localhost:3001/profile/getImage/${data._id}`
-        //       })
-        //     }
-            //  )
-        
-            /*
-            const requestOptions2 = {
-              method: 'GET',
-              headers: { 'Content-Type': 'application/json' },
-            };
-      
-      
-        fetch('http://localhost:3001/profile/getimage/60d9f89d9bafe0bd62b7187f', requestOptions2)
-          .then(data => {
-            setUser(prevState => ({
-              ...prevState,
-              image: data.url
-            })
-  
-            )
-          })
-          */
-          setIsOnce(false)
-      }
-    })
 
     return (
       <>
@@ -125,7 +63,7 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
         <div className="profile_edit_page mt-4">
           <GeneralCard user={userProfile} loggedInUser={loggedInUser}/>
           <Biography bioText={userProfile.biography}/>
-          {(user.typeOfUser == 'Company') ? 
+          {(userProfile.typeOfUser == 'Company') ? 
           <Documents documents={userProfile.typeUser.documents}/>  : 
           <h3></h3> }
       </div>

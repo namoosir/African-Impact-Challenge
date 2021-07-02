@@ -48,7 +48,8 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
             imageFile : "NULL",
             typeUser: {
                 ...userProfile.typeUser,
-                documentFiles: []
+                documentFiles: [],
+                documentsToDel: []
             }
         }
         
@@ -56,59 +57,28 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
 
     async function handleUpdate(){
 
-        console.log('handle');
-        console.log(userEdit.userEdit);
-
-        //basic update request
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userEdit.userEdit),
-          };
-          
-          fetch(`http://localhost:3001/profile/edit/${userEdit.userEdit.id}`, requestOptions)
-              .then(response => response.json())
-              .then(data => console.log(data))
-
-
-
-        // image update request
-        /*
-        const requestOptions2 = {
-            method: 'POST',
-            headers: { 'Content-Type': 'multipart/form-data' },
-            body: userEdit.userEdit.imageFormData,
-          };
-          
-          fetch(`http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`, requestOptions2)
-              .then(response => response.json())
-              .then(data => console.log(data))
-          
-
-        */  
-
-//             console.log("formata?", userEdit.userEdit.imageFormData)
-//             const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
-
-//             let imageFormData = new FormData();
-//             imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
-//             const formData = imageFormData
-
-//             console.log("format2?", formData)
-//             const config = {     
-//                 headers: { 'content-type': 'multipart/form-data' }
-//             }
-
-//             axios.post(url, formData, config)
-
-
         await Promise.all([
+            //basic update request
+
+            new Promise((resolve, reject) => {
+                const requestOptions = {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userEdit.userEdit),
+                  };
+                  
+                  fetch(`http://localhost:3001/profile/edit/${userEdit.userEdit.id}`, requestOptions)
+                      .then(response => response.json())
+                      .then(data => {
+                          //console.log("DATA handled",data)
+                          resolve();
+                      })
+            }),
 
             new Promise((resolve, reject) => {
                 if(userEdit.userEdit.imageFile !== "NULL") {
                     const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
     
-                    console.log("IMAGEFILE", userEdit.userEdit.imageFile)
                     let imageFormData = new FormData();
                     imageFormData.append("imageURL", userEdit.userEdit.imageFile);
                     const formData = imageFormData
@@ -120,7 +90,7 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
                     axios.post(url, formData, config)
                     .then(response => {
                         resolve();
-                        console.log(response);
+                        //console.log("Image Handled",response);
                     })
                     .catch(error => {
                         resolve();
@@ -138,12 +108,9 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
                 const url2 = `http://localhost:3001/profile/addDocuments/${userEdit.userEdit.id}`
 
                 let documentsFormData = new FormData();
-                console.log("HELDOS",userEdit.userEdit.typeUser);
                 userEdit.userEdit.typeUser.documentFiles.forEach(document => {
-                    console.log("this is a doc", document)
                     documentsFormData.append("documents", document);
                 });
-                console.log("this entire a docs", documentsFormData)
                 const formData2 = documentsFormData
 
                 const config2 = {     
@@ -152,7 +119,7 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
 
                 axios.post(url2, formData2, config2)
                 .then(response => {
-                    console.log(response);
+                    //console.log("DOCs Handled",response);
                     resolve()
                 })
                 .catch(error => {
@@ -162,15 +129,13 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
                 })
         ])
 
-        loadSelfProfile(userProfile);
-        history.push("/profile");
-                
-            
-            
-
-            
-
+        //console.log("Promised returned");
+        loadSelfProfile(userProfile, history);
+        history.push("/profile");    
+        
+        
     }
+
 
 
 

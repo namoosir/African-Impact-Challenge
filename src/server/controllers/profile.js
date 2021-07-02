@@ -104,33 +104,36 @@ const get_document = (req, res) =>{
 
 const save_documents = (req, res) =>{
 
-  expect(req.files.documents, 'file needed').to.exist;
 
   var fileNames = [];
-
   var expensesFile = [];
   var filePath = [];
   var fileName;
+  
+  if (typeof req.files.documents !== 'undefined'){
+    for (let i = 0; i < req.files.documents.length; i++) {
 
-  for (let i = 0; i < req.files.documents.length; i++) {
-
-    filePath = (req.files.documents[i].path).split('/');
-    fileName = filePath[filePath.length-1];
-    fileNames.push(fileName)
-
+      filePath = (req.files.documents[i].path).split('/');
+      fileName = filePath[filePath.length-1];
+      fileNames.push(fileName)
+  
+    }
+  
+    var documentsList = []
+    const id = req.params.id
+  
+    User.findById(id).then(result => 
+      {
+        userType[result.typeOfUser].findById(result.typeUser).then(result2=>{
+          documentsList = result2.documents;
+          documentsList = documentsList.concat(fileNames);
+          userType[result.typeOfUser].findByIdAndUpdate(result.typeUser,{documents: documentsList}).then(x=>res.sendStatus(200))
+        })
+      }) 
+  } else {
+    res.sendStatus(200);
   }
-
-  var documentsList = []
-  const id = req.params.id
-
-  User.findById(id).then(result => 
-    {
-      userType[result.typeOfUser].findById(result.typeUser).then(result2=>{
-        documentsList = result2.documents;
-        documentsList = documentsList.concat(fileNames);
-        userType[result.typeOfUser].findByIdAndUpdate(result.typeUser,{documents: documentsList}).then(x=>res.sendStatus(200))
-      })
-    }) 
+  
 }
 
 module.exports = {

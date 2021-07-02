@@ -6,7 +6,6 @@ import main from '../../stylesheets/main.css';
 
 const Employee = ({employeeId}) => {
 
-    console.log("HFJDSNFKJDNSKL")
 
     const [user2, setUser2] = useState({
         id: "4",

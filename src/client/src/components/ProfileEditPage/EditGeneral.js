@@ -52,7 +52,7 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
 
 
     useEffect(() =>{
-        console.log(userEdit)
+        //console.log(userEdit)
     });
     
     return (

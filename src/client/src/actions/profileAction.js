@@ -48,10 +48,12 @@ export const loadSelfProfile = (profile) => (dispatch) => {
       typeUser: res.data.typeUser,
       image: `http://localhost:3001/profile/getImage/${res.data._id}`,
     };
-    console.log(user);
+    console.log("THIS IS USERLOAD",user);
     dispatch({
       type: LOAD_SELF_PROFILE,
       payload: user,
     });
   });
 };
+
+
