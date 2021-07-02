@@ -13,6 +13,11 @@ const Module = ({ user, isAuthenticated, history, module }) => {
 
   const [moduleEdit, setModuleEdit] = useState({
     moduleEdit: module
+    // moduleEdit: {
+    //   ...module,
+    //   assignmentFile : [],
+    //   videoFile: []
+    // }
 });
 
   useEffect(() => {
