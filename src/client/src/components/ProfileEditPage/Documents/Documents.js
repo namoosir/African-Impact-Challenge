@@ -11,13 +11,20 @@ export const Documents = ({user, userEdit, setUserEdit}) => {
                 ...prevState.userEdit,
                 typeUser: {
                     ...prevState.userEdit.typeUser,
-                    documents : [...prevState.userEdit.typeUser.documents, URL.createObjectURL(event.target.files[0])],
-                    documentsNewFormData : [...prevState.userEdit.typeUser.documentsNewFormData, event.target.files[0]]
+                    documentFiles : [...prevState.userEdit.typeUser.documentsNewFormData, event.target.files[0]]
                 }
             }
         }))
 
     }
+
+    function getDocumentURL(docName){
+        return `http://localhost:3001/profile/getDocument/${docName}`;
+    }
+    function getDocumentFile(docFile){
+        return URL.createObjectURL(docFile);
+    }
+
 
 
     return (
@@ -27,8 +34,11 @@ export const Documents = ({user, userEdit, setUserEdit}) => {
                     <h1>Documents</h1>
 
                     <div className="document_list"> 
-                        {userEdit.userEdit.typeUser.documents.map((document_url) => (
-                            <SingleDoc document_url={document_url} user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>
+                        {userEdit.userEdit.typeUser.documents.map((document) => (
+                            <SingleDoc document_url={getDocumentURL(document)} user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>
+                        ))}
+                        {userEdit.userEdit.typeUser.documentFiles.map((documentFile) => (
+                            <SingleDoc document_url={getDocumentFile(documentFile)} user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>
                         ))}
 
                         <div class="image-upload">

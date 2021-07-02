@@ -18,7 +18,10 @@ const CompanySchema = new Schema({
     lookingFunding: {
         type: Boolean,
     },
-    documents: [String],
+    documents: {
+        type: [String],
+        default: []
+    },
     location: String,
     image: String
 })

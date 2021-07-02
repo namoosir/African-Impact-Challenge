@@ -24,10 +24,19 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
         setUserEdit(prevState => ({
             userEdit: {
                 ...prevState.userEdit,
-                imageURL: URL.createObjectURL(event.target.files[0]),
-                imageFormData: event.target.files[0]
+                imageFile: event.target.files[0]
             }
         }))
+    }
+
+
+    function getImageURL(user){
+
+        if (user.imageFile === "NULL"){
+            return `http://localhost:3001/profile/getImage/${user.id}`;
+        } 
+        return URL.createObjectURL(user.imageURL)
+
     }
 
 
@@ -42,7 +51,7 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
             <div className="card">
                 <div className="card-body">
                     <div className ="edit_profile_img">
-                        <img className="profile_img_profile_edit" src={userEdit.userEdit.imageURL}></img>
+                        <img className="profile_img_profile_edit" src={getImageURL(userEdit.userEdit)}></img>
                         <h3>New Photo</h3>
                         <input className="blue-section" id="expense-file" type="file" onChange={previewImage}/>
                     </div>

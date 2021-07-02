@@ -11,6 +11,7 @@ const ProfileEditPage = ({user}) => {
     const [user2, setUser2] = useState({
         "id": "60dbc77aeda7da46a1baa945",
         "image": "5ef7c4986f5bab2e3b01580989de5ba8",
+        "imageFile" : [],
         "biography": "y is coolguy and I have a lot of money",
         "name": " hs",
         "username": "arsm",
@@ -20,12 +21,10 @@ const ProfileEditPage = ({user}) => {
         "typeOfUser": "Company",
         "typeUser": {
             "documents":[
-                "<nameofDoc1>",
-                "<nameofDoc2>"
+                "5ef7c4986f5bab2e3b01580989de5ba8",
+                "5ef7c4986f5bab2874nd73h580989de5ba8"
             ],
-            "documentsDis":[
-                "http://localhost:3001/profile/getDoc/<nameofDoc1>"
-            ],
+            "documentFiles":[],
             "documentsNewFormData":[],
             "_id": "60dbc77aeda7da46a1baa944"
         },
@@ -34,7 +33,16 @@ const ProfileEditPage = ({user}) => {
     });
 
     const [userEdit, setUserEdit] = useState({
-        userEdit: user2
+
+        userEdit : {
+            ...user2,
+            imageFile : "NULL",
+            typeUser: {
+                ...user2.typeUser,
+                documentFiles: []
+            }
+        }
+
     });
 
     function handleUpdate(){

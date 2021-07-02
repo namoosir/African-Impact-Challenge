@@ -129,7 +129,7 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
           <Employees employees={userProfile.typeUser.employees}/>  : 
           <h3></h3> }
           {(user.typeOfUser == 'Company') ? 
-          <Documents document_urls={userProfile.typeUser.documents}/>  : 
+          <Documents documents={userProfile.typeUser.documents}/>  : 
           <h3></h3> }
       </div>
       </>
