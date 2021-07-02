@@ -12,9 +12,6 @@ const CompanySchema = new Schema({
     numEmployees: {
         type: Number,
     },
-    biography: {
-        type: String,
-    },
     lookingFunding: {
         type: Boolean,
     },

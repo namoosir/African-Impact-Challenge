@@ -6,8 +6,9 @@ import profilePage from '../stylesheets/ProfileEditPage/profilePage.css'
 import { func } from 'prop-types'
 import axios from "axios";
 import {connect} from "react-redux"
+import AuthHeader from "../AuthHeader";
 
-const ProfileEditPage = ({user, isAuthenticated, history}) => {
+const ProfileEditPage = ({user, userProfile, isAuthenticated, history}) => {
 
     const [user2, setUser2] = useState({
         "id": "60dbc77aeda7da46a1baa945",
@@ -41,7 +42,7 @@ const ProfileEditPage = ({user, isAuthenticated, history}) => {
       }, [isAuthenticated])
 
     const [userEdit, setUserEdit] = useState({
-        userEdit: user
+        userEdit: userProfile
     });
 
     function handleUpdate(){
@@ -115,8 +116,6 @@ const ProfileEditPage = ({user, isAuthenticated, history}) => {
             }       
             
             
-            
-            
             const url2 = `http://localhost:3001/profile/addDocuments/${userEdit.userEdit.id}`
 
             let documentsFormData = new FormData();
@@ -142,25 +141,29 @@ const ProfileEditPage = ({user, isAuthenticated, history}) => {
     }
 
 
-    useEffect(() =>{
-        console.log(userEdit)
-    });
-
 
     return (
-        <div className="profile_edit_page">
-            <EditGeneral user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>
+        <>
+        <AuthHeader
+        user={user}
+        isAuthenticated={isAuthenticated}
+        history={history}
+      />
+        <div className="profile_edit_page mt-4">
+            <EditGeneral user={userProfile} userEdit={userEdit} setUserEdit={setUserEdit}/>
 
-            {user.typeOfUser == "Company" ? <EditCompany user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
+            {userProfile.typeOfUser == "Company" ? <EditCompany user={userProfile} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
 
             <button className="apply_btn btn btn-light" onClick={handleUpdate}>Apply</button>
 
         </div>
+        </>
     )
 }
 
 const mapStateToProps = (state) => ({
     user: state.user.user.sentUser,
+    userProfile: state.profile.profile,
     isAuthenticated: state.user.isAuthenticated,
     isLoggedOut: state.user.isLoggedOut,
   })

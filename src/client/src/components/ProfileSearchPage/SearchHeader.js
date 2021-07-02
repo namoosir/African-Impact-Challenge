@@ -99,9 +99,8 @@ const SearchHeader = ({users, setUsers, users2, setUsers2}) => {
         <div className="search_header">
             <div className="profile_search_search_bar">
                 <form>
-                    <label>
-                        <input type="text" name="name" placeholder="Search"/>
-                    </label>
+                    <label></label>
+                        <input className="form-control" type="text" name="name" placeholder="Search"/>
                 </form>
             </div>
 

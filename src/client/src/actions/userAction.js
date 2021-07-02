@@ -21,6 +21,7 @@ export const login1 = (user, history) => dispatch => {
   axios
     .post("http://localhost:3001/login", user)
     .then(res => {
+      console.log('HEREEEEEEEEEE');
       dispatch({
         type: LOADING_USER_SUCCESSFUL,
         payload: res.data

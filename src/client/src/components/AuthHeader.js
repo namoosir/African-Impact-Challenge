@@ -47,8 +47,8 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}
             <Link className="nav-link" to="/calendar">
               Calendar
             </Link>
-            <Link className="nav-link" to="/lectures">
-              Lectures
+            <Link className="nav-link" to="/profile_search">
+              Search
             </Link>
             <Link className="nav-link" to="/messages">
               Messages
