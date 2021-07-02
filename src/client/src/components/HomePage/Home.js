@@ -3,10 +3,6 @@ import HeaderAuth from "../AuthHeader";
 import Post from "./Post";
 import ModuleCard from "./ModuleCard";
 
-import ModuleCard from "./ModuleCard"
-
-
-
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";

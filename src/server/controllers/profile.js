@@ -28,8 +28,6 @@ const user_details = (req, res) => {
     });
 } 
 
-const userType = {"Company" : Company, "Entrepreneur": Entrepreneur, "Partner": Partner, "Instructor": Instructor};
-
 const user_updates = (req, res) =>{
   User.findByIdAndUpdate({_id: req.params.id}, req.body, {new : true})
   .then(result => {
