@@ -8,11 +8,14 @@ import main from '../../stylesheets/main.css';
 
 const GeneralCard = ({user, loggedInUser}) => {
 
+    function getImageURL(user){
+        return `http://localhost:3001/profile/getImage/${user.id}`;
+    }
 
     return (
         <div className='container margins'>
             <div className='card'>
-            <Banner className="card-img-top" picURL={user.image}/>
+            <Banner className="card-img-top" picURL={getImageURL(user)}/>
                 <div className="card-body">
                     <ProfileInfo user={user} loggedInUser={loggedInUser}/>
                 </div>                

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { LOAD_PROFILE, LOAD_SELF_PROFILE } from "./types";
+import { LOAD_PROFILE, LOAD_SELF_PROFILE, LOAD_SELF_AFTER_EDIT, RELOAD_PROFILE } from "./types";
 
 export const getProfile = (profiler, history) => (dispatch) => {
   let imageRes;
@@ -20,7 +20,7 @@ export const getProfile = (profiler, history) => (dispatch) => {
         typeOfUser: res.data.typeOfUser,
         biography: res.data.biography,
         typeUser: res.data.typeUser,
-        image: `http://localhost:3001/profile/getImage/${res.data._id}`,
+        image: res.data.image,
       };
       console.log(user);
       dispatch({
@@ -46,7 +46,7 @@ export const loadSelfProfile = (profile) => (dispatch) => {
       typeOfUser: res.data.typeOfUser,
       biography: res.data.biography,
       typeUser: res.data.typeUser,
-      image: `http://localhost:3001/profile/getImage/${res.data._id}`,
+      image: res.data.image,
     };
     console.log("THIS IS USERLOAD",user);
     dispatch({
@@ -55,5 +55,34 @@ export const loadSelfProfile = (profile) => (dispatch) => {
     });
   });
 };
+
+export const loadSelfProfileAfterEdit = (profile) => (dispatch) => {
+  let user;
+  axios.get(`http://localhost:3001/profile/${profile.id}`).then((res) => {
+    user = {
+      id: res.data._id,
+      name: res.data.name,
+      email: res.data.email,
+      username: res.data.username,
+      password: res.data.password,
+      typeOfUser: res.data.typeOfUser,
+      biography: res.data.biography,
+      typeUser: res.data.typeUser,
+      image: res.data.image,
+    };
+    dispatch({
+      type: LOAD_SELF_AFTER_EDIT,
+      payload: user,
+    });
+  });
+}
+
+export const reloadAfterEdit = () => (dispatch) => {
+  dispatch({
+    type: RELOAD_PROFILE
+  })
+}
+
+
 
 

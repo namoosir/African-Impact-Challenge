@@ -7,9 +7,9 @@ import { func } from "prop-types";
 import axios from "axios";
 import { connect } from "react-redux";
 import AuthHeader from "../AuthHeader";
-import { loadSelfProfile } from '../../actions/profileAction'
+import { loadSelfProfile, loadSelfProfileAfterEdit } from '../../actions/profileAction'
 
-const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfProfile}) => {
+const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfProfile, loadSelfProfileAfterEdit}) => {
 
     const [user2, setUser2] = useState({
         "id": "60dbc77aeda7da46a1baa945",
@@ -57,6 +57,7 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
 
     async function handleUpdate(){
 
+        
         await Promise.all([
             //basic update request
 
@@ -64,7 +65,9 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
                 const requestOptions = {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(userEdit.userEdit),
+                    body: JSON.stringify({
+                        ...userEdit.userEdit
+                    }),
                   };
                   
                   fetch(`http://localhost:3001/profile/edit/${userEdit.userEdit.id}`, requestOptions)
@@ -129,7 +132,7 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
                 })
         ])
 
-        loadSelfProfile(userProfile);
+        loadSelfProfileAfterEdit(userProfile);
         history.push("/profile");
         
     }
@@ -175,4 +178,4 @@ const mapStateToProps = (state) => ({
   isLoggedOut: state.user.isLoggedOut,
 });
 
-export default connect(mapStateToProps, { loadSelfProfile })(ProfileEditPage);
+export default connect(mapStateToProps, { loadSelfProfile, loadSelfProfileAfterEdit })(ProfileEditPage);

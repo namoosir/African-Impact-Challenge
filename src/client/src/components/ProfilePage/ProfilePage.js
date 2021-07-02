@@ -7,11 +7,12 @@ import Employees from "./Employees/Employees";
 import Documents from "./Documents/Documents";
 import { connect } from "react-redux";
 import AuthHeader from "../AuthHeader";
+import { reloadAfterEdit } from "../../actions/profileAction"
 
 import PropTypes from "prop-types";
 
 
-const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history}) => {
+const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history, toReload, reloadAfterEdit}) => {
     
   
   /*
@@ -52,6 +53,13 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
       }
     }, [isAuthenticated])
 
+    useEffect(() => {
+      if(toReload) {
+        reloadAfterEdit();
+        window.location.reload();
+      }
+    }, [toReload])
+
 
   return (
     <>
@@ -78,8 +86,10 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
   isLoggedOut: state.user.isLoggedOut,
   userProfile: state.profile.profile,
+  toReload: state.profile.toReload,
+
 });
 
-export default connect(mapStateToProps, {})(ProfilePage);
+export default connect(mapStateToProps, {reloadAfterEdit})(ProfilePage);
 
 // export default ProfilePage
