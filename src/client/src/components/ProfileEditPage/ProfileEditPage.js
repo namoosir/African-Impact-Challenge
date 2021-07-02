@@ -50,8 +50,6 @@ const ProfileEditPage = ({user, isAuthenticated, history}) => {
         console.log(userEdit.userEdit);
 
         //basic update request
-
-        
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -62,6 +60,36 @@ const ProfileEditPage = ({user, isAuthenticated, history}) => {
               .then(response => response.json())
               .then(data => console.log(data))
 
+
+
+        // image update request
+        /*
+        const requestOptions2 = {
+            method: 'POST',
+            headers: { 'Content-Type': 'multipart/form-data' },
+            body: userEdit.userEdit.imageFormData,
+          };
+          
+          fetch(`http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`, requestOptions2)
+              .then(response => response.json())
+              .then(data => console.log(data))
+          
+
+        */  
+
+//             console.log("formata?", userEdit.userEdit.imageFormData)
+//             const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
+
+//             let imageFormData = new FormData();
+//             imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
+//             const formData = imageFormData
+
+//             console.log("format2?", formData)
+//             const config = {     
+//                 headers: { 'content-type': 'multipart/form-data' }
+//             }
+
+//             axios.post(url, formData, config)
 
             if(userEdit.userEdit.imageFormData !== "None") {
                 const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
@@ -110,9 +138,6 @@ const ProfileEditPage = ({user, isAuthenticated, history}) => {
             .catch(error => {
                 console.log(error);
             });
-
-            
-
 
     }
 

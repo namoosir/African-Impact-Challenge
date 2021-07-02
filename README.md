@@ -5,11 +5,46 @@ In particular, this application serves as a combination of a learning and social
 The application will be use in the second stage of the challenge to help entrepreneurs meet other entrepreneurs and investors as well as learn with the help of instructors.<br />
 <br />
 
-**Installation**<br />
-While this application runs on the host machine, a sort of browser should be installed. We recommend installing Chrome.<br />
-Next, you should have database X installed, we used version x.x.x.x., however, the latest version should also work.<br />
-Make sure you also have X and Y interrupters/languages installed.<br />
-<br />
-**Contribution**<br />
+## Installation <br />
+### Frontend-Client
+**Prerequisites:**
+- NodeJs
+- Npm
+
+**How to run (after you have cloned the repo):** <br />
+1. `$ cd /project-mjaarns/src/` <br />
+2. `$ npm run client-install` <br />
+3. `$ npm run client` <br />
+
+---
+
+### Backend-Server
+**Prerequisites:** <br />
+- NodeJs <br />
+- Npm <br />
+- MongoDB <br />
+
+**How to run (after you have cloned the repo):** <br /><br />
+*Database (Mongo):* <br />
+1. `$ systemctl start mongod` <br />
+2. `$ mongo` <br />
+3. `> use african-impact-challenge` <br />
+4. `> db.temp.insert({})` <br />
+
+*Server:* <br />
+1. `$ cd /project-mjaarns/src/` <br />
+2. `$ npm install` <br />
+3. `$ npm run start` <br />
+
+---
+
+### Running frontend and backend concurrently
+This assumes you have the capability to run the backend and frontend separately already.
+
+*Steps:* <br />
+1. `$ cd /project-mjaarns/src/`<br />
+2. `$ npm run dev`
+
+## Contribution <br />
 The team follows git flow, and so to work on feature, you will be working on a particular branch. We are using JIRA to keep track of features and tickets.<br />
 Our branch names generally follow the JIRA the tickets.<br />

@@ -24,7 +24,8 @@ const ProfileInfo = ({user, loggedInUser}) => {
                   Edit Profile
                 </button> 
               </Link>
-              : <button type="button" className="btn btn-primary"><Link to="/profile_edit"></Link>Message</button>
+              : <button type="button" className="btn btn-primary"><Link to=""></Link>Message</button>
+
              ) : ""}
 
         </div>

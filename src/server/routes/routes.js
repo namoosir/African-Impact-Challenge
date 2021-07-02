@@ -1,12 +1,10 @@
 require('dotenv').config();
 const multer  = require('multer')
+
 const uploadDocument = multer({ dest: 'server/documents/' })
 const uploadImage = multer({ dest: 'server/images/' })
 
-
 const userController = require('../controllers/profile');
-
-// const userController = require('../controllers/profile');
 const postController = require('../controllers/posts')
 
 const express = require('express');
@@ -17,6 +15,7 @@ const {loginUser1} = require('../controllers/login')
 const {loginUser2, updateUser} = require('../controllers/setting')
 
 const moduleController = require('../controllers/modules')
+router.get('/profile/getUsers', userController.get_all_profiles);
 
 router.get('/profile/getImage/:id', userController.get_image)
 

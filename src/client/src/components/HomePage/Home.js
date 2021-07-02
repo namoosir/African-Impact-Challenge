@@ -3,6 +3,10 @@ import HeaderAuth from "../AuthHeader";
 import Post from "./Post";
 import ModuleCard from "./ModuleCard";
 
+import ModuleCard from "./ModuleCard"
+
+
+
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -293,6 +297,15 @@ const Home = ({
           </div>
         </div>
       </div>
+      {posts.map((post) => (
+        <div className="row justify-content-center">
+          <div className="col-lg-5 mb-4">
+
+            <Post post={post} currentUser={user} history={history} />
+
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

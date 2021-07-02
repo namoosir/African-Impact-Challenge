@@ -6,12 +6,12 @@ import Biography from './Biography/Biography';
 import Employees from './Employees/Employees';
 import Documents from './Documents/Documents';
 import { connect } from "react-redux"
+import AuthHeader from '../AuthHeader';
 
 import PropTypes from 'prop-types';
 
 
-
-const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut, history}) => {
+const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history}) => {
     
     const [user, setUser] = useState({
       "_id": "60dbc77aeda7da46a1baa945",
@@ -75,13 +75,23 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut, history}) => {
           headers: { 'Content-Type': 'application/json' },
         };
   
-        fetch('http://localhost:3001/profile/60dbda9ba9c66964342b0ae9', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-              console.log(data)
-              setUser(data)
-            }
-        )
+        // fetch('http://localhost:3001/profile/60d9f89d9bafe0bd62b7187f', requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //       console.log(data)
+        //       setUser({
+        //         id: data._id,
+        //         name: data.name,
+        //         email: data.email,
+        //         username: data.username,
+        //         password: data.password,
+        //         typeOfUser: data.typeOfUser,
+        //         biography: data.biography,
+        //         typeUser: data.typeUser,
+        //         image: `http://localhost:3001/profile/getImage/${data._id}`
+        //       })
+        //     }
+            //  )
         
             /*
             const requestOptions2 = {
@@ -105,18 +115,24 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut, history}) => {
     })
 
     return (
-        <div className="profile_edit_page">
-          <GeneralCard user={user} loggedInUser={loggedInUser}/>
-          <Biography bioText={user.typeUser.biography}/>
+      <>
+        <AuthHeader
+        user={loggedInUser}
+        isAuthenticated={isAuthenticated}
+        history={history}
+      />
+        <div className="profile_edit_page mt-4">
+          <GeneralCard user={userProfile} loggedInUser={loggedInUser}/>
+          <Biography bioText={userProfile.biography}/>
           {(user.typeOfUser == 'Company') ? 
-          <Employees employees={user.typeUser.employees}/>  : 
+
+          <Employees employees={userProfile.typeUser.employees}/>  : 
           <h3></h3> }
           {(user.typeOfUser == 'Company') ? 
-          <Documents document_urls={user.typeUser.documents}/>  : 
+          <Documents document_urls={userProfile.typeUser.documents}/>  : 
           <h3></h3> }
-
-
       </div>
+      </>
     )
 }
 
@@ -125,6 +141,7 @@ const mapStateToProps = (state) => ({
   loggedInUser: state.user.user.sentUser,
   isAuthenticated: state.user.isAuthenticated,
   isLoggedOut: state.user.isLoggedOut,
+  userProfile: state.profile.profile
 })
 
 export default connect(mapStateToProps, {

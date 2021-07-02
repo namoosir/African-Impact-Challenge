@@ -5,10 +5,11 @@ import { useEffect } from "react";
 import { logout } from "../actions/userAction";
 
 import { Link, withRouter } from "react-router-dom";
+import { loadSelfProfile } from "../actions/profileAction";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
+const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}) => {
 
   useEffect(() => {
     if (props.isLoggedOut && !props.isAuthenticated) {
@@ -20,6 +21,13 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
     e.preventDefault();
     props.logout(props.user, history);
   };
+
+  const onClickProfile = (e) => {
+    e.preventDefault();
+
+    props.loadSelfProfile(props.user);
+    props.history.push("/profile");
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -66,12 +74,12 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
             </a>
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" onClick={onClickProfile}>
                   Profile
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#" onClick={onClickLogout}>
+                <a className="dropdown-item" onClick={onClickLogout}>
                   Logout
                 </a>
               </li>
@@ -85,6 +93,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut}) => {
 
 HeaderAuth.propTypes = {
   logout: PropTypes.func.isRequired,
+  loadSelfProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -92,4 +101,4 @@ const mapStateToProps = (state) => ({
   isLoggedOut: state.user.isLoggedOut,
 });
 
-export default connect(mapStateToProps, { logout })(HeaderAuth);
+export default connect(mapStateToProps, { logout, loadSelfProfile })(HeaderAuth);
