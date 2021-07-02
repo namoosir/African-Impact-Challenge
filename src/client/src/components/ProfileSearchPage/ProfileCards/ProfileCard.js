@@ -13,6 +13,10 @@ const ProfileCard = ({user, history, getProfile}) => {
         history.push("/profile");
     }
 
+    function getImage(imageName){
+        return 
+    }
+
     return (
         <div className="profile_search_card">
             <img className="profile_search_profile_img" src={user.image}></img>

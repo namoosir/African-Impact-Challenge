@@ -11,7 +11,7 @@ export const Documents = ({user, userEdit, setUserEdit}) => {
                 ...prevState.userEdit,
                 typeUser: {
                     ...prevState.userEdit.typeUser,
-                    documentFiles : [...prevState.userEdit.typeUser.documentsNewFormData, event.target.files[0]]
+                    documentFiles : [...prevState.userEdit.typeUser.documentFiles, event.target.files[0]]
                 }
             }
         }))

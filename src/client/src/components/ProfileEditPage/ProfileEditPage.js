@@ -7,12 +7,14 @@ import { func } from 'prop-types'
 import axios from "axios";
 import {connect} from "react-redux"
 import AuthHeader from "../AuthHeader";
+import { loadSelfProfile } from '../../actions/profileAction'
 
-const ProfileEditPage = ({user, userProfile, isAuthenticated, history}) => {
+const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfProfile}) => {
 
     const [user2, setUser2] = useState({
         "id": "60dbc77aeda7da46a1baa945",
         "image": "5ef7c4986f5bab2e3b01580989de5ba8",
+        "imageFile" : [],
         "biography": "y is coolguy and I have a lot of money",
         "name": " hs",
         "username": "arsm",
@@ -21,12 +23,10 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history}) => {
         "typeOfUser": "Company",
         "typeUser": {
             "documents":[
-                "<nameofDoc1>",
-                "<nameofDoc2>"
+                "5ef7c4986f5bab2e3b01580989de5ba8",
+                "5ef7c4986f5bab2874nd73h580989de5ba8"
             ],
-            "documentsDis":[
-                "http://localhost:3001/profile/getDoc/<nameofDoc1>"
-            ],
+            "documentFiles":[],
             "documentsNewFormData":[],
             "_id": "60dbc77aeda7da46a1baa944"
         },
@@ -54,7 +54,7 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history}) => {
         
     });
 
-    function handleUpdate(){
+    async function handleUpdate(){
 
         console.log('handle');
         console.log(userEdit.userEdit);
@@ -101,51 +101,74 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history}) => {
 
 //             axios.post(url, formData, config)
 
-            if(userEdit.userEdit.imageFormData !== "None") {
-                const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
 
-                let imageFormData = new FormData();
-                imageFormData.append("imageURL", userEdit.userEdit.imageFormData);
-                const formData = imageFormData
+        await Promise.all([
 
-                const config = {     
+            new Promise((resolve, reject) => {
+                if(userEdit.userEdit.imageFile !== "NULL") {
+                    const url = `http://localhost:3001/profile/editImage/${userEdit.userEdit.id}`
+    
+                    console.log("IMAGEFILE", userEdit.userEdit.imageFile)
+                    let imageFormData = new FormData();
+                    imageFormData.append("imageURL", userEdit.userEdit.imageFile);
+                    const formData = imageFormData
+    
+                    const config = {     
+                        headers: { 'content-type': 'multipart/form-data' }
+                    }
+    
+                    axios.post(url, formData, config)
+                    .then(response => {
+                        resolve();
+                        console.log(response);
+                    })
+                    .catch(error => {
+                        resolve();
+                        console.log(error);
+                    });
+    
+                }  else{
+                    resolve()
+                    console.log("NOFORMDATA")
+                }   
+
+            }),
+
+            new Promise((resolve, reject)=> {
+                const url2 = `http://localhost:3001/profile/addDocuments/${userEdit.userEdit.id}`
+
+                let documentsFormData = new FormData();
+                console.log("HELDOS",userEdit.userEdit.typeUser);
+                userEdit.userEdit.typeUser.documentFiles.forEach(document => {
+                    console.log("this is a doc", document)
+                    documentsFormData.append("documents", document);
+                });
+                console.log("this entire a docs", documentsFormData)
+                const formData2 = documentsFormData
+
+                const config2 = {     
                     headers: { 'content-type': 'multipart/form-data' }
                 }
 
-                axios.post(url, formData, config)
+                axios.post(url2, formData2, config2)
                 .then(response => {
                     console.log(response);
+                    resolve()
                 })
                 .catch(error => {
+                    resolve()
                     console.log(error);
                 });
+                })
+        ])
 
-            }  else{
-                console.log("NOFORMDATA")
-            }       
+        loadSelfProfile(userProfile);
+        history.push("/profile");
+                
             
             
-            const url2 = `http://localhost:3001/profile/addDocuments/${userEdit.userEdit.id}`
 
-            let documentsFormData = new FormData();
-            userEdit.userEdit.typeUser.documentsNewFormData.forEach(document => {
-                console.log("this is a doc", document)
-                documentsFormData.append("documents", document);
-            });
-            console.log("this entire a docs", documentsFormData)
-            const formData2 = documentsFormData
-
-            const config2 = {     
-                headers: { 'content-type': 'multipart/form-data' }
-            }
-
-            axios.post(url2, formData2, config2)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            
 
     }
 
@@ -175,8 +198,9 @@ const mapStateToProps = (state) => ({
     userProfile: state.profile.profile,
     isAuthenticated: state.user.isAuthenticated,
     isLoggedOut: state.user.isLoggedOut,
+
   })
   
-  export default connect(mapStateToProps, {
+  export default connect(mapStateToProps, { loadSelfProfile
   })(ProfileEditPage);
 

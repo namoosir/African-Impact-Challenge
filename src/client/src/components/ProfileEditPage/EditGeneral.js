@@ -39,6 +39,16 @@ const EditGeneral = ({user, userEdit, setUserEdit}) => {
     }
 
 
+    function getImageURL(user){
+
+        if (user.imageFile === "NULL"){
+            return `http://localhost:3001/profile/getImage/${user.id}`;
+        }
+        return URL.createObjectURL(user.imageFile)
+
+    }
+
+
 
 
     useEffect(() =>{

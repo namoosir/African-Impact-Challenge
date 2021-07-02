@@ -49,6 +49,6 @@ module.exports.loginUser1 = async (req, res) => {
         }
       );
     } else {
-      res.send(400).json({ password: "incorrect password" });
+      res.status(400).json({ password: "incorrect password" });
     }
   };

@@ -34,7 +34,7 @@ export const getProfile = (profiler, history) => (dispatch) => {
 };
 
 export const loadSelfProfile = (profile) => (dispatch) => {
-  console.log(profile);
+  console.log("BEINGCALLED",profile);
   let user;
   axios.get(`http://localhost:3001/profile/${profile.id}`).then((res) => {
     user = {
