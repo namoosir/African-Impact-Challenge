@@ -42,10 +42,6 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
       "__v": 0
   });
 
-  useEffect(() => {
-    console.log(userProfile);
-  }, [])
-
     const [isOnce, setIsOnce] = useState(true)
 /*
     console.log("Rin")
@@ -63,9 +59,13 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
         }
     )
     */
+    useEffect(() => {
+      if (!isAuthenticated) {
+        history.push('/login');
+      }
+    }, [isAuthenticated])
 
     React.useEffect(() => {
-
     
       if(isOnce){
         

@@ -1,10 +1,24 @@
 import AuthHeader from "../AuthHeader";
 
+import { useEffect, useState } from "react";
+
 import { connect } from "react-redux";
+
+import Assignment from "./AssignmentUploadCard/Assignment"
+import Videos from "./VideoUploadCard/Videos"
 
 import moduleStylesheet from "../stylesheets/module.css";
 
 const Module = ({ user, isAuthenticated, history, module }) => {
+
+  const [moduleEdit, setModuleEdit] = useState({
+    moduleEdit: module
+});
+
+  useEffect(() => {
+    console.log(module)
+  }, [])
+
   return (
     <div>
       <AuthHeader
@@ -12,26 +26,29 @@ const Module = ({ user, isAuthenticated, history, module }) => {
         isAuthenticate={isAuthenticated}
         history={history}
       />
-      <div className="container d-flex justify-content-center">
-        <div className="card module my-4">
-          <div className="card-body">
-            <h1 className="card-title text-center">
-              {module && module.nameOfModule
-                ? module.nameOfModule
-                : "CSCC01: Introduction to Software Engineering"}
-            </h1>
-            <div className="bg-light">
-              <hr className="divider"></hr>
-            </div>
-
-            <div className="text-center my-3">
-                <h3 className="ms-3 bg-light assignment d-inline-block px-2 py-2">Assignments</h3>
-            </div>
-
-            <div className="text-center mt-3">
-            <h3 className="ms-3 bg-light assignment d-inline-block px-2 py-2">Lectures</h3>
+      <div className="d-flex justify-content-center mt-2">
+        <div className="container margins">
+          <div className="card">
+            <div className="card-body">
+              <h1 className="card-title text-center">
+                {module && module.name
+                  ? module.name
+                  : "CSCC01: Introduction to Software Engineering"}
+              </h1>
             </div>
           </div>
+        </div>
+      </div>
+      
+      <div className="d-flex justify-content-center">
+        <div className="container margins">
+          <Assignment className="" module={module} moduleEdit={moduleEdit} setModuleEdit={setModuleEdit}/>
+        </div>
+      </div>
+      
+      <div className="d-flex justify-content-center">
+        <div className="container margins ">
+          <Videos className="" module={module} moduleEdit={moduleEdit} setModuleEdit={setModuleEdit}/>
         </div>
       </div>
     </div>
@@ -40,6 +57,7 @@ const Module = ({ user, isAuthenticated, history, module }) => {
 
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
+  module: state.module.clickedModule,
   isAuthenticated: state.user.isAuthenticated,
 });
 

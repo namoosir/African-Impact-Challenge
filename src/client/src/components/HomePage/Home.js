@@ -1,6 +1,7 @@
 import React from "react";
 import HeaderAuth from "../AuthHeader";
 import Post from "./Post";
+import ModuleCard from "./ModuleCard";
 
 import ModuleCard from "./ModuleCard"
 
@@ -18,9 +19,18 @@ import {
   deletePost,
 } from "../../actions/postAction";
 
+import {
+  createModules,
+  isCreating,
+  loadModules,
+  cancelCreatingModule,
+} from "../../actions/moduleAction";
+import { has } from "express-mongo-sanitize";
+
 const Home = ({
   user,
   posts,
+  modules,
   isAuthenticated,
   isLoggedOut,
   isDeleted,
@@ -29,6 +39,12 @@ const Home = ({
   loadPosts,
   editPost,
   deletePost,
+  createModules,
+  loadModules,
+  isCreating,
+  isCreatingModule,
+  hasCreatedModule,
+  cancelCreatingModule,
 }) => {
   const [post, setPost] = useState({
     title: "",
@@ -36,17 +52,19 @@ const Home = ({
     image: "",
   });
 
+  const [newModule, setNewModule] = useState({
+    nameModule: "",
+  });
+
   const { title, text, image } = post;
+  const { nameModule } = newModule;
 
   useEffect(() => {
     loadPosts(user, history);
+    loadModules(history);
+    //console.log(modules, isCreatingModule, hasCreatedModule);
+    console.log(user);
   }, []);
-
-  useEffect(() => {
-    if (isLoggedOut) {
-      history.push("/login");
-    }
-  }, [isLoggedOut]);
 
   const onSubmitPost = (e) => {
     e.preventDefault();
@@ -65,9 +83,46 @@ const Home = ({
     window.location.reload();
   };
 
+  const onSubmitModule = (e) => {
+    e.preventDefault();
+
+    const module = {
+      name: nameModule,
+    };
+
+    setNewModule({
+      nameModule: "",
+    });
+
+    createModules(module, user, history);
+    onCancelCreateModule(e);
+    window.location.reload();
+  };
+
+  const onCreateModule = (e) => {
+    e.preventDefault();
+
+    isCreating();
+    history.push("/home");
+  };
+
+  const onCancelCreateModule = (e) => {
+    e.preventDefault();
+
+    cancelCreatingModule();
+    history.push("/home");
+  };
+
   const onChange = (e) => {
     setPost({
       ...post,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onChangeModule = (e) => {
+    setNewModule({
+      ...newModule,
       [e.target.name]: e.target.value,
     });
   };
@@ -79,17 +134,70 @@ const Home = ({
         isAuthenticated={isAuthenticated}
         history={history}
       />
-
-
       <div className="row d-flex justify-content-center">
         <div className="col-lg-3">
           <div className="container">
             <div className="card mt-5">
-              <div className="card-body text-center">
-                <h3 className="card-title text-center">Modules</h3>
+              <div className="card-body">
+                <h2 className="card-title text-center">Modules</h2>
+                {user &&
+                user.typeOfUser === "Instructor" &&
+                !isCreatingModule ? (
+                  <form onSubmit={onCreateModule}>
+                    <div className="text-center">
+                      <button className="btn btn-success text-center">
+                        Create Module
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  ""
+                )}
 
-                <ModuleCard/>
+                {isCreatingModule ? (
+                  <>
+                    <hr></hr>
+                    <form onSubmit={onSubmitModule} className="mt-3 text-left">
+                      <label htmlFor="nameModule" className="text-left mb-0">
+                        <h5>Name of Module</h5>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="nameModule"
+                        id="nameModule"
+                        value={nameModule}
+                        onChange={onChangeModule}
+                      ></input>
+                      <div className="text-center">
+                        <button type="submit" className="btn btn-success mt-3">
+                          Create Module
+                        </button>
+                      </div>
+                    </form>
+                    <form
+                      className="text-center"
+                      onSubmit={onCancelCreateModule}
+                    >
+                      <button type="submit" className="btn btn-danger mt-2">
+                        Cancel
+                      </button>
+                    </form>
+                    <hr></hr>
+                  </>
+                ) : (
+                  ""
+                )}
 
+                {modules.length > 0 ? (
+                  modules.map((module) => (
+                    <ModuleCard module={module} history={history} />
+                  ))
+                ) : (
+                  <div className="text-center mt-3">
+                    <h4 className="text-light">Modules on the work!</h4>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -167,11 +275,24 @@ const Home = ({
               </div>
             </div>
           </div>
+          <div className="mt-4">
+            {posts.map((post) => (
+              <div className="row justify-content-center">
+                <div className="col-lg-5 mb-4">
+                  <Post post={post} currentUser={user} history={history} />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
         <div className="col-lg-3">
           <div className="card mt-5">
             <div className="card-body">
-              <h3 className="card-title text-center"> Upcoming Events </h3>
+              <h3 className="card-title text-center mb-3"> Upcoming Events </h3>
+              <h5 className="text-center">
+                This section is currently under development!!
+              </h5>
             </div>
           </div>
         </div>
@@ -199,9 +320,12 @@ Home.propTypes = {
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
   posts: state.post.posts,
+  modules: state.module.modules,
   isDeleted: state.post.isDeleted,
   isAuthenticated: state.user.isAuthenticated,
   isLoggedOut: state.user.isLoggedOut,
+  isCreatingModule: state.module.isCreatingModule,
+  hasCreatedModule: state.module.hasCreatedModule,
 });
 
 export default connect(mapStateToProps, {
@@ -209,4 +333,8 @@ export default connect(mapStateToProps, {
   loadPosts,
   editPost,
   deletePost,
+  createModules,
+  isCreating,
+  loadModules,
+  cancelCreatingModule,
 })(Home);

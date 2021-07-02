@@ -55,20 +55,22 @@ app.use(function (req, res, next) {
   next();
 });
 
+
 app.get('/add', (req, res) => {
 
-  const ins = new Partner({
-    biography: "Hello",
+  const ins = new Company({
+    documents: ['Mon', 'fd'],
+    
   })
 
   const user = new User({
-    image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
+    image: 'Coolguy.png',
     biography: 'My name is coolguy and I have a lot of money',
-    name: 'HArry',
+    name: 'Muta Khs',
     username: 'Kharsm',
     email: 'mutase@lhars',
     password: 'hi123',
-    typeOfUser: 'Partner',
+    typeOfUser: 'Company',
     typeUser: ins._id
   })
 

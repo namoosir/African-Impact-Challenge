@@ -5,8 +5,9 @@ import { Component, useState, useEffect } from 'react'
 import profilePage from '../stylesheets/ProfileEditPage/profilePage.css'
 import { func } from 'prop-types'
 import axios from "axios";
+import {connect} from "react-redux"
 
-const ProfileEditPage = ({user}) => {
+const ProfileEditPage = ({user, isAuthenticated, history}) => {
 
     const [user2, setUser2] = useState({
         "id": "60dbc77aeda7da46a1baa945",
@@ -16,7 +17,6 @@ const ProfileEditPage = ({user}) => {
         "username": "arsm",
         "email": "muse@lhars",
         "password": "i123",
-
         "typeOfUser": "Company",
         "typeUser": {
             "documents":[
@@ -33,11 +33,19 @@ const ProfileEditPage = ({user}) => {
         "imageFormData": "None"
     });
 
+    
+    useEffect(() => {
+        if (!isAuthenticated) {
+          history.push('/login');
+        }
+      }, [isAuthenticated])
+
     const [userEdit, setUserEdit] = useState({
-        userEdit: user2
+        userEdit: user
     });
 
     function handleUpdate(){
+
         console.log('handle');
         console.log(userEdit.userEdit);
 
@@ -124,7 +132,6 @@ const ProfileEditPage = ({user}) => {
             }
 
             axios.post(url2, formData2, config2)
-
             .then(response => {
                 console.log(response);
             })
@@ -142,14 +149,22 @@ const ProfileEditPage = ({user}) => {
 
     return (
         <div className="profile_edit_page">
-            <EditGeneral user={user2} userEdit={userEdit} setUserEdit={setUserEdit}/>
+            <EditGeneral user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>
 
-            {user2.typeOfUser == "Company" ? <EditCompany user={user2} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
+            {user.typeOfUser == "Company" ? <EditCompany user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>:<h3></h3>}
 
-            <button className="apply_btn btn btn-primary" onClick={handleUpdate}>Apply</button>
+            <button className="apply_btn btn btn-light" onClick={handleUpdate}>Apply</button>
 
         </div>
     )
 }
 
-export default ProfileEditPage
+const mapStateToProps = (state) => ({
+    user: state.user.user.sentUser,
+    isAuthenticated: state.user.isAuthenticated,
+    isLoggedOut: state.user.isLoggedOut,
+  })
+  
+  export default connect(mapStateToProps, {
+  })(ProfileEditPage);
+
