@@ -106,7 +106,6 @@ const ProfilePage = ({loggedInUser, isAuthenticated, isLoggedOut, history}) => {
 
     return (
         <div className="profile_edit_page">
-          {loggedInUser ? <h1>{loggedInUser.username}</h1>:<h1>nah</h1>}
           <GeneralCard user={user} loggedInUser={loggedInUser}/>
           <Biography bioText={user.typeUser.biography}/>
           {(user.typeOfUser == 'Company') ? 

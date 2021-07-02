@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import { ReactComponent as SvgPlus } from '../../../svgs/Plus.svg'
 import banner from '../../../svgs/simple-blue.jpg'
 
-export const Videos = ({user, userEdit, setUserEdit, module}) => {
+export const Videos = ({module, moduleEdit, setModuleEdit}) => {
+
+    //set moduleURL and moduleFileData using Redux
 
     function handleNewFile(event){
-        // setUserEdit(prevState => ({
-        //     userEdit: {
-        //         ...prevState.userEdit,
-        //         typeUser: {
-        //             ...prevState.userEdit.typeUser,
-        //             documents : [...prevState.userEdit.typeUser.documents, URL.createObjectURL(event.target.files[0])],
-        //             documentsNewFormData : [...prevState.userEdit.typeUser.documentsNewFormData, event.target.files[0]]
-        //         }
-        //     }
-        // }))
+         setModuleEdit(prevState => ({
+             moduleEdit: {
+                 ...prevState.moduelEdit,
+                moduleURL : [...prevState.userEdit.typeUser.documents, URL.createObjectURL(event.target.files[0])],
+                moduleFileData : [...prevState.moduleFileData, event.target.files[0]]
+            }
+        }))
 
     }
 
@@ -27,8 +26,8 @@ export const Videos = ({user, userEdit, setUserEdit, module}) => {
                     <h1>Videos</h1>
 
                     <div className="document_list"> 
-                        {userEdit.userEdit.typeUser.documents.map((video_url) => (
-                            <SingleVideo video_url={video_url} user={user} userEdit={userEdit} setUserEdit={setUserEdit}/>
+                        {moduleEdit.moduleEdit.content.map((video_url) => (
+                            <SingleVideo video_url={video_url} module={module} moduleEdit={moduleEdit} setModuleEdit={setModuleEdit}/>
                         ))}
 
                         <div class="image-upload">
@@ -53,7 +52,7 @@ Videos.propTypes = {
     /**
      * This represents the URL of the document that will be seen
      */
-    user: PropTypes.object
+   
 };
 
 

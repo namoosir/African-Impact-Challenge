@@ -6,25 +6,20 @@ import banner from '../../../svgs/simple-blue.jpg'
 export const Assignment = ({module, moduleEdit, setModuleEdit}) => {
 
     function handleNewFile(event){
-        // setUserEdit(prevState => ({
-        //     userEdit: {
-        //         ...prevState.userEdit,
-        //         typeUser: {
-        //             ...prevState.userEdit.typeUser,
-        //             documents : [...prevState.userEdit.typeUser.documents, URL.createObjectURL(event.target.files[0])],
-        //             documentsNewFormData : [...prevState.userEdit.typeUser.documentsNewFormData, event.target.files[0]]
-        //         }
-        //     }
-        // }))
-
+        setModuleEdit(prevState => ({
+            moduleEdit: {
+                 ...prevState.moduleEdit,
+                moduleURL : [...prevState.moduleURL, URL.createObjectURL(event.target.files[0])],
+                moduleFileData : [...prevState.moduleFileData, event.target.files[0]]
+            }
+        }))
     }
-
 
     return (
         <div className="">
             <div className="card">
                 <div className="card-body">
-                    <h1>Assignment</h1>
+                    <h1>Assignments</h1>
 
                     <div className="document_list"> 
                         {moduleEdit.moduleEdit.assignments.map((assignment_url) => (
@@ -53,7 +48,7 @@ Assignment.propTypes = {
     /**
      * This represents the URL of the document that will be seen
      */
-    user: PropTypes.object
+    
 };
 
 

@@ -8,6 +8,9 @@ const Modules = require('../models/modules');
 
 
 const create_module = async (req, res) => {
+    console.log(req.body.name)
+    console.log(req.params.id)
+
 
     const module = new Modules({
         name: req.body.name,
