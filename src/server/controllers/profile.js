@@ -108,25 +108,6 @@ User.findByIdAndUpdate(req.params.id, {documents: documentsList }).then(result =
 //timestamp = new Date().getTime().toString();
 
 
-const blog_create_get = (req, res) => {
-  res.render('create', { title: 'Create a new blog' });
-const get_all_profiles = async (req, res) => {
-  var ans = [];
-  var final = [];
-  ans = await User.find().sort('name').then(result => { return result })
-
-  for (const user of ans) {
-    var populated1 = await myPop2(user).then(function (result) {
-      return result
-    })
-
-    final.push(populated1)
-  }
-
-  res.send(final)
-}
-
-
 async function myPop2(post) {
   let itemPopulated = await post.populate({path: "typeUser", model: post.typeOfUser}).execPopulate();
   return itemPopulated
@@ -216,5 +197,5 @@ module.exports = {
   get_image,
   save_image,
   get_document,
-  save_documents,
+  save_documents
 }
