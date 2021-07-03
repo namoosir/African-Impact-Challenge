@@ -48,3 +48,7 @@ This assumes you have the capability to run the backend and frontend separately 
 ## Contribution <br />
 The team follows git flow, and so to work on feature, you will be working on a particular branch. We are using JIRA to keep track of features and tickets.<br />
 Our branch names generally follow the JIRA the tickets.<br />
+
+
+## Documentaion <br />
+To view the backend documentation, start the server after following the steps above and go to http://localhost:3001/api-docs/.<br />
