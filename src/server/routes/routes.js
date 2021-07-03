@@ -58,5 +58,15 @@ router.post('/profile/addDocuments/:id',
     userController.save_documents
 );
 
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../../swagger.json');
+
+router.use(
+	'/api-docs',
+	swaggerUi.serve, 
+	swaggerUi.setup(swaggerDocument)
+  );
+
 module.exports = router;
   
