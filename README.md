@@ -1,4 +1,4 @@
-# Project-Mjaarns branch MJAARNS-2
+# Project-Mjaarns branch MJAARNS
 <img src="https://images.squarespace-cdn.com/content/5959429eff7c50228e412bf1/1607561881703-9EE9CN7L551HJPITP9XB/AII+LOGO.png?format=1500w&content-type=image%2Fpng" width="500" height="400">
 This project is in relation with the African Impact Challenge, an initiative to build a better Africa by investing in and helping aspiring entrepreneurs.
 In particular, this application serves as a combination of a learning and social media platform for entrepreneurs to learn, network, and collaborate on their product and entrepreneurial ideas.
