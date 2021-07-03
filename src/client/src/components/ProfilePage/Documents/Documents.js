@@ -1,18 +1,37 @@
 import SingleDoc from './SingleDoc'
 import PropTypes from 'prop-types';
 
-export const Documents = ({document_urls}) => {
-    console.log(typeof document_urls)
+import { Component, useState, useEffect } from 'react'
+
+
+
+
+
+
+export const Documents = ({documents}) => {
+
+
+
+    useEffect(() => {
+        //console.log("TSISDOC",documents);
+      }, [])
+    
+    
+
+    function getDocumentURL(docName){
+        return `http://localhost:3001/profile/getDocument/${docName}`;
+    }
+
     return (
 
-        <div className="container">
+        <div className="container margins">
             <div className="card">
-                <div className="card-body profile_documents">
+                <div className="card-body">
                     <h1>Documents</h1>
 
                     <div className="document_list"> 
-                        {document_urls.map((document_url) => (
-                            <SingleDoc document_url={document_url}/>
+                        {documents.map((document) => (
+                            <SingleDoc document_url={getDocumentURL(document)}/>
                         ))}
                     </div>
                 </div>
@@ -25,11 +44,11 @@ Documents.propTypes = {
     /**
      * This represents the URL of the document that will be seen
      */
-    document_urls: PropTypes.object
+    document_urls: PropTypes.array
 };
 
 Documents.defaultProps = {
-    document_urls: ["/home/andy/Documents/1.txt","/home/andy/Documents/1.txt"]
+    document_urls: ["463jd69d710fmn047204","038bd6289jf0nv72904u2"]
 };
 
 export default Documents

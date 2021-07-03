@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const bcrypt = require("bcryptjs");
-const jsonwebtoken = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 const Ent = require("../models/entrepreneur");
@@ -22,24 +22,33 @@ module.exports.loginUser1 = async (req, res) => {
   
     const passwordCheck = await bcrypt.compare(password, user.password);
     if (passwordCheck) {
-      const payload = {
+
+      const sentUser = {
         id: user._id,
+        email: user.email,
+        username: user.username,
+        name: user.name,
+        typeOfUser: user.typeOfUser,
+        typeUser: user.typeUser
+      };
+
+      const payload = {
         username: user.username,
       };
-      jsonwebtoken.sign(
+      jwt.sign(
         payload,
-        process.env.secret,
+        process.env.secretOrKey,
         {
           expiresIn: 604800,
         },
         (err, token) => {
-          res.json({
-            success: true,
-            token: "Bearer " + token,
+          res.status(200).json({
+            sentUser,
+            token
           });
         }
       );
     } else {
-      res.send(400).json({ password: "incorrect password" });
+      res.status(400).json({ password: "incorrect password" });
     }
   };

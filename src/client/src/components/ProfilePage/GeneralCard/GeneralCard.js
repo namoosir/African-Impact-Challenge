@@ -1,19 +1,23 @@
 import React from 'react'
 import Banner from './Banner'
 import ProfileInfo from './ProfileInfo'
-import { Component, useState } from 'react'
-import PropTypes from 'prop-types';
+import { Component, useState, useEffect } from 'react'
+import PropTypes, { func } from 'prop-types';
 
 import main from '../../stylesheets/main.css';
 
-const GeneralCard = ({user}) => {
+const GeneralCard = ({user, loggedInUser}) => {
+
+    function getImageURL(user){
+        return `http://localhost:3001/profile/getImage/${user.id}`;
+    }
 
     return (
-        <div className='container'>
+        <div className='container margins'>
             <div className='card'>
+            <Banner className="card-img-top" picURL={getImageURL(user)}/>
                 <div className="card-body">
-                    <Banner className="card-img-top"picURL={user.typeUser.image}/>
-                    <ProfileInfo user={user}/>
+                    <ProfileInfo user={user} loggedInUser={loggedInUser}/>
                 </div>                
             </div>
         </div>

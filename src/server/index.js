@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const userRoutes = require('./routes/routes');
 const Instructor = require('./models/instructor');
 const Partner = require('./models/partner')
 const Company = require('./models/company')
@@ -9,15 +10,16 @@ const Entrepreneur = require('./models/entrepreneur')
 
 const bodyParser = require('body-parser');
 
-const userRoutes = require('./routes/routes')
 
 const app = express();
-app.use(
+/* app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
-app.use(bodyParser.json());
+app.use(bodyParser.json()); */
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 mongoose.connect("mongodb://localhost:27017/african-impact-challenge", {
   useNewUrlParser: true,
@@ -51,6 +53,40 @@ app.use(function (req, res, next) {
 
   // Pass to next layer of middleware
   next();
+});
+
+
+app.get('/add', (req, res) => {
+
+  const ins = new Company({
+    documents: ['Mon', 'fd'],
+    
+  })
+
+  const user = new User({
+    image: 'Coolguy.png',
+    biography: 'My name is coolguy and I have a lot of money',
+    name: 'Muta Khs',
+    username: 'Kharsm',
+    email: 'mutase@lhars',
+    password: 'hi123',
+    typeOfUser: 'Company',
+    typeUser: ins._id
+  })
+
+  ins.save()
+  .then(result => {
+    user.save()
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  });
 });
 
 //app.use(passport.initialize());

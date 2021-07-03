@@ -1,12 +1,16 @@
 import axios from "axios";
 
-import {LOADING_USER_SUCCESSFUL} from "./types";
+import {LOADING_USER_SUCCESSFUL, LOGOUT_USER_SUCCESSFUL} from "./types";
 
 export const register1 = (user, history) => dispatch => {
   axios
     .post("http://localhost:3001/register", user)
       .then(res => {
-        history.push("/login");
+        console.log(res.data);
+        dispatch({
+          type: LOADING_USER_SUCCESSFUL,
+          payload: res.data
+        })
       })
       .catch(err => {
         console.log(err, "couldn't connect to server");
@@ -16,7 +20,13 @@ export const register1 = (user, history) => dispatch => {
 export const login1 = (user, history) => dispatch => {
   axios
     .post("http://localhost:3001/login", user)
-    .then(res => history.push('/home'))
+    .then(res => {
+      console.log('HEREEEEEEEEEE');
+      dispatch({
+        type: LOADING_USER_SUCCESSFUL,
+        payload: res.data
+      })
+    })
     .catch(err => {
       console.log(err);
       history.push('/login');
@@ -29,7 +39,7 @@ export const login2 = (user, history) => dispatch => {
     .then(res => {
       dispatch({
         type: LOADING_USER_SUCCESSFUL,
-        payload: res.data.user,
+        payload: res.data,
       });
     })
     .catch(err => {
@@ -37,4 +47,10 @@ export const login2 = (user, history) => dispatch => {
       history.push('/home');
     });
 };
+
+export const logout = (user, history) => dispatch => {
+  dispatch({
+    type: LOGOUT_USER_SUCCESSFUL
+  })
+}
 

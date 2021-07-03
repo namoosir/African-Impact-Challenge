@@ -2,10 +2,14 @@ import { ReactComponent as SvgDocument } from '../../../svgs/document_icon.svg'
 import PropTypes from 'prop-types';
 
 export const SingleDoc = ({document_url}) => {
+
+    
     return (
         <div className="document_single">
-            <SvgDocument/> <br/>
-            <a href={document_url} target="_blank">{document_url.split('/').reverse()[0]}</a>
+            <SvgDocument className="little-icon"/>
+            <a href={document_url} target="_blank"> {document_url.split('/').reverse()[0].length > 5 ? 
+                                                        document_url.split('/').reverse()[0].slice(0,5) + '...' :
+                                                        document_url.split('/').reverse()[0]}</a>
         </div>
     )
 }

@@ -1,77 +1,95 @@
-import React from 'react'
-import { Component, useState } from 'react'
+import React from "react";
+import { Component, useState, useEffect } from "react";
 
-import GeneralCard from './GeneralCard/GeneralCard';
-import Biography from './Biography/Biography';
-import Employees from './Employees/Employees';
-import Documents from './Documents/Documents';
+import GeneralCard from "./GeneralCard/GeneralCard";
+import Biography from "./Biography/Biography";
+import Employees from "./Employees/Employees";
+import Documents from "./Documents/Documents";
+import { connect } from "react-redux";
+import AuthHeader from "../AuthHeader";
+import { reloadAfterEdit } from "../../actions/profileAction"
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 
-
-const ProfilePage = () => {
+const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history, toReload, reloadAfterEdit}) => {
     
+  
+  /*
     const [user, setUser] = useState({
-        id: "4",
-        name: "Bob",
-        email: "Will",
-        username: "bwill",
-        password: "fsdf",
-        typeOfUser: "Insr",
-        typeUser: {
-          classes: ["B07", "CSCC01"],
-          image: "https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg",
-          biography: "Lorem djklakldsal"
-        }
-        
-    });
-    
-    React.useEffect(() => {
-    
-      const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      };
-      // Given a UserId
-      //Muta ID : 60bfc28261b358667d0196a3
-      //Apple ID : 60bfc190247b966513e78f66
-      //http://localhost:3001/profile/:id
+      "_id": "60dbc77aeda7da46a1baa945",
+      "image": "5ef7c4986f5bab2e3b01580989de5ba8",
+      "biography": "y is coolguy and I have a lot of money",
+      "name": " hs",
+      "username": "arsm",
+      "email": "muse@lhars",
+      "password": "i123",
+      "typeOfUser": "Company",
+      "typeUser": {
+          "employees": ["kdslmf","KSmckmdlkc"],
+          "documents": [
+              "<nameofDoc1>",
+              "<nameofDoc2>",
+              "blob:http://localhost:3000/4c99e26a-c36f-426a-b96c-cdf8e4b266d6",
+              "8bccbae1e6b654a4e9013cd7152ad30b",
+              "eccc993eddaec292abd8a96ecf212f0c",
+              "4d2f89e78cc190eb5f0d34344e53c9a9",
+              "8b1e04af1a5087e91c576bee6a451c22",
+              "3095a884455d46ef99fb329a0c0d7efc",
+              "32549de1422c63e8c20dc57e4830d348",
+              "8d9b7c2aad3bdc1b1381fb3254c66e43"
+          ],
+          "_id": "60dbc77aeda7da46a1baa944",
+          "__v": 0
+      },
+      "__v": 0
+  });
+  */
 
-      
-      //Enterpenur Profile ID: 60c178ad1908fcc56bb08fdd  60c178ff1908fcc56bb08fdf
-      //Partner Profile ID: 60c3891c77ad162cbc804537
-      //Instructor Profile ID: 60c38af5b3e0bb3434bb2433
-      //Company Profile Id: 60c17c3805ef1ecaebcef71d
-      fetch('http://localhost:3001/profile/60c43bb6e3c90bd65438b96e', requestOptions)
-          .then(response => response.json())
-          .then(data => setUser({
-            id: data._id,
-            name: data.name,
-            email: data.email,
-            username: data.username,
-            password: data.password,
-            typeOfUser: data.typeOfUser,
-            typeUser: data.typeUser
-          }))
-    }, [])
+    useEffect(() => {
+      console.log("THIS IS UserProfile", userProfile);
+      if (!isAuthenticated) {
+        history.push('/login');
+      }
+    }, [isAuthenticated])
+
+    useEffect(() => {
+      if(toReload) {
+        reloadAfterEdit();
+        window.location.reload();
+      }
+    }, [toReload])
 
 
-    return (
-        <div className="ProfilePage">
-          <GeneralCard user={user}/>
-          <Biography bioText={user.typeUser.biography}/>
-          {(user.typeOfUser == 'Company') ? 
-          <div>
-          <Employees employees={user.typeUser.employees}/> 
-          <Documents document_urls={user.typeUser.documents}/>
-          </div> : 
-          <h3></h3> }
-                          
-
+  return (
+    <>
+      <AuthHeader
+        user={loggedInUser}
+        isAuthenticated={isAuthenticated}
+        history={history}
+      />
+      <div className="profile_edit_page mt-4">
+        <GeneralCard user={userProfile} loggedInUser={loggedInUser} />
+        <Biography bioText={userProfile.biography} />
+        {loggedInUser && loggedInUser.typeOfUser === "Company" ? (
+          <Documents documents={userProfile.typeUser.documents} />
+        ) : (
+          <h3></h3>
+        )}
       </div>
-    )
-}
+    </>
+  );
+};
 
+const mapStateToProps = (state) => ({
+  loggedInUser: state.user.user.sentUser,
+  isAuthenticated: state.user.isAuthenticated,
+  isLoggedOut: state.user.isLoggedOut,
+  userProfile: state.profile.profile,
+  toReload: state.profile.toReload,
 
-export default ProfilePage
+});
+
+export default connect(mapStateToProps, {reloadAfterEdit})(ProfilePage);
+
+// export default ProfilePage

@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const bcrypt = require("bcryptjs");
-const jsonwebtoken = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 const Ent = require("../models/entrepreneur");
@@ -13,6 +13,7 @@ const saltRounds = 10;
 let id = 0;
 
 module.exports.registerUser = async (req, res) => {
+  let savedUser;
   let refUser = 0;
   const user = await User.findOne({
     email: req.body.email,
@@ -41,7 +42,6 @@ module.exports.registerUser = async (req, res) => {
     refUser = await instructor.save();
   }
 
-
   const newUser = new User({
     username: req.body.username,
     name: req.body.name,
@@ -51,19 +51,46 @@ module.exports.registerUser = async (req, res) => {
     typeUser: refUser._id,
   });
 
-  bcrypt.genSalt(saltRounds, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if (err) {
-        throw err;
-      } else {
-        newUser.password = hash;
-        newUser
-          .save()
-          .then((ent) => res.json(ent))
-          .catch((err) => console.log(err));
-      }
-    });
-  });
+  await Promise.all([
+    new Promise((resolve, reject) => {
+      bcrypt.genSalt(saltRounds, async (err, salt) => {
+        bcrypt.hash(newUser.password, salt, async (err, hash) => {
+          if (err) {
+            resolve();
+            throw err;
+          } else {
+            resolve();
+            newUser.password = hash;
+          }
+        });
+      });
+    }),
+  ]);
+
+  savedUser = await newUser.save();
+
+  const sentUser = {
+    id: savedUser._id,
+    username: req.body.username,
+    name: req.body.name,
+    email: req.body.email,
+    typeOfUser: req.body.typeOfUser,
+    typeUser: refUser._id,
+  };
+
+  const payload = {
+    username: sentUser.username,
+  };
+
+  jwt.sign(
+    payload,
+    process.env.secretOrKey,
+    {
+      expiresIn: 360000,
+    },
+    (err, token) => {
+      if (err) throw err;
+      res.status(200).json({ token, sentUser });
+    }
+  );
 };
-
-

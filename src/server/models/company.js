@@ -12,13 +12,13 @@ const CompanySchema = new Schema({
     numEmployees: {
         type: Number,
     },
-    biography: {
-        type: String,
-    },
     lookingFunding: {
         type: Boolean,
     },
-    documents: [String],
+    documents: {
+        type: [String],
+        default: []
+    },
     location: String,
     image: String
 })
