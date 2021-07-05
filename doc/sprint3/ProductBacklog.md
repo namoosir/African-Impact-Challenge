@@ -3,7 +3,7 @@ High Priority:
 <ul>
 <li>As a user, I want to be able to direct message other users so that I can directly contact other users through the website.</li>
 <li>As an entrepreneur (Tomi), I want to be able to upload documents to submit assignments so that I can get a sense of what I have learned.</li>
-<li>As an instructor (Jaime), I would like to be able to post video recordings and other notes/assignments so that the entrepreneurs can see them. (Julio and Mutasem).</li>
+<li>As an instructor (Jaime), I would like to be able to post video recordings and other notes/assignments so that the entrepreneurs can see them.</li>
 <li>As an instructor (Jaime),‌ ‌I‌ ‌would‌ ‌like‌ ‌to‌ ‌provide‌ ‌feedback‌ ‌and‌ ‌submit‌ ‌grades‌ ‌for‌ ‌students‌ ‌so‌ ‌the‌ ‌students‌ ‌can‌ ‌review‌ ‌their‌ ‌grades‌ ‌and‌ ‌work‌.</li>
   </ul>
 
