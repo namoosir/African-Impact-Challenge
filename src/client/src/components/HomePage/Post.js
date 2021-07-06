@@ -231,7 +231,7 @@ const Post = (props) => {
             ? props.post.comments.map((comment) => (
                 <div className="bg-light my-3 comments textP mx-3">
                   <img
-                    src="https://thispersondoesnotexist.com/image"
+                    src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                     width="50"
                     height="50"
                     className="d-inline mx-2 my-2"
