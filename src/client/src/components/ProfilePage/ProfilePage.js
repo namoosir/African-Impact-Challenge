@@ -8,11 +8,12 @@ import Documents from "./Documents/Documents";
 import { connect } from "react-redux";
 import AuthHeader from "../AuthHeader";
 import { reloadAfterEdit } from "../../actions/profileAction"
+import { updateUser } from "../../actions/userAction";
 
 import PropTypes from "prop-types";
 
 
-const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history, toReload, reloadAfterEdit}) => {
+const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history, toReload, reloadAfterEdit, updateUser}) => {
     
   
   /*
@@ -47,7 +48,6 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
   */
 
     useEffect(() => {
-      console.log("THIS IS UserProfile", userProfile);
       if (!isAuthenticated) {
         history.push('/login');
       }
@@ -56,6 +56,7 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
     useEffect(() => {
       if(toReload) {
         reloadAfterEdit();
+        updateUser(loggedInUser, history)
         window.location.reload();
       }
     }, [toReload])
@@ -90,6 +91,6 @@ const mapStateToProps = (state) => ({
 
 });
 
-export default connect(mapStateToProps, {reloadAfterEdit})(ProfilePage);
+export default connect(mapStateToProps, {reloadAfterEdit, updateUser})(ProfilePage);
 
 // export default ProfilePage

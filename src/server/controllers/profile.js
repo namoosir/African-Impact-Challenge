@@ -75,8 +75,11 @@ const get_image = (req, res) =>{
   const id = req.params.id;
   User.findById(id)
     .then(result => {
-      res.sendFile(result.image, {root: imagesPath })   
+      res.status(200).sendFile(result.image, {root: imagesPath })   
     }) 
+    .catch(e => {
+      res.status(404).json({user: "could not find user"});
+    })
 }
 
 const save_image = (req, res) =>{

@@ -1,6 +1,7 @@
 import post from "../stylesheets/post.css";
 
 import { useState, useEffect } from "react";
+import { getImageURL } from "../../utils/getImage";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -136,7 +137,7 @@ const Post = (props) => {
               </div>
               <div className="bg-light mx-3 py-2 px-2 align-items-center title mt-3">
                 <img
-                  src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                  src={props.post.poster ? getImageURL(props.post.poster._id) : ""}
                   width="75"
                   height="75"
                   className="d-inline"
@@ -231,7 +232,7 @@ const Post = (props) => {
             ? props.post.comments.map((comment) => (
                 <div className="bg-light my-3 comments textP mx-3">
                   <img
-                    src="https://thispersondoesnotexist.com/image"
+                    src={getImageURL(comment.user._id)}
                     width="50"
                     height="50"
                     className="d-inline mx-2 my-2"
