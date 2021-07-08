@@ -4,25 +4,24 @@ import { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 
-import Assignment from "./AssignmentUploadCard/Assignment"
-import Videos from "./VideoUploadCard/Videos"
+import Assignment from "./AssignmentUploadCard/Assignment";
+import Videos from "./VideoUploadCard/Videos";
 
 import moduleStylesheet from "../stylesheets/module.css";
 
 const Module = ({ user, isAuthenticated, history, module }) => {
-
   const [moduleEdit, setModuleEdit] = useState({
-    moduleEdit: module
+    moduleEdit: module,
     // moduleEdit: {
     //   ...module,
     //   assignmentFile : [],
     //   videoFile: []
     // }
-});
+  });
 
   useEffect(() => {
-    console.log(module)
-  }, [])
+    console.log(module);
+  }, []);
 
   return (
     <div>
@@ -44,18 +43,34 @@ const Module = ({ user, isAuthenticated, history, module }) => {
           </div>
         </div>
       </div>
-      
-      <div className="d-flex justify-content-center">
-        <div className="container margins">
-          <Assignment className="" module={module} moduleEdit={moduleEdit} setModuleEdit={setModuleEdit}/>
-        </div>
-      </div>
-      
-      <div className="d-flex justify-content-center">
-        <div className="container margins ">
-          <Videos className="" module={module} moduleEdit={moduleEdit} setModuleEdit={setModuleEdit}/>
-        </div>
-      </div>
+
+      {user && module && user.id === module.user._id ? (
+        <>
+          <div className="d-flex justify-content-center">
+            <div className="container margins">
+              <Assignment
+                className=""
+                module={module}
+                moduleEdit={moduleEdit}
+                setModuleEdit={setModuleEdit}
+              />
+            </div>
+          </div>
+
+          <div className="d-flex justify-content-center">
+            <div className="container margins ">
+              <Videos
+                className=""
+                module={module}
+                moduleEdit={moduleEdit}
+                setModuleEdit={setModuleEdit}
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
