@@ -5,7 +5,16 @@ const Company = require('../models/company');
 const User = require('../models/user');
 const Modules = require('../models/modules');
 
+const imagesPath = './server/images'
 
+const documentPath = './server/documents'
+
+const userType = {"Entrepreneur": Entrepreneur,
+                "Instructor": Instructor,
+                "Partner": Partner,
+                "Company": Company}
+
+const { expect } = require('chai');
 
 const create_module = async (req, res) => {
 
@@ -15,7 +24,6 @@ const create_module = async (req, res) => {
         assignments: [],
         content: []
     });
-
 
     const refModule = await module.save();
 
@@ -52,8 +60,70 @@ const delete_module = async (req, res) => {
     await Modules.deleteOne({_id: moduleid});
 }
 
+
+const save_assignments = (req, res) =>{
+
+    var fileNames = [];
+    var expensesFile = [];
+    var filePath = [];
+    var fileName;
+    
+    if (typeof req.files.assignments !== 'undefined'){
+      for (let i = 0; i < req.files.assignments.length; i++) {
+  
+        filePath = (req.files.assignments[i].path).split('/');
+        fileName = filePath[filePath.length-1];
+        fileNames.push(fileName)
+      }
+    
+      var documentsList = []
+      const id = req.params.id
+    
+      Modules.findById(id).then(result => 
+        {
+            documentsList = result.assignments;
+            documentsList = documentsList.concat(fileNames);
+            Modules.findByIdAndUpdate(id,   {assignments: documentsList}).then(x=>res.sendStatus(200))          
+        }) 
+    } else {
+      res.sendStatus(200);
+    }    
+}
+
+const save_content = (req, res) =>{
+
+    var fileNames = [];
+    var expensesFile = [];
+    var filePath = [];
+    var fileName;
+    
+    if (typeof req.files.content !== 'undefined'){
+      for (let i = 0; i < req.files.content.length; i++) {
+  
+        filePath = (req.files.content[i].path).split('/');
+        fileName = filePath[filePath.length-1];
+        fileNames.push(fileName)
+      }
+    
+      var documentsList = []
+      const id = req.params.id
+    
+      Modules.findById(id).then(result => 
+        {
+            documentsList = result.content;
+            documentsList = documentsList.concat(fileNames);
+            Modules.findByIdAndUpdate(id,   {content: documentsList}).then(x=>res.sendStatus(200))          
+        }) 
+    } else {
+      res.sendStatus(200);
+    }    
+}
+  
+
 module.exports = {
     create_module,
     get_recent_modules,
-    delete_module
+    delete_module,
+    save_assignments,
+    save_content
 }

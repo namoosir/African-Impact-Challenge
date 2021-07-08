@@ -21,6 +21,8 @@ router.get('/profile/getImage/:id', userController.get_image)
 
 router.get('/profile/getDocument/:name', userController.get_document)
 
+router.get('/getDocument/:name', userController.get_document)
+
 router.get('/profile/:id', userController.user_details);
 
 router.post("/register", registerUser)
@@ -58,5 +60,18 @@ router.post('/profile/addDocuments/:id',
     userController.save_documents
 );
 
+router.post('/addAssignments/:id',
+	uploadDocument.fields([
+		{ name: 'assignments' },
+	]),
+    moduleController.save_assignments
+);
+
+router.post('/addContent/:id',
+	uploadDocument.fields([
+		{ name: 'content' },
+	]),
+    moduleController.save_content
+);
 module.exports = router;
   
