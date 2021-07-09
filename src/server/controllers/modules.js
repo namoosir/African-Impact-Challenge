@@ -60,8 +60,14 @@ const delete_module = async (req, res) => {
     await Modules.deleteOne({_id: moduleid});
 }
 
+const get_assignment = (req, res) =>{
+  const name = req.params.name;
+  res.sendFile(name, {root: documentPath })   
+}
 
 const save_assignments = (req, res) =>{
+
+  console.log('HEREEEEE');
 
     var fileNames = [];
     var expensesFile = [];
@@ -88,6 +94,11 @@ const save_assignments = (req, res) =>{
     } else {
       res.sendStatus(200);
     }    
+}
+
+const get_content = (req, res) =>{
+  const name = req.params.name;
+  res.sendFile(name, {root: documentPath })   
 }
 
 const save_content = (req, res) =>{
@@ -124,6 +135,8 @@ module.exports = {
     create_module,
     get_recent_modules,
     delete_module,
+    get_assignment,
     save_assignments,
+    get_content,
     save_content
 }

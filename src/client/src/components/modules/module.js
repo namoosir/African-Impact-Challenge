@@ -1,4 +1,5 @@
 import AuthHeader from "../AuthHeader";
+import axios from 'axios'
 
 import { useEffect, useState } from "react";
 
@@ -7,21 +8,53 @@ import { connect } from "react-redux";
 import Assignment from "./AssignmentUploadCard/Assignment";
 import Videos from "./VideoUploadCard/Videos";
 
+import { instructorUpload } from "../../actions/moduleAction";
+
 import moduleStylesheet from "../stylesheets/module.css";
 
-const Module = ({ user, isAuthenticated, history, module }) => {
+const Module = ({ user, isAuthenticated, history, module, instructorUpload }) => {
   const [moduleEdit, setModuleEdit] = useState({
-    moduleEdit: module,
-    // moduleEdit: {
-    //   ...module,
-    //   assignmentFile : [],
-    //   videoFile: []
-    // }
+    moduleEdit: {
+      ...module,
+      assignmentFiles: [],
+      videoFiles: [],
+    },
   });
+
 
   useEffect(() => {
     console.log(module);
-  }, []);
+  }, [])
+
+  const onSubmit = async(e) => {
+    e.preventDefault();
+
+    await Promise.all([
+      new Promise((resolve, reject) => {
+        const url = `http://localhost:3001/addAssignments/${moduleEdit.moduleEdit._id}`;
+  
+        let documentsFormData = new FormData();
+        moduleEdit.moduleEdit.assignmentFiles.forEach((assignment) => {
+          documentsFormData.append("documents", assignment);
+        });
+        const formData = documentsFormData;
+  
+        const config = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+  
+        axios
+          .post(url, formData, config)
+          .then((response) => {
+            resolve();
+          })
+          .catch((error) => {
+            resolve();
+            console.log(error);
+          });
+      }),
+    ]);
+  }
 
   return (
     <div>
@@ -57,7 +90,7 @@ const Module = ({ user, isAuthenticated, history, module }) => {
             </div>
           </div>
 
-          <div className="d-flex justify-content-center">
+          {/* <div className="d-flex justify-content-center">
             <div className="container margins ">
               <Videos
                 className=""
@@ -66,6 +99,14 @@ const Module = ({ user, isAuthenticated, history, module }) => {
                 setModuleEdit={setModuleEdit}
               />
             </div>
+          </div> */}
+
+          <div className="container text-center">
+            <form onSubmit={onSubmit}>
+              <button type="submit" className="btn btn-success btn-block">
+                Upload Assignment
+              </button>
+            </form>
           </div>
         </>
       ) : (
@@ -81,4 +122,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
 });
 
-export default connect(mapStateToProps, null)(Module);
+export default connect(mapStateToProps, {instructorUpload})(Module);

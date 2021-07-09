@@ -5,7 +5,7 @@ import {
   CREATE_MODULE,
   CREATE_MODULE_TRY,
   CANCEL_CREATE_MODULE,
-  GET_CLICKED_MODULE
+  GET_CLICKED_MODULE,
 } from "./types";
 
 export const loadModules = (history) => (dispatch) => {
@@ -54,4 +54,8 @@ export const cancelCreatingModule = () => (dispatch) => {
   dispatch({
     type: CANCEL_CREATE_MODULE,
   });
+};
+
+export const instructorUpload = async(moduleEdit) => {
+
 };

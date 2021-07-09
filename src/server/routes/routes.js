@@ -15,11 +15,16 @@ const {loginUser1} = require('../controllers/login')
 const {loginUser2, updateUser} = require('../controllers/setting')
 
 const moduleController = require('../controllers/modules')
+
 router.get('/profile/getUsers', userController.get_all_profiles);
 
 router.get('/profile/getImage/:id', userController.get_image)
 
 router.get('/profile/getDocument/:name', userController.get_document)
+
+router.get('/getAssignment/:name', moduleController.get_assignment)
+
+router.get('/getModule/:name', moduleController.get_content);
 
 router.get('/getDocument/:name', userController.get_document)
 
