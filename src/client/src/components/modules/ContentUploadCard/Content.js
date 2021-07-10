@@ -1,37 +1,38 @@
-import SingleDoc, { SingleAssignment } from "./SingleAssignment";
+import { SingleContent } from "./SingleContent";
 import PropTypes from "prop-types";
 import { ReactComponent as SvgPlus } from "../../../svgs/Plus.svg";
 import banner from "../../../svgs/simple-blue.jpg";
 
-export const Assignment = ({ module, moduleEdit, setModuleEdit }) => {
+export const Content = ({ module, moduleEdit, setModuleEdit }) => {
 
-  function handleNewFile(event) {
+  function handleNewFile2(event) {
     setModuleEdit((prevState) => ({
       moduleEdit: {
         ...prevState.moduleEdit,
-        assignmentFiles: [
-          ...prevState.moduleEdit.assignmentFiles,
+        contentFiles: [
+          ...prevState.moduleEdit.contentFiles,
           event.target.files[0],
         ],
       },
     }));
   }
 
-  function getDocumentURL(docName) {
-    return `http://localhost:3001/getAssignment/${docName}`;
+  function getDocumentURL2(docName) {
+    return `http://localhost:3001/getContent/${docName}`;
   }
 
   return (
     <div className="">
       <div className="card">
         <div className="card-body">
-          <h1>Assignments</h1>
+          <h1>Content</h1>
 
           <div className="document_list">
-          {moduleEdit.moduleEdit.assignments.map((assignment) => (
+        
+          {moduleEdit.moduleEdit.content.map((content) => (
             <>
-              <SingleAssignment
-                assignment={assignment}
+              <SingleContent
+                content={content}
                 module={module}
                 moduleEdit={moduleEdit}
                 type="Name"
@@ -39,10 +40,10 @@ export const Assignment = ({ module, moduleEdit, setModuleEdit }) => {
               />
               </>
             ))}
-            {moduleEdit.moduleEdit.assignmentFiles.map((assignmentFile) => (
+            {moduleEdit.moduleEdit.contentFiles.map((contentFile) => (
               <>
-              <SingleAssignment
-                assignment={assignmentFile}
+              <SingleContent
+                content={contentFile}
                 module={module}
                 moduleEdit={moduleEdit}
                 type="File"
@@ -52,11 +53,10 @@ export const Assignment = ({ module, moduleEdit, setModuleEdit }) => {
             ))}
 
             <div class="image-upload">
-              <label for="file-input">
+              <label for="file-input2">
                 <SvgPlus className="little-icon plus" />
               </label>
-
-              <input id="file-input" type="file" onChange={handleNewFile} />
+              <input id="file-input2" type="file" onChange={handleNewFile2} />
             </div>
           </div>
         </div>
@@ -65,10 +65,10 @@ export const Assignment = ({ module, moduleEdit, setModuleEdit }) => {
   );
 };
 
-Assignment.propTypes = {
+Content.propTypes = {
   /**
    * This represents the URL of the document that will be seen
    */
 };
 
-export default Assignment;
+export default Content;

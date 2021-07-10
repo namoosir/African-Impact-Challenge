@@ -6,6 +6,8 @@ import {
   CREATE_MODULE_TRY,
   CANCEL_CREATE_MODULE,
   GET_CLICKED_MODULE,
+  RELOAD_MODULE,
+  RELOAD_MODULE_SUCCESS,
 } from "./types";
 
 export const loadModules = (history) => (dispatch) => {
@@ -56,6 +58,25 @@ export const cancelCreatingModule = () => (dispatch) => {
   });
 };
 
-export const instructorUpload = async(moduleEdit) => {
+export const instructorUpload = async (moduleEdit) => {};
 
+export const startReload = () => (dispatch) => {
+  dispatch({
+    type: RELOAD_MODULE,
+  });
+};
+
+export const reloadModule = (module, history) => (dispatch) => {
+  axios
+    .get(`http://localhost:3001/getModule/${module._id}`)
+    .then((res) => {
+      dispatch({
+        type: RELOAD_MODULE_SUCCESS,
+        payload: res.data.module,
+      });
+    })
+    .catch((e) => {
+      console.log(e);
+      history.push("/module");
+    });
 };

@@ -1,48 +1,65 @@
 import AuthHeader from "../AuthHeader";
-import axios from 'axios'
+import axios from "axios";
 
 import { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 
 import Assignment from "./AssignmentUploadCard/Assignment";
+import Content from "./ContentUploadCard/Content";
 import Videos from "./VideoUploadCard/Videos";
 
-import { instructorUpload } from "../../actions/moduleAction";
+import { instructorUpload, startReload, reloadModule } from "../../actions/moduleAction";
 
 import moduleStylesheet from "../stylesheets/module.css";
 
-const Module = ({ user, isAuthenticated, history, module, instructorUpload }) => {
+const Module = ({
+  user,
+  isAuthenticated,
+  history,
+  module,
+  instructorUpload,
+  startReload,
+  reloadModule,
+  toReloadModule,
+  state
+}) => {
   const [moduleEdit, setModuleEdit] = useState({
     moduleEdit: {
       ...module,
       assignmentFiles: [],
-      videoFiles: [],
+      contentFiles: []
     },
   });
 
-
   useEffect(() => {
-    console.log(module);
+    console.log(state);
   }, [])
 
-  const onSubmit = async(e) => {
+  useEffect(async () => {
+    if(toReloadModule) {
+      await reloadModule(module, history);
+      window.location.reload();
+    }
+  }, [toReloadModule]);
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     await Promise.all([
       new Promise((resolve, reject) => {
         const url = `http://localhost:3001/addAssignments/${moduleEdit.moduleEdit._id}`;
-  
+
         let documentsFormData = new FormData();
         moduleEdit.moduleEdit.assignmentFiles.forEach((assignment) => {
-          documentsFormData.append("documents", assignment);
+          documentsFormData.append("assignments", assignment);
         });
         const formData = documentsFormData;
-  
+
         const config = {
           headers: { "content-type": "multipart/form-data" },
         };
-  
+
         axios
           .post(url, formData, config)
           .then((response) => {
@@ -53,8 +70,34 @@ const Module = ({ user, isAuthenticated, history, module, instructorUpload }) =>
             console.log(error);
           });
       }),
+
+      new Promise((resolve, reject) => {
+        const url2 = `http://localhost:3001/addContent/${moduleEdit.moduleEdit._id}`;
+
+        let documentsFormData2 = new FormData();
+        moduleEdit.moduleEdit.contentFiles.forEach((content) => {
+          documentsFormData2.append("content", content);
+        });
+        const formData2 = documentsFormData2;
+
+        const config2 = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+
+        axios
+          .post(url2, formData2, config2)
+          .then((response) => {
+            resolve();
+          })
+          .catch((error) => {
+            resolve();
+            console.log(error);
+          });
+      }),
     ]);
-  }
+
+    startReload();
+  };
 
   return (
     <div>
@@ -79,6 +122,7 @@ const Module = ({ user, isAuthenticated, history, module, instructorUpload }) =>
 
       {user && module && user.id === module.user._id ? (
         <>
+
           <div className="d-flex justify-content-center">
             <div className="container margins">
               <Assignment
@@ -89,6 +133,18 @@ const Module = ({ user, isAuthenticated, history, module, instructorUpload }) =>
               />
             </div>
           </div>
+
+          <div className="d-flex justify-content-center">
+            <div className="container margins">
+              <Content
+                className=""
+                module={module}
+                moduleEdit={moduleEdit}
+                setModuleEdit={setModuleEdit}
+              />
+            </div>
+          </div>
+
 
           {/* <div className="d-flex justify-content-center">
             <div className="container margins ">
@@ -104,9 +160,13 @@ const Module = ({ user, isAuthenticated, history, module, instructorUpload }) =>
           <div className="container text-center">
             <form onSubmit={onSubmit}>
               <button type="submit" className="btn btn-success btn-block">
-                Upload Assignment
+                Upload
               </button>
             </form>
+          </div>
+
+          <div>
+
           </div>
         </>
       ) : (
@@ -119,7 +179,9 @@ const Module = ({ user, isAuthenticated, history, module, instructorUpload }) =>
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
   module: state.module.clickedModule,
+  toReloadModule: state.module.reloadModule,
   isAuthenticated: state.user.isAuthenticated,
+  state: state
 });
 
-export default connect(mapStateToProps, {instructorUpload})(Module);
+export default connect(mapStateToProps, { instructorUpload, startReload, reloadModule })(Module);

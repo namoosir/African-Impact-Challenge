@@ -21,7 +21,7 @@ export const SingleAssignment = ({
   function handleClick(event) {
     setModuleEdit((prevState) => ({
       moduleEdit: {
-        ...prevState.userEdit,
+        ...prevState.moduleEdit,
 
         assignments: [
           ...prevState.moduleEdit.assignments.filter(
