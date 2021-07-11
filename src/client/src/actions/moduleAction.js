@@ -73,7 +73,7 @@ export const reloadModule = (module, history) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: RELOAD_MODULE_SUCCESS,
-        payload: res.data.result2,
+        payload: res.data,
       });
     })
     .catch((e) => {

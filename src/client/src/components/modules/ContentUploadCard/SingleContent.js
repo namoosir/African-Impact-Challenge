@@ -1,5 +1,5 @@
 import { ReactComponent as SvgDocument } from "../../../svgs/document_icon.svg";
-import { ReactComponent as SvgRedX } from "../../../svgs/redX.svg";
+import { ReactComponent as SvgRedX2 } from "../../../svgs/redX.svg";
 
 import PropTypes from "prop-types";
 
@@ -46,7 +46,7 @@ export const SingleContent = ({
           : getDocumentURL2(content).split("/").reverse()[0]}
       </a>
 
-      <SvgRedX className="little-icon" onClick={handleClick2} />
+      <SvgRedX2 className="little-icon3" onClick={handleClick2} />
     </div>
   );
 };

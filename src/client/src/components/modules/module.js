@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
 import Assignments from "./AssignmentsView/Assignments";
-import Content from "./ContentView/Content"
+import Content from "./ContentView/Content";
+import AssignmentView from "./StudentView/AssignmentView";
 
 import {
   instructorUpload,
@@ -29,6 +30,9 @@ const Module = ({
   stopReload,
   state,
 }) => {
+  useEffect(() => {
+    console.log(state);
+  }, []);
 
   useEffect(() => {
     if (toReloadModule) {
@@ -66,13 +70,13 @@ const Module = ({
         <>
           <div className="d-flex justify-content-center">
             <div className="container margins">
-              <Assignments className="" assignments={module.assignments}/>
+              <Assignments className="" assignments={module.assignments} />
             </div>
           </div>
 
           <div className="d-flex justify-content-center">
             <div className="container margins">
-              <Content className="" content={module.content}/>
+              <Content className="" content={module.content} />
             </div>
           </div>
 
@@ -84,11 +88,27 @@ const Module = ({
             </form>
           </div>
 
-          <div></div>
         </>
       ) : (
         ""
       )}
+
+
+      <div className="d-flex justify-content-center">
+        <div
+          className="bg-light margins px-4 py-4"
+          style={{ borderRadius: "25px" }}
+        >
+          <h1 className="text-dark text-center">Assignments</h1>
+          {module.assignments.map((assignment) => (
+            <div className="d-flex justify-content-center">
+              <div className="container margins">
+                <AssignmentView assignment={assignment} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

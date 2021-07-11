@@ -30,6 +30,7 @@ export const SingleDoc = ({ document, type, user, userEdit, setUserEdit }) => {
         },
       },
     }));
+    console.log(userEdit.userEdit.typeUser.documents);
   }
 
   return (
