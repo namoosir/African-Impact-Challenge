@@ -150,6 +150,37 @@ const save_content = (req, res) => {
   }
 };
 
+const save_lectures = (req, res) => {
+  var fileNames = [];
+  var filePath = [];
+  var fileName;
+  var extenstion;
+
+
+  if (typeof req.files.lectures !== "undefined") {
+    for (let i = 0; i < req.files.lectures.length; i++) {
+      filePath = req.files.lectures[i].path.split("/");
+      extenstion = req.files.lectures[i].originalname.split(".")
+      fileName = extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1];
+      fileNames.push(fileName);
+    }
+
+    var documentsList = [];
+    const id = req.params.id;
+
+    Modules.findById(id).then((result) => {
+      documentsList = result.lectures;
+      documentsList = documentsList.concat(fileNames);
+      Modules.findByIdAndUpdate(id, { lectures: documentsList }).then((x) =>
+        fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)})
+      );
+    });
+  } else {
+    res.sendStatus(200);
+  }
+};
+
+
 const get_exact_module = (req, res) => {
   Modules.findById(req.params.id).then((result) => {
     myPop(result, "user").then((result2) => {
@@ -186,4 +217,5 @@ module.exports = {
   save_content,
   get_exact_module,
   edit_module,
+  save_lectures
 };
