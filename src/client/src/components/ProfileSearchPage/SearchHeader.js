@@ -105,10 +105,14 @@ const SearchHeader = ({users, setUsers, users2, setUsers2}) => {
         
     });
 
-    //THis by name default
-    function updateSearch(event){
+    //This is searching by name by default
+    function updateSearch(event){  
+
+        //For now, reset filters whenever using search bar
+        //multiSelRef.companyRef.current.resetSelectedValues();
+        //multiSelRef.userRef.current.resetSelectedValues();
+
         
-        console.log("This is search",event.target.value);
         setUsers2(users.filter((user) => user.name.toLowerCase().includes(event.target.value.toLowerCase())));
     }
 

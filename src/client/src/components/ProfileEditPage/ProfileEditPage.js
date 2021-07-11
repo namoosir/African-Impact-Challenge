@@ -49,6 +49,7 @@ const ProfileEditPage = ({user, userProfile, isAuthenticated, history, loadSelfP
             typeUser: {
                 ...userProfile.typeUser,
                 documentFiles: [],
+                documentFiles: [],
                 documentsToDel: []
             }
         }

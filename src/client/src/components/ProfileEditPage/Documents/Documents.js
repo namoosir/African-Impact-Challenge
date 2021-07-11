@@ -21,6 +21,18 @@ export const Documents = ({ user, userEdit, setUserEdit, loggedInUser }) => {
     }));
   }
 
+  function toggleFunding(){
+    setUserEdit(prevState => ({
+      userEdit: {
+          ...prevState.userEdit,
+          typeUser : {
+            ...prevState.userEdit.typeUser,
+            lookingFunding : !prevState.userEdit.typeUser.lookingFunding
+          }
+      }
+  }))
+  }
+
   function getDocumentURL(docName) {
     return `http://localhost:3001/profile/getDocument/${docName}`;
   }
@@ -52,6 +64,19 @@ export const Documents = ({ user, userEdit, setUserEdit, loggedInUser }) => {
                         </div> 
                         
                     </div>
+
+                    <div className="form-check funding-check">
+                      {userEdit.userEdit.typeUser.lookingFunding ? 
+                      <input className="form-check-input funding-checkbox " type="checkbox" checked onChange={toggleFunding}/>
+                      : <input className="form-check-input funding-checkbox " type="checkbox" onChange={toggleFunding}/>
+                      }
+
+                      <label className="form-check-label edit_profile_funding_label">Looking for Funding</label> 
+                    </div>
+                      
+                    
+                    
+           
 
                     
                 </div>

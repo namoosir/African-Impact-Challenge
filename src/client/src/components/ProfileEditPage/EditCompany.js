@@ -1,8 +1,13 @@
 import React from "react";
 import Documents from "./Documents/Documents";
 import { Component, useState } from "react";
+import { func } from "prop-types";
 
 const EditCompany = ({ user, userEdit, setUserEdit }) => {
+
+  
+
+
   return (
     <>
       {user.typeOfUser === "Company" ? (
@@ -12,10 +17,18 @@ const EditCompany = ({ user, userEdit, setUserEdit }) => {
             userEdit={userEdit}
             setUserEdit={setUserEdit}
           />
+
+       
+            
+            
+
+          
         </div>
       ) : (
         ""
       )}
+
+
     </>
   );
 };
