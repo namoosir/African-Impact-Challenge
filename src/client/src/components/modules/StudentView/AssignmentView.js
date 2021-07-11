@@ -27,7 +27,6 @@ export const AssignmentStudent = ({
 
   return (
     <div className="">
-      {}
       <div className="card">
         <div className="card-body">
           <h1>{assignment}</h1>
