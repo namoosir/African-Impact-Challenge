@@ -34,12 +34,12 @@ const Module = ({
     console.log(state);
   }, []);
 
-  useEffect(() => {
-    if (toReloadModule) {
-      reloadModule(module, history);
-      window.location.reload();
-    }
-  }, [toReloadModule]);
+  // useEffect(() => {
+  //   if (toReloadModule) {
+  //     reloadModule(module, history);
+  //     window.location.reload();
+  //   }
+  // }, [toReloadModule]);
 
   const onSubmit = (e) => {
     history.push("/module_edit");

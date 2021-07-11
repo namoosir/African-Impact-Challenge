@@ -42,6 +42,32 @@ const ModuleEdit = ({
     e.preventDefault();
 
     await Promise.all([
+
+      new Promise((resolve, reject) => {
+        
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...moduleEdit.moduleEdit,
+          }),
+        };
+
+        console.log("Module Edit",moduleEdit.moduleEdit);
+        console.log("Stringified Body",requestOptions.body);
+
+        fetch(
+          `http://localhost:3001/editModule/${moduleEdit.moduleEdit._id}`,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            //console.log("DATA handled",data)
+            resolve();
+          });
+
+      }),
+
       new Promise((resolve, reject) => {
         const url = `http://localhost:3001/addAssignments/${moduleEdit.moduleEdit._id}`;
 
@@ -91,8 +117,9 @@ const ModuleEdit = ({
       }),
     ]);
 
-    startReload();
-    history.push("/module");
+     // startReload();
+     reloadModule(module, history);
+     history.push("/module");
   };
 
   const onCancel = (e) => {
