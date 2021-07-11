@@ -4,6 +4,7 @@ const Partner = require("../models/partner");
 const Company = require("../models/company");
 const User = require("../models/user");
 const Modules = require("../models/modules");
+const fs = require("fs")
 
 const imagesPath = "./server/images";
 
@@ -66,14 +67,16 @@ const get_assignment = (req, res) => {
 
 const save_assignments = (req, res) => {
   var fileNames = [];
-  var expensesFile = [];
   var filePath = [];
   var fileName;
+  var extenstion;
+
 
   if (typeof req.files.assignments !== "undefined") {
     for (let i = 0; i < req.files.assignments.length; i++) {
       filePath = req.files.assignments[i].path.split("/");
-      fileName = filePath[filePath.length - 1];
+      extenstion = req.files.assignments[i].originalname.split(".")
+      fileName = extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1];
       fileNames.push(fileName);
     }
 
@@ -84,7 +87,7 @@ const save_assignments = (req, res) => {
       documentsList = result.assignments;
       documentsList = documentsList.concat(fileNames);
       Modules.findByIdAndUpdate(id, { assignments: documentsList }).then((x) =>
-        res.sendStatus(200)
+        fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)})
       );
     });
   } else {
@@ -99,14 +102,16 @@ const get_content = (req, res) => {
 
 const save_content = (req, res) => {
   var fileNames = [];
-  var expensesFile = [];
   var filePath = [];
   var fileName;
+  var extenstion;
+
 
   if (typeof req.files.content !== "undefined") {
     for (let i = 0; i < req.files.content.length; i++) {
       filePath = req.files.content[i].path.split("/");
-      fileName = filePath[filePath.length - 1];
+      extenstion = req.files.content[i].originalname.split(".")
+      fileName = extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1];
       fileNames.push(fileName);
     }
 
@@ -117,7 +122,7 @@ const save_content = (req, res) => {
       documentsList = result.content;
       documentsList = documentsList.concat(fileNames);
       Modules.findByIdAndUpdate(id, { content: documentsList }).then((x) =>
-        res.sendStatus(200)
+        fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)})
       );
     });
   } else {
@@ -142,6 +147,10 @@ const get_exact_module = (req, res) => {
   // res.status(200).json({ module });
 };
 
+const edit_module = (req, res) => {
+  Modules.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true }).then(result => res.send(result))
+};
+
 module.exports = {
   create_module,
   get_recent_modules,
@@ -151,4 +160,5 @@ module.exports = {
   get_content,
   save_content,
   get_exact_module,
+  edit_module
 };

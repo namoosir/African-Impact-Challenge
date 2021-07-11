@@ -49,6 +49,8 @@ router.get("/getModule/:id", moduleController.get_exact_module);
 
 router.put("/profile/edit/:id", userController.user_updates);
 
+router.put("editModule/:id", moduleController.edit_module);
+
 router.post(
   "/profile/editImage/:id",
   uploadImage.fields([{ name: "imageURL", maxCount: 1 }]),
