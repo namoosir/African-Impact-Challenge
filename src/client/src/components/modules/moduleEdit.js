@@ -91,7 +91,8 @@ const ModuleEdit = ({
       }),
     ]);
 
-    startReload();
+    // startReload();
+    reloadModule(module, history);
     history.push("/module");
   };
 

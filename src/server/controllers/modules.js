@@ -128,7 +128,7 @@ const save_content = (req, res) => {
 const get_exact_module = (req, res) => {
   Modules.findById(req.params.id).then((result) => {
     myPop(result, "user").then((result2) => {
-      console.log(result2);
+      console.log("HEREEEEE", result2);
       res.status(200).json(result2);
     });
   });
