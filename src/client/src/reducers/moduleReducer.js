@@ -5,7 +5,8 @@ import {
   CANCEL_CREATE_MODULE,
   GET_CLICKED_MODULE,
   RELOAD_MODULE,
-  RELOAD_MODULE_SUCCESS
+  RELOAD_MODULE_SUCCESS,
+  RELOAD_STOP_MODULE
 } from "../actions/types";
 
 const initialState = {
@@ -56,6 +57,11 @@ export default function (state = initialState, action) {
         ...state,
         reloadModule: false,
         clickedModule: payload
+      }
+    case RELOAD_STOP_MODULE:
+      return {
+        ...state,
+        reloadModule: false
       }
     default:
       return state;

@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 
 import { connect } from "react-redux";
 
-import Assignment from "./AssignmentUploadCard/Assignment";
-import Content from "./ContentUploadCard/Content";
-import Videos from "./VideoUploadCard/Videos";
+import Assignments from "./AssignmentsView/Assignments";
+import Content from "./ContentView/Content"
 
-import { instructorUpload, startReload, reloadModule } from "../../actions/moduleAction";
+import {
+  instructorUpload,
+  startReload,
+  reloadModule,
+  stopReload,
+} from "../../actions/moduleAction";
 
 import moduleStylesheet from "../stylesheets/module.css";
 
@@ -22,81 +26,19 @@ const Module = ({
   startReload,
   reloadModule,
   toReloadModule,
-  state
+  stopReload,
+  state,
 }) => {
-  const [moduleEdit, setModuleEdit] = useState({
-    moduleEdit: {
-      ...module,
-      assignmentFiles: [],
-      contentFiles: []
-    },
-  });
 
   useEffect(() => {
-    console.log(state);
-  }, [])
-
-  useEffect(async () => {
-    if(toReloadModule) {
-      await reloadModule(module, history);
+    if (toReloadModule) {
+      reloadModule(module, history);
       window.location.reload();
     }
   }, [toReloadModule]);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await Promise.all([
-      new Promise((resolve, reject) => {
-        const url = `http://localhost:3001/addAssignments/${moduleEdit.moduleEdit._id}`;
-
-        let documentsFormData = new FormData();
-        moduleEdit.moduleEdit.assignmentFiles.forEach((assignment) => {
-          documentsFormData.append("assignments", assignment);
-        });
-        const formData = documentsFormData;
-
-        const config = {
-          headers: { "content-type": "multipart/form-data" },
-        };
-
-        axios
-          .post(url, formData, config)
-          .then((response) => {
-            resolve();
-          })
-          .catch((error) => {
-            resolve();
-            console.log(error);
-          });
-      }),
-
-      new Promise((resolve, reject) => {
-        const url2 = `http://localhost:3001/addContent/${moduleEdit.moduleEdit._id}`;
-
-        let documentsFormData2 = new FormData();
-        moduleEdit.moduleEdit.contentFiles.forEach((content) => {
-          documentsFormData2.append("content", content);
-        });
-        const formData2 = documentsFormData2;
-
-        const config2 = {
-          headers: { "content-type": "multipart/form-data" },
-        };
-
-        axios
-          .post(url2, formData2, config2)
-          .then((response) => {
-            resolve();
-          })
-          .catch((error) => {
-            resolve();
-            console.log(error);
-          });
-      }),
-    ]);
-
-    startReload();
+  const onSubmit = (e) => {
+    history.push("/module_edit");
   };
 
   return (
@@ -122,40 +64,17 @@ const Module = ({
 
       {user && module && user.id === module.user._id ? (
         <>
-
           <div className="d-flex justify-content-center">
             <div className="container margins">
-              <Assignment
-                className=""
-                module={module}
-                moduleEdit={moduleEdit}
-                setModuleEdit={setModuleEdit}
-              />
+              <Assignments className="" assignments={module.assignments}/>
             </div>
           </div>
 
           <div className="d-flex justify-content-center">
             <div className="container margins">
-              <Content
-                className=""
-                module={module}
-                moduleEdit={moduleEdit}
-                setModuleEdit={setModuleEdit}
-              />
+              <Content className="" content={module.content}/>
             </div>
           </div>
-
-
-          {/* <div className="d-flex justify-content-center">
-            <div className="container margins ">
-              <Videos
-                className=""
-                module={module}
-                moduleEdit={moduleEdit}
-                setModuleEdit={setModuleEdit}
-              />
-            </div>
-          </div> */}
 
           <div className="container text-center">
             <form onSubmit={onSubmit}>
@@ -165,9 +84,7 @@ const Module = ({
             </form>
           </div>
 
-          <div>
-
-          </div>
+          <div></div>
         </>
       ) : (
         ""
@@ -181,7 +98,12 @@ const mapStateToProps = (state) => ({
   module: state.module.clickedModule,
   toReloadModule: state.module.reloadModule,
   isAuthenticated: state.user.isAuthenticated,
-  state: state
+  state: state,
 });
 
-export default connect(mapStateToProps, { instructorUpload, startReload, reloadModule })(Module);
+export default connect(mapStateToProps, {
+  instructorUpload,
+  startReload,
+  reloadModule,
+  stopReload,
+})(Module);

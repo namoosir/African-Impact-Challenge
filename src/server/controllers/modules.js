@@ -125,18 +125,21 @@ const save_content = (req, res) => {
   }
 };
 
-const get_exact_module = async (req, res) => {
-  const befModule = await Modules.findById(req.params.id);
-
-  if (!befModule) {
-    res.status(404).json({ msg: "could not find module" });
-  }
-
-  const module = await myPop(befModule, "user").then(function (result) {
-    return result;
+const get_exact_module = (req, res) => {
+  Modules.findById(req.params.id).then((result) => {
+    myPop(result, "user").then((result2) => {
+      console.log(result2);
+      res.status(200).json({ result2 });
+    });
   });
 
-  res.status(200).json({ module });
+  // if (!befModule) {
+  //   res.status(404).json({ msg: "could not find module" });
+  // }
+
+  // const module = await myPop(befModule, "user");
+
+  // res.status(200).json({ module });
 };
 
 module.exports = {

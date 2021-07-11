@@ -8,6 +8,7 @@ import {
   GET_CLICKED_MODULE,
   RELOAD_MODULE,
   RELOAD_MODULE_SUCCESS,
+  RELOAD_STOP_MODULE
 } from "./types";
 
 export const loadModules = (history) => (dispatch) => {
@@ -72,11 +73,17 @@ export const reloadModule = (module, history) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: RELOAD_MODULE_SUCCESS,
-        payload: res.data.module,
+        payload: res.data.result2,
       });
     })
     .catch((e) => {
       console.log(e);
-      history.push("/module");
+      history.push("/home");
     });
 };
+
+export const stopReload = () => (dispatch) => {
+  dispatch({
+    type: RELOAD_STOP_MODULE
+  })
+}
