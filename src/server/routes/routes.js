@@ -74,4 +74,11 @@ router.post(
   uploadDocument.fields([{ name: "content" }]),
   moduleController.save_content
 );
+
+router.post(
+  "/addLectures/:id",
+  uploadDocument.fields([{ name: "lectures" }]),
+  moduleController.save_lectures
+);
+
 module.exports = router;
