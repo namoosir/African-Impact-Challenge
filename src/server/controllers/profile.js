@@ -6,6 +6,7 @@ const User = require("../models/user");
 const imagesPath = "./server/images";
 
 const documentPath = "./server/documents";
+const fs = require("fs")
 
 const userType = {
   Entrepreneur: Entrepreneur,
@@ -99,13 +100,14 @@ const get_image = (req, res) => {
 
 const save_image = (req, res) => {
   expect(req.files.imageURL, "file needed").to.exist;
-  const expensesFile = req.files.imageURL[0];
-
-  const fileName = expensesFile.path.split("/");
+  const expensesFile = req.files.imageURL[0]; 
+  const filePath = expensesFile.path.split("/");
+  const extenstion = expensesFile.originalname.split(".")
+  const fileName =  extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1]
 
   User.findByIdAndUpdate(req.params.id, {
-    image: fileName[fileName.length - 1],
-  }).then((result) => res.sendStatus(200));
+    image: fileName,
+  }).then((result) => fs.rename(`./server/images/${filePath[filePath.length - 1]}`, `./server/images/${fileName}`, ()=>{res.sendStatus(200)}));
 };
 
 async function myPop2(post) {
@@ -122,14 +124,15 @@ const get_document = (req, res) => {
 
 const save_documents = (req, res) => {
   var fileNames = [];
-  var expensesFile = [];
   var filePath = [];
   var fileName;
+  var extenstion;
 
   if (typeof req.files.documents !== "undefined") {
     for (let i = 0; i < req.files.documents.length; i++) {
       filePath = req.files.documents[i].path.split("/");
-      fileName = filePath[filePath.length - 1];
+      extenstion = req.files.documents[i].originalname.split(".")
+      fileName = extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1];
       fileNames.push(fileName);
     }
 
@@ -142,7 +145,7 @@ const save_documents = (req, res) => {
         documentsList = documentsList.concat(fileNames);
         userType[result.typeOfUser]
           .findByIdAndUpdate(result.typeUser, { documents: documentsList })
-          .then((x) => res.sendStatus(200));
+          .then((x) => fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)}));
       });
     });
   } else {

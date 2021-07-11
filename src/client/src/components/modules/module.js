@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 
 import Assignments from "./AssignmentsView/Assignments";
 import Content from "./ContentView/Content";
+import Videos from "./VideoView/Videos"
 import AssignmentView from "./StudentView/AssignmentView";
 
 import {
@@ -77,6 +78,12 @@ const Module = ({
           <div className="d-flex justify-content-center">
             <div className="container margins">
               <Content className="" content={module.content} />
+            </div>
+          </div>
+
+          <div className="d-flex justify-content-center">
+            <div className="container margins">
+              <Videos className="" videos={module.lectures} />
             </div>
           </div>
 

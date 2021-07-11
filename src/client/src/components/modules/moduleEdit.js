@@ -35,6 +35,7 @@ const ModuleEdit = ({
       ...module,
       assignmentFiles: [],
       contentFiles: [],
+      lectureFiles: []
     },
   });
 
@@ -42,6 +43,32 @@ const ModuleEdit = ({
     e.preventDefault();
 
     await Promise.all([
+
+      new Promise((resolve, reject) => {
+        
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...moduleEdit.moduleEdit,
+          }),
+        };
+
+        console.log("Module Edit",moduleEdit.moduleEdit);
+        console.log("Stringified Body",requestOptions.body);
+
+        fetch(
+          `http://localhost:3001/editModule/${moduleEdit.moduleEdit._id}`,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            //console.log("DATA handled",data)
+            resolve();
+          });
+
+      }),
+
       new Promise((resolve, reject) => {
         const url = `http://localhost:3001/addAssignments/${moduleEdit.moduleEdit._id}`;
 
@@ -89,11 +116,35 @@ const ModuleEdit = ({
             console.log(error);
           });
       }),
+
+      new Promise((resolve, reject) => {
+        const url3 = `http://localhost:3001/addLectures/${moduleEdit.moduleEdit._id}`;
+
+        let documentsFormData3 = new FormData();
+        moduleEdit.moduleEdit.lectureFiles.forEach((lecture) => {
+          documentsFormData3.append("lectures", lecture);
+        });
+        const formData3 = documentsFormData3;
+
+        const config3 = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+
+        axios
+          .post(url3, formData3, config3)
+          .then((response) => {
+            resolve();
+          })
+          .catch((error) => {
+            resolve();
+            console.log(error);
+          });
+      }),
     ]);
 
-    // startReload();
-    reloadModule(module, history);
-    history.push("/module");
+     // startReload();
+     reloadModule(module, history);
+     history.push("/module");
   };
 
   const onCancel = (e) => {
@@ -146,7 +197,7 @@ const ModuleEdit = ({
             </div>
           </div>
 
-          {/* <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center">
             <div className="container margins ">
               <Videos
                 className=""
@@ -155,7 +206,7 @@ const ModuleEdit = ({
                 setModuleEdit={setModuleEdit}
               />
             </div>
-          </div> */}
+          </div>
 
           <div className="container text-center">
             <form onSubmit={onSubmit}>
