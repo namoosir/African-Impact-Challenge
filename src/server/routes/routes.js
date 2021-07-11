@@ -45,6 +45,7 @@ router.get("/getrecmodules", moduleController.get_recent_modules);
 router.put("/deletemodule", moduleController.delete_module);
 router.get("/getAssignment/:name", moduleController.get_assignment);
 router.get("/getContent/:name", moduleController.get_content);
+router.get("/getLecture/:name", moduleController.get_lecture)
 router.get("/getModule/:id", moduleController.get_exact_module);
 
 router.put("/profile/edit/:id", userController.user_updates);

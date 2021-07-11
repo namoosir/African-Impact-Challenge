@@ -150,6 +150,11 @@ const save_content = (req, res) => {
   }
 };
 
+const get_lecture = (req, res) => {
+  const name = req.params.name;
+  res.sendFile(name, { root: documentPath });
+};
+
 const save_lectures = (req, res) => {
   var fileNames = [];
   var filePath = [];
@@ -217,5 +222,6 @@ module.exports = {
   save_content,
   get_exact_module,
   edit_module,
+  get_lecture,
   save_lectures
 };

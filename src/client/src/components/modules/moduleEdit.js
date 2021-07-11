@@ -35,6 +35,7 @@ const ModuleEdit = ({
       ...module,
       assignmentFiles: [],
       contentFiles: [],
+      lectureFiles: []
     },
   });
 
@@ -115,6 +116,30 @@ const ModuleEdit = ({
             console.log(error);
           });
       }),
+
+      new Promise((resolve, reject) => {
+        const url3 = `http://localhost:3001/addLectures/${moduleEdit.moduleEdit._id}`;
+
+        let documentsFormData3 = new FormData();
+        moduleEdit.moduleEdit.lectureFiles.forEach((lecture) => {
+          documentsFormData3.append("lectures", lecture);
+        });
+        const formData3 = documentsFormData3;
+
+        const config3 = {
+          headers: { "content-type": "multipart/form-data" },
+        };
+
+        axios
+          .post(url3, formData3, config3)
+          .then((response) => {
+            resolve();
+          })
+          .catch((error) => {
+            resolve();
+            console.log(error);
+          });
+      }),
     ]);
 
      // startReload();
@@ -172,7 +197,7 @@ const ModuleEdit = ({
             </div>
           </div>
 
-          {/* <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center">
             <div className="container margins ">
               <Videos
                 className=""
@@ -181,7 +206,7 @@ const ModuleEdit = ({
                 setModuleEdit={setModuleEdit}
               />
             </div>
-          </div> */}
+          </div>
 
           <div className="container text-center">
             <form onSubmit={onSubmit}>
