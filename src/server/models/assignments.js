@@ -19,7 +19,10 @@ const AssignmentSchema = new Schema({
         type: String,
     },  
     marked_document:{
-        type: String
+        type: String,
+    },
+    assignment_name: {
+        type: String,
     }
 })
 // CreateAssignment, getAssignment, updateAssignment, Savesubmitted_document, save marked_document, get all assignment by userid
