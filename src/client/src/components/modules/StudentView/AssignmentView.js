@@ -18,6 +18,7 @@ import {
 export const AssignmentStudent = ({
   assignment,
   assignments,
+  ind,
   user,
   history,
   createAssignment,
@@ -25,17 +26,17 @@ export const AssignmentStudent = ({
 }) => {
   const [assignmentEdit, setAssignmentEdit] = useState({
     id: "",
-    userid: user.id,
+    userid: user ? user.id : "",
     submitted_document: "",
-    name: assignment,
+    name: assignment ? assignment : "",
     submitted_document_file: "",
   });
+
 
   const { id, userid, name, submitted_document, submitted_document_file } =
     assignmentEdit;
 
   useEffect(() => {
-    console.log(assignments);
     getAssignmentName();
   }, []);
 
@@ -97,7 +98,6 @@ export const AssignmentStudent = ({
       ]);
     } else {
       await Promise.all([
-
         new Promise((resolve, reject) => {
           const requestOptions = {
             method: "PUT",
@@ -106,11 +106,8 @@ export const AssignmentStudent = ({
               ...assignmentEdit,
             }),
           };
-  
-          fetch(
-            `http://localhost:3001/assignment/edit/${id}`,
-            requestOptions
-          )
+
+          fetch(`http://localhost:3001/assignment/edit/${id}`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
               //console.log("DATA handled",data)
@@ -123,13 +120,13 @@ export const AssignmentStudent = ({
 
           let documentsFormData = new FormData();
           documentsFormData.append("SubmittedDocument", submitted_document);
-    
+
           const formData = documentsFormData;
-    
+
           const config = {
             headers: { "content-type": "multipart/form-data" },
           };
-    
+
           axios
             .post(url, formData, config)
             .then((response) => {
@@ -140,9 +137,8 @@ export const AssignmentStudent = ({
               console.log(error);
             });
           resolve();
-        })
-      ])
-      
+        }),
+      ]);
     }
 
     createAssignmentSuccesful();
@@ -172,7 +168,7 @@ export const AssignmentStudent = ({
   }
 
   return (
-    <div className="">
+    <div className="d-block">
       <div className="card">
         <div className="card-body">
           <h2>
@@ -216,47 +212,56 @@ export const AssignmentStudent = ({
                             .split("/")
                             .reverse()[0]}
                     </a>
-                    <SvgRedX1 className="little-icon3" onClick={handleClick} />
+                    <SvgRedX1
+                      className="little-icon3"
+                      onClick={handleClick}
+                      ind={ind}
+                    />
                   </div>
                 </div>
               </>
             ) : (
               <>
-              {submitted_document ? (
-                <>
-                <div className="document_list">
-                  <div className="document_single">
-                    <SvgDocument className="little-icon" />
-                    <a
-                      href={getDocumentURL3(submitted_document)}
-                      target="_blank"
-                    >
-                      {getDocumentURL3(submitted_document).split("*")[0]
-                        .length > 5
-                        ? getDocumentURL3(submitted_document)
-                            .split("/")
-                            .reverse()[0]
-                            .slice(0, 5) + "..."
-                        : getDocumentURL3(submitted_document)
-                            .split("/")
-                            .reverse()[0]}
-                    </a>
-                    <SvgRedX className="little-icon4" onClick={handleClick} />
-                  </div>
-                </div>
+                {submitted_document ? (
+                  <>
+                    <div className="document_list">
+                      <div className="document_single">
+                        <SvgDocument className="little-icon" />
+                        <a
+                          href={getDocumentURL3(submitted_document)}
+                          target="_blank"
+                        >
+                          {getDocumentURL3(submitted_document).split("*")[0]
+                            .length > 5
+                            ? getDocumentURL3(submitted_document)
+                                .split("/")
+                                .reverse()[0]
+                                .slice(0, 5) + "..."
+                            : getDocumentURL3(submitted_document)
+                                .split("/")
+                                .reverse()[0]}
+                        </a>
+                        <SvgRedX
+                          className="little-icon4"
+                          onClick={handleClick}
+                          ind={ind}
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
               </>
-              ): ""}
-              </>
-              
             )}
-
             <div class="image-upload">
-              <label for="file-input">
+              <label for={`file-input ${ind}`}>
                 <SvgPlus className="little-icon plus" />
               </label>
 
               <input
-                id="file-input"
+                id={`file-input ${ind}`}
+                key={ind}
                 type="file"
                 onChange={handleNewAssignment}
               />
