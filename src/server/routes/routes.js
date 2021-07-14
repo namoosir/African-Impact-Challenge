@@ -15,6 +15,7 @@ const { loginUser1 } = require("../controllers/login");
 const { loginUser2, updateUser } = require("../controllers/setting");
 
 const moduleController = require("../controllers/modules");
+const assignmentController = require("../controllers/assignments");
 
 router.get("/profile/getUsers", userController.get_all_profiles);
 
@@ -43,7 +44,7 @@ router.put("/deletepost", postController.remove_post);
 router.post("/createModule/:id", moduleController.create_module);
 router.get("/getrecmodules", moduleController.get_recent_modules);
 router.put("/deletemodule", moduleController.delete_module);
-router.get("/getAssignment/:name", moduleController.get_assignment);
+router.get("/getAssignment/:name", moduleController.get_assignment); //is this still in use?????
 router.get("/getContent/:name", moduleController.get_content);
 router.get("/getLecture/:name", moduleController.get_lecture)
 router.get("/getModule/:id", moduleController.get_exact_module);
@@ -51,6 +52,15 @@ router.get("/getModule/:id", moduleController.get_exact_module);
 router.put("/profile/edit/:id", userController.user_updates);
 
 router.put("/editModule/:id", moduleController.edit_module);
+
+
+router.post("/Assignment/create", assignmentController.create_assignment);
+router.get("/Assignment/:id", assignmentController.get_assignment_model);
+router.get("/Assignment/edit/:id", assignmentController.edit_assignment);
+
+
+
+
 
 router.post(
   "/profile/editImage/:id",
@@ -64,7 +74,7 @@ router.post(
   userController.save_documents
 );
 
-router.post(
+router.post(                                            // is this still in use?????
   "/addAssignments/:id",
   uploadDocument.fields([{ name: "assignments" }]),
   moduleController.save_assignments
@@ -81,5 +91,18 @@ router.post(
   uploadDocument.fields([{ name: "lectures" }]),
   moduleController.save_lectures
 );
+
+router.post(                                          
+  "/Assignment/AddSubmittedDocument/:id",
+  uploadDocument.fields([{ name: "SubmittedDocument" }]),
+  assignmentController.save_submitted_document
+);
+
+router.post(                                          
+  "/Assignment/AddMarkedDocument/:id",
+  uploadDocument.fields([{ name: "MarkedDocument" }]),
+  assignmentController.save_marked_document
+);
+
 
 module.exports = router;
