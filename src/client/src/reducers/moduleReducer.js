@@ -15,6 +15,7 @@ const initialState = {
   reloadModule: false,
   modules: {},
   clickedModule: {},
+  compareModule: {},
 };
 
 export default function (state = initialState, action) {
@@ -46,6 +47,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         clickedModule: payload,
+        compareModule: payload,
       };
     case RELOAD_MODULE:
       return {

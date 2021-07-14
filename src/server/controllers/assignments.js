@@ -22,53 +22,107 @@ const userType = {
 const { expect } = require("chai");
 
 const create_assignment = async (req, res) => {
+
   const assignment = new Assignments({
     userid: req.body.userid,
-    name: req.body.name
+    name: req.body.name,
   });
   const refassignment = await assignment.save();
   res.status(200).json(refassignment);
 };
 
 const get_assignment_model = (req, res) => {
-    Assignments.findById(req.params.id).then(() => {
-        res.status(200).json(result);
-    });
+  Assignments.find({userid: req.params.id}).then((result) => {
+    res.status(200).json(result);
+  });
 };
 
 const edit_assignment = (req, res) => {
-    Modules.findByIdAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    }).then((result) => {
-      res.status(200).json(result);
-    });
+  const assignmentToUpdate = {
+    userid: req.body.userid,
+    name: req.body.name,
+    submitted_document: req.body.submitted_document.name
+  }
+  Assignments.findByIdAndUpdate({ _id: req.params.id }, assignmentToUpdate, {
+    new: true,
+  }).then((result) => {
+    res.status(200).json(result);
+  });
 };
 
 const save_submitted_document = (req, res) => {
-    expect(req.files.SubmittedDocument, "file needed").to.exist;
-    const expensesFile = req.files.SubmittedDocument[0]; 
+  // expect(req.files.SubmittedDocument, "file needed").to.exist;
+  if(typeof req.files.SubmittedDocument !== "undefined") {
+    const expensesFile = req.files.SubmittedDocument[0];
     const filePath = expensesFile.path.split("/");
-    const extenstion = expensesFile.originalname.split(".")
-    const fileName =  extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1]
+    const extenstion = expensesFile.originalname.split(".");
+    const fileName =
+      extenstion.slice(0, -1).join("") +
+      "*" +
+      filePath[filePath.length - 1] +
+      "." +
+      extenstion[extenstion.length - 1];
   
-    User.findByIdAndUpdate(req.params.id, {
-        submitted_document: fileName,
-    }).then((result) => fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)}));
+    Assignments.findByIdAndUpdate(req.params.id, {
+      submitted_document: fileName,
+    }).then((result) =>
+      fs.rename(
+        `./server/documents/${filePath[filePath.length - 1]}`,
+        `./server/documents/${fileName}`,
+        () => {
+          res.status(200).json(fileName);
+        }
+      )
+    );
+  } else {
+    res.status(200);
+  }
+  
 };
 
 const save_marked_document = (req, res) => {
-    expect(req.files.MarkedDocument, "file needed").to.exist;
-    const expensesFile = req.files.MarkedDocument[0]; 
-    const filePath = expensesFile.path.split("/");
-    const extenstion = expensesFile.originalname.split(".")
-    const fileName =  extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1]
-  
-    User.findByIdAndUpdate(req.params.id, {
-        marked_document: fileName,
-    }).then((result) => fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)}));
+  expect(req.files.MarkedDocument, "file needed").to.exist;
+  const expensesFile = req.files.MarkedDocument[0];
+  const filePath = expensesFile.path.split("/");
+  const extenstion = expensesFile.originalname.split(".");
+  const fileName =
+    extenstion.slice(0, -1).join("") +
+    "*" +
+    filePath[filePath.length - 1] +
+    "." +
+    extenstion[extenstion.length - 1];
+
+  User.findByIdAndUpdate(req.params.id, {
+    marked_document: fileName,
+  }).then((result) =>
+    fs.rename(
+      `./server/documents/${filePath[filePath.length - 1]}`,
+      `./server/documents/${fileName}`,
+      () => {
+        res.sendStatus(200);
+      }
+    )
+  );
 };
 
+const get_all_entrepreneurs = async (req, res) => {
+  const entrepreneurs = await User.find({ typeOfUser: "Entrepreneur" });
+  res.status(200).json(entrepreneurs);
+};
 
+const get_assignment_id_name = async (req, res) => {
+  const assignment = await Assignments.find({userid: req.params.id, name: req.params.name})
+  if(assignment) {
+    res.status(200).json(assignment.submitted_document);
+  } else {
+    res.status(404);
+  }
+}
+
+const get_all_assignments = async (req, res) => {
+  const assignments = await Assignments.find({userid: req.params.id});
+  res.status(200).json(assignments);
+}
 
 const get_recent_modules = async (req, res) => {
   const modules = await Modules.find({}).sort("-date");
@@ -199,12 +253,16 @@ const save_lectures = (req, res) => {
   var fileName;
   var extenstion;
 
-
   if (typeof req.files.lectures !== "undefined") {
     for (let i = 0; i < req.files.lectures.length; i++) {
       filePath = req.files.lectures[i].path.split("/");
-      extenstion = req.files.lectures[i].originalname.split(".")
-      fileName = extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1];
+      extenstion = req.files.lectures[i].originalname.split(".");
+      fileName =
+        extenstion.slice(0, -1).join("") +
+        "*" +
+        filePath[filePath.length - 1] +
+        "." +
+        extenstion[extenstion.length - 1];
       fileNames.push(fileName);
     }
 
@@ -215,14 +273,19 @@ const save_lectures = (req, res) => {
       documentsList = result.lectures;
       documentsList = documentsList.concat(fileNames);
       Modules.findByIdAndUpdate(id, { lectures: documentsList }).then((x) =>
-        fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)})
+        fs.rename(
+          `./server/documents/${filePath[filePath.length - 1]}`,
+          `./server/documents/${fileName}`,
+          () => {
+            res.sendStatus(200);
+          }
+        )
       );
     });
   } else {
     res.sendStatus(200);
   }
 };
-
 
 const get_exact_module = (req, res) => {
   Modules.findById(req.params.id).then((result) => {
@@ -241,13 +304,13 @@ const get_exact_module = (req, res) => {
   // res.status(200).json({ module });
 };
 
-
-
 module.exports = {
-    create_assignment,
-    get_assignment_model,
-    edit_assignment,
-    save_submitted_document,
-    save_marked_document
-
+  create_assignment,
+  get_assignment_model,
+  edit_assignment,
+  save_submitted_document,
+  save_marked_document,
+  get_all_entrepreneurs,
+  get_assignment_id_name,
+  get_all_assignments
 };

@@ -25,6 +25,13 @@ import {
   cancelCreatingModule,
 } from "../../actions/moduleAction";
 
+import {
+  getEntrepreneurs,
+  getAssignmentStudent,
+  loadAssignments,
+  afterCreateAssignment
+} from "../../actions/assignmentAction";
+
 import moduleStylesheet from "../stylesheets/module.css";
 
 const Module = ({
@@ -44,6 +51,13 @@ const Module = ({
   cancelCreatingModule,
   createModules,
   loadModules,
+  assignments,
+  getEntrepreneurs,
+  entrepreneurs,
+  getAssignmentStudent,
+  loadAssignments,
+  afterCreateAssignment,
+  assignmentCreated,
   state,
 }) => {
   const [newModule, setNewModule] = useState({
@@ -53,8 +67,18 @@ const Module = ({
   const { nameModule } = newModule;
 
   useEffect(() => {
+    if(user) {
+      loadAssignments(user, history);
+    }
     loadModules(history);
   }, []);
+
+  useEffect(() => {
+    if(assignmentCreated) {
+      afterCreateAssignment();
+      window.location.reload();
+    }
+  }, [assignmentCreated])
 
   const onSubmitModule = (e) => {
     e.preventDefault();
@@ -218,25 +242,29 @@ const Module = ({
             </>
           ) : (
             <>
-
-                <div className="d-flex justify-content-center mt-2">
-                  <div
-                    className="bg-light margins px-4 py-4"
-                    style={{ borderRadius: "25px" }}
-                  >
-                    
-                    <h1 className="text-dark text-center">Assignments</h1>
-                    <>
-                    {module.assignments.length > 0 ? module.assignments.map((assignment) => (
-                      <div className="d-flex justify-content-center">
-                        <div className="container margins">
-                          <AssignmentView assignment={assignment} />
+              <div className="d-flex justify-content-center mt-2">
+                <div
+                  className="bg-light margins px-4 py-4"
+                  style={{ borderRadius: "25px" }}
+                >
+                  <h1 className="text-dark text-center">Assignments</h1>
+                  <>
+                    {module.assignments && module.assignments.length > 0 ? (
+                      module.assignments.map((assignment) => (
+                        <div className="d-flex justify-content-center">
+                          <div className="container margins">
+                            <AssignmentView assignment={assignment} assignments={assignments} user={user} history={history} />
+                          </div>
                         </div>
-                      </div>)) : <h3 className="text-dark text-center mt-4">No assignments have been submitted by instructor!</h3>}
-                    </>
-                    
-                  </div>
+                      ))
+                    ) : (
+                      <h3 className="text-dark text-center mt-4">
+                        No assignments have been submitted by instructor!
+                      </h3>
+                    )}
+                  </>
                 </div>
+              </div>
             </>
           )}
         </div>
@@ -258,11 +286,14 @@ const Module = ({
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
   modules: state.module.modules,
+  assignments: state.assignment.assignments,
+  entrepreneurs: state.assignment.entrepreneurs,
   module: state.module.clickedModule,
   toReloadModule: state.module.reloadModule,
   isAuthenticated: state.user.isAuthenticated,
   isCreatingModule: state.module.isCreatingModule,
   hasCreatedModule: state.module.hasCreatedModule,
+  assignmentCreated: state.assignment.assignmentCreated,
   state: state,
 });
 
@@ -275,4 +306,8 @@ export default connect(mapStateToProps, {
   isCreating,
   loadModules,
   cancelCreatingModule,
+  getEntrepreneurs,
+  getAssignmentStudent,
+  loadAssignments,
+  afterCreateAssignment
 })(Module);

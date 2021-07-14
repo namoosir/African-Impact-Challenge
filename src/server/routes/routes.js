@@ -54,12 +54,12 @@ router.put("/profile/edit/:id", userController.user_updates);
 router.put("/editModule/:id", moduleController.edit_module);
 
 
-router.post("/Assignment/create", assignmentController.create_assignment);
-router.get("/Assignment/:id", assignmentController.get_assignment_model);
-router.get("/Assignment/edit/:id", assignmentController.edit_assignment);
-
-
-
+router.post("/assignment/create", assignmentController.create_assignment);
+router.get("/assignment/:id", assignmentController.get_assignment_model);
+router.put("/assignment/edit/:id", assignmentController.edit_assignment);
+router.get("/assignment/entrepreneurs", assignmentController.get_all_entrepreneurs);
+router.get("/assignment/assignments/:id", assignmentController.get_all_assignments);
+router.get("/assignment/:id/:name", assignmentController.get_assignment_id_name);
 
 
 router.post(
@@ -93,13 +93,13 @@ router.post(
 );
 
 router.post(                                          
-  "/Assignment/AddSubmittedDocument/:id",
+  "/assignment/submitted/:id",
   uploadDocument.fields([{ name: "SubmittedDocument" }]),
   assignmentController.save_submitted_document
 );
 
 router.post(                                          
-  "/Assignment/AddMarkedDocument/:id",
+  "/assignment/marked/:id",
   uploadDocument.fields([{ name: "MarkedDocument" }]),
   assignmentController.save_marked_document
 );

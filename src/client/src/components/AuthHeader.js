@@ -9,7 +9,7 @@ import { loadSelfProfile } from "../actions/profileAction";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}) => {
+const HeaderAuth = (props) => {
 
   useEffect(() => {
     if (props.isLoggedOut && !props.isAuthenticated) {
@@ -19,7 +19,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}
 
   const onClickLogout = (e) => {
     e.preventDefault();
-    props.logout(props.user, history);
+    props.logout(props.user, props.history);
   };
 
   const onClickProfile = (e) => {

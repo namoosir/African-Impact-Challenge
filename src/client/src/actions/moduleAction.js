@@ -71,7 +71,6 @@ export const reloadModule = (module, history) => (dispatch) => {
   axios
     .get(`http://localhost:3001/getModule/${module._id}`)
     .then((res) => {
-      alert(res);
       dispatch({
         type: RELOAD_MODULE_SUCCESS,
         payload: res.data,
