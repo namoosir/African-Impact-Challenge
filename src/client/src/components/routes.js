@@ -9,6 +9,7 @@ import ProfilePage from './ProfilePage/ProfilePage'
 import ProfileSearchPage from './ProfileSearchPage/ProfileSearchPage'
 import ProfileEditPage from './ProfileEditPage/ProfileEditPage'
 import Module from "./modules/module"
+import ModuleEdit from "./modules/moduleEdit"
 import header from "./AuthHeader"
 import {connect} from "react-redux"
 
@@ -29,7 +30,7 @@ const Routes = ({user, isAuthenticated}) => {
             <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
 
             <Route exact path='/module' component={Module}></Route>
-
+            <Route exact path='/module_edit' component={ModuleEdit}></Route>
 
         </Router>
         </div>
