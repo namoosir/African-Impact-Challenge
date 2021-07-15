@@ -4,10 +4,13 @@ import {
   CREATE_ASSIGNMENTS,
   CREATE_ASSIGNMENT_SUCCESSFULLY,
   AFTER_CREATE_ASSIGNMENT,
+  GRADING,
+  GRADING_SUCCESSFUL,
 } from "../actions/types";
 
 const initialState = {
   assignmentCreated: false,
+  grading: false,
   assignments: {},
   entrepreneurs: {},
 };
@@ -39,6 +42,16 @@ export default function (state = initialState, action) {
         ...state,
         assignmentCreated: false,
       };
+    case GRADING: 
+      return {
+        ...state,
+        grading: true
+      }
+    case GRADING_SUCCESSFUL:
+      return {
+        ...state, 
+        grading: false
+      }
     default:
       return state;
   }
