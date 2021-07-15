@@ -13,6 +13,7 @@ import banner from "../../../svgs/simple-blue.jpg";
 import {
   createAssignment,
   createAssignmentSuccesful,
+  afterCreateAssignment
 } from "../../../actions/assignmentAction";
 
 export const AssignmentStudent = ({
@@ -22,8 +23,10 @@ export const AssignmentStudent = ({
   user,
   module,
   history,
+  assignmentCreated,
   createAssignment,
   createAssignmentSuccesful,
+  afterCreateAssignment
 }) => {
   const [assignmentEdit, setAssignmentEdit] = useState({
     id: "",
@@ -37,6 +40,14 @@ export const AssignmentStudent = ({
 
   const { id, userid, name, submitted_document, submitted_document_file } =
     assignmentEdit;
+
+
+  useEffect(() => {
+    if(assignmentCreated) {
+      afterCreateAssignment();
+    }
+  }, [assignmentCreated])
+
 
   useEffect(() => {
     getAssignmentName();
@@ -100,7 +111,10 @@ export const AssignmentStudent = ({
       ]);
     } else {
       await Promise.all([
+
+       
         new Promise((resolve, reject) => {
+
           const requestOptions = {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -108,6 +122,7 @@ export const AssignmentStudent = ({
               ...assignmentEdit,
             }),
           };
+          console.log(requestOptions.body);
 
           fetch(`http://localhost:3001/assignment/edit/${id}`, requestOptions)
             .then((response) => response.json())
@@ -118,6 +133,7 @@ export const AssignmentStudent = ({
         }),
 
         new Promise((resolve, reject) => {
+
           const url = `http://localhost:3001/assignment/submitted/${id}`;
 
           let documentsFormData = new FormData();
@@ -144,7 +160,7 @@ export const AssignmentStudent = ({
     }
 
     createAssignmentSuccesful();
-    window.location.reload();
+    history.push("/module");
   };
 
   function getDocumentURL3(docName) {
@@ -194,7 +210,7 @@ export const AssignmentStudent = ({
               </a>
             </div>
 
-            {submitted_document_file !== "" ? (
+            {submitted_document_file && submitted_document_file !== "" ? (
               <>
                 <div className="document_list">
                   <div className="document_single">
@@ -288,6 +304,10 @@ AssignmentStudent.propTypes = {
    */
 };
 
-export default connect(null, { createAssignment, createAssignmentSuccesful })(
+const mapStateToProps = (state) => ({
+  assignmentCreated: state.assignment.assignmentCreated
+})
+
+export default connect(mapStateToProps, { createAssignment, createAssignmentSuccesful, afterCreateAssignment })(
   AssignmentStudent
 );

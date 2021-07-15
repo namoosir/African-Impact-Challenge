@@ -38,18 +38,16 @@ const get_assignment_model = (req, res) => {
 };
 
 const edit_assignment = (req, res) => {
-  const assignmentToUpdate = {
-    userid: req.body.userid,
-    name: req.body.name,
-    submitted_document: req.body.submitted_document.name
-      ? req.body.submitted_document.name
-      : req.body.submitted_document,
-    marked_document: req.body.marked_document ? req.body.marked_document : "",
-    mark: req.body.mark ? req.body.mark : -1,
-    status: req.body.status ? req.body.status : false,
-    comments: req.body.comments ? req.body.comments : "",
-  };
-  Assignments.findByIdAndUpdate({ _id: req.params.id }, assignmentToUpdate, {
+  console.log("IN EDIT ASSIGNMENTS", req.body);
+ 
+  if(req.body.submitted_document) {
+    req.body.submitted_document = "";
+  } else if(req.body.marked_document) {
+    req.body.marked_document = ""
+  }
+  
+
+  Assignments.findByIdAndUpdate({ _id: req.params.id }, req.body, {
     new: true,
   }).then((result) => {
     res.status(200).json(result);
@@ -86,7 +84,7 @@ const save_submitted_document = (req, res) => {
 };
 
 const save_marked_document = (req, res) => {
-  if (typeof req.files.SubmittedDocument !== "undefined") {
+  if (typeof req.files.MarkedDocument !== "undefined") {
     const expensesFile = req.files.MarkedDocument[0];
     const filePath = expensesFile.path.split("/");
     const extenstion = expensesFile.originalname.split(".");

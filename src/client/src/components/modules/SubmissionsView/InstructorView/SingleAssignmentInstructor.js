@@ -26,11 +26,6 @@ export const SingleAssignmentInstructor = ({
   gradingSuccessful,
 }) => {
   const [assignmentEdit, setAssignmentEdit] = useState({
-    _id: assignment._id,
-    userid: assignment.userid._id,
-    submitted_document: assignment.submitted_document,
-    moduleId: assignment.moduleId._id,
-    name: assignment.name,
     marked_document: assignment.marked_document
       ? assignment.marked_document
       : "",
@@ -44,24 +39,23 @@ export const SingleAssignmentInstructor = ({
     gradingAssignment: false,
   });
 
-  const { _id, marked_document_file, marked_document, mark, status, comments } =
+  const { marked_document_file, marked_document, mark, status, comments } =
     assignmentEdit;
 
   const { gradingAssignment } = gradingEdit;
-
 
   function handleNewFeedback(event) {
     setAssignmentEdit((prevState) => ({
       ...assignmentEdit,
       marked_document_file: event.target.files[0],
+      marked_document: event.target.files[0],
     }));
-    console.log(event.target.files[0]);
-    console.log(marked_document_file);
   }
 
   function handleClick(event) {
     setAssignmentEdit((prevState) => ({
       ...assignmentEdit,
+      marked_document: "",
       marked_document_file: "",
     }));
   }
@@ -70,8 +64,9 @@ export const SingleAssignmentInstructor = ({
     e.preventDefault();
 
     setAssignmentEdit({
-        status: true
-    })
+      ...assignmentEdit,
+      status: true,
+    });
 
     await Promise.all([
       new Promise((resolve, reject) => {
@@ -84,7 +79,7 @@ export const SingleAssignmentInstructor = ({
         };
 
         fetch(
-          `http://localhost:3001/assignment/edit/${_id}`,
+          `http://localhost:3001/assignment/edit/${assignment._id}`,
           requestOptions
         )
           .then((response) => response.json())
@@ -95,7 +90,7 @@ export const SingleAssignmentInstructor = ({
       }),
 
       new Promise((resolve, reject) => {
-        const url = `http://localhost:3001/assignment/marked/${_id}`;
+        const url = `http://localhost:3001/assignment/marked/${assignment._id}`;
 
         let documentsFormData = new FormData();
         documentsFormData.append("MarkedDocument", marked_document_file);
@@ -263,12 +258,18 @@ export const SingleAssignmentInstructor = ({
                                 .split("/")
                                 .reverse()[0]}
                         </a>
+                        <SvgRedX
+                          className="little-icon4"
+                          onClick={handleClick}
+                          ind={ind}
+                        />
                       </div>
                     ) : (
                       ""
                     )}
                   </>
                 )}
+
                 <div class="image-upload">
                   <label for={`file-input ${ind}`}>
                     <SvgPlus className="little-icon plus" />
