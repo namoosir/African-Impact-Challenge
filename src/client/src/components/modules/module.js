@@ -123,6 +123,12 @@ const Module = ({
     history.push("/module_edit");
   };
 
+  const onSubmitSubmission = (e) => {
+    e.preventDefault();
+
+    history.push("/submissions")
+  }
+
   const generateKey = (pre) => {
     return `${pre}_${new Date().getTime()}`;
   };
@@ -217,7 +223,9 @@ const Module = ({
           </div>
         </div>
 
+
         <div className="col-lg-6">
+
           {user && module && user.id === module.user._id ? (
             <>
               <div className="d-flex justify-content-center">
@@ -244,6 +252,16 @@ const Module = ({
                     Upload
                   </button>
                 </form>
+              </div>
+
+              <div>
+              <div className="container text-center">
+                <form onSubmit={onSubmitSubmission}>
+                  <button type="submit" className="btn btn-light btn-block">
+                    Submissions
+                  </button>
+                </form>
+              </div>
               </div>
             </>
           ) : (
@@ -282,6 +300,7 @@ const Module = ({
                             <AssignmentView
                               key={generateKey(assignment)}
                               ind={generateKey(assignment)}
+                              module={module}
                               assignment={assignment}
                               assignments={assignments}
                               user={user}
@@ -301,6 +320,7 @@ const Module = ({
             </>
           )}
         </div>
+
 
         <div className="col-lg-3">
           <div className="container">

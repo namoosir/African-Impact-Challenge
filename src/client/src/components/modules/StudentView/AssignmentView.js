@@ -20,6 +20,7 @@ export const AssignmentStudent = ({
   assignments,
   ind,
   user,
+  module,
   history,
   createAssignment,
   createAssignmentSuccesful,
@@ -28,6 +29,7 @@ export const AssignmentStudent = ({
     id: "",
     userid: user ? user.id : "",
     submitted_document: "",
+    moduleId: module ? module._id : "",
     name: assignment ? assignment : "",
     submitted_document_file: "",
   });

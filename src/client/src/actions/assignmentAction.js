@@ -68,6 +68,21 @@ export const loadAssignments = (user, history) => dispatch => {
   })
 } 
 
+export const loadAllAssignments = (module, history) => dispatch => {
+  axios
+    .get(`http://localhost:3001/assignments/${module._id}`)
+    .then(res => {
+      dispatch({
+        type: LOAD_ASSIGNMENTS,
+        payload: res.data
+      })
+    })
+    .catch(e => {
+      console.log(e);
+      history.push("/module");
+    })
+}
+
 export const createAssignmentSuccesful = () => dispatch => {
   dispatch({
     type: CREATE_ASSIGNMENT_SUCCESSFULLY

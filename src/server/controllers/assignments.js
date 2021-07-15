@@ -22,17 +22,17 @@ const userType = {
 const { expect } = require("chai");
 
 const create_assignment = async (req, res) => {
-
   const assignment = new Assignments({
     userid: req.body.userid,
     name: req.body.name,
+    moduleId: req.body.moduleId,
   });
   const refassignment = await assignment.save();
   res.status(200).json(refassignment);
 };
 
 const get_assignment_model = (req, res) => {
-  Assignments.find({userid: req.params.id}).then((result) => {
+  Assignments.find({ userid: req.params.id }).then((result) => {
     res.status(200).json(result);
   });
 };
@@ -41,8 +41,8 @@ const edit_assignment = (req, res) => {
   const assignmentToUpdate = {
     userid: req.body.userid,
     name: req.body.name,
-    submitted_document: req.body.submitted_document.name
-  }
+    submitted_document: req.body.submitted_document.name,
+  };
   Assignments.findByIdAndUpdate({ _id: req.params.id }, assignmentToUpdate, {
     new: true,
   }).then((result) => {
@@ -52,7 +52,7 @@ const edit_assignment = (req, res) => {
 
 const save_submitted_document = (req, res) => {
   // expect(req.files.SubmittedDocument, "file needed").to.exist;
-  if(typeof req.files.SubmittedDocument !== "undefined") {
+  if (typeof req.files.SubmittedDocument !== "undefined") {
     const expensesFile = req.files.SubmittedDocument[0];
     const filePath = expensesFile.path.split("/");
     const extenstion = expensesFile.originalname.split(".");
@@ -62,7 +62,7 @@ const save_submitted_document = (req, res) => {
       filePath[filePath.length - 1] +
       "." +
       extenstion[extenstion.length - 1];
-  
+
     Assignments.findByIdAndUpdate(req.params.id, {
       submitted_document: fileName,
     }).then((result) =>
@@ -77,7 +77,6 @@ const save_submitted_document = (req, res) => {
   } else {
     res.status(200);
   }
-  
 };
 
 const save_marked_document = (req, res) => {
@@ -111,198 +110,46 @@ const get_all_entrepreneurs = async (req, res) => {
 };
 
 const get_assignment_id_name = async (req, res) => {
-  const assignment = await Assignments.find({userid: req.params.id, name: req.params.name})
-  if(assignment) {
+  const assignment = await Assignments.find({
+    userid: req.params.id,
+    name: req.params.name,
+  });
+  if (assignment) {
     res.status(200).json(assignment.submitted_document);
   } else {
     res.status(404);
   }
-}
+};
 
 const get_all_assignments = async (req, res) => {
-  const assignments = await Assignments.find({userid: req.params.id});
+  const assignments = await Assignments.find({ userid: req.params.id });
   res.status(200).json(assignments);
-}
+};
 
-const get_recent_modules = async (req, res) => {
-  const modules = await Modules.find({}).sort("-date");
-  const result = modules.slice(0, 10);
-  var ans = [];
+const get_all_assignments_instructor = async (req, res) => {
+  const assignments = await Assignments.find({moduleId: req.params.id});
+  let populatedAssignments = [];
 
-  for (const module of result) {
-    var populated = await myPop(module, "user").then(function (result) {
+  for (const assignment of assignments) {
+    const populated = await myPop(assignment, "userid").then(function (result) {
       return result;
     });
 
-    ans.push(populated);
+    const populated2 = await myPop(assignment, "moduleId").then(function(res) {
+      return res
+    })
+
+    populatedAssignments.push(populated2);
   }
 
-  const sentModules = ans;
-
-  res.status(200).json(sentModules);
+  console.log(populatedAssignments);
+  res.status(200).json(populatedAssignments);
 };
 
 async function myPop(module, field) {
   let itemPopulated = await module.populate(field).execPopulate();
   return itemPopulated;
 }
-
-const delete_module = async (req, res) => {
-  moduleid = req.body.id;
-  await Modules.deleteOne({ _id: moduleid });
-};
-
-const get_assignment = (req, res) => {
-  const name = req.params.name;
-  res.sendFile(name, { root: documentPath });
-};
-
-const save_assignments = (req, res) => {
-  var fileNames = [];
-  var filePath = [];
-  var fileName;
-  var extenstion;
-
-  if (typeof req.files.assignments !== "undefined") {
-    for (let i = 0; i < req.files.assignments.length; i++) {
-      filePath = req.files.assignments[i].path.split("/");
-      extenstion = req.files.assignments[i].originalname.split(".");
-      fileName =
-        extenstion.slice(0, -1).join("") +
-        "*" +
-        filePath[filePath.length - 1] +
-        "." +
-        extenstion[extenstion.length - 1];
-      fileNames.push(fileName);
-    }
-
-    var documentsList = [];
-    const id = req.params.id;
-
-    Modules.findById(id).then((result) => {
-      documentsList = result.assignments;
-      documentsList = documentsList.concat(fileNames);
-      Modules.findByIdAndUpdate(id, { assignments: documentsList }).then((x) =>
-        fs.rename(
-          `./server/documents/${filePath[filePath.length - 1]}`,
-          `./server/documents/${fileName}`,
-          () => {
-            res.sendStatus(200);
-          }
-        )
-      );
-    });
-  } else {
-    res.sendStatus(200);
-  }
-};
-
-const get_content = (req, res) => {
-  const name = req.params.name;
-  res.sendFile(name, { root: documentPath });
-};
-
-const save_content = (req, res) => {
-  var fileNames = [];
-  var filePath = [];
-  var fileName;
-  var extenstion;
-
-  if (typeof req.files.content !== "undefined") {
-    for (let i = 0; i < req.files.content.length; i++) {
-      filePath = req.files.content[i].path.split("/");
-      extenstion = req.files.content[i].originalname.split(".");
-      fileName =
-        extenstion.slice(0, -1).join("") +
-        "*" +
-        filePath[filePath.length - 1] +
-        "." +
-        extenstion[extenstion.length - 1];
-      fileNames.push(fileName);
-    }
-
-    var documentsList = [];
-    const id = req.params.id;
-
-    Modules.findById(id).then((result) => {
-      documentsList = result.content;
-      documentsList = documentsList.concat(fileNames);
-      Modules.findByIdAndUpdate(id, { content: documentsList }).then((x) =>
-        fs.rename(
-          `./server/documents/${filePath[filePath.length - 1]}`,
-          `./server/documents/${fileName}`,
-          () => {
-            res.sendStatus(200);
-          }
-        )
-      );
-    });
-  } else {
-    res.sendStatus(200);
-  }
-};
-
-const get_lecture = (req, res) => {
-  const name = req.params.name;
-  res.sendFile(name, { root: documentPath });
-};
-
-const save_lectures = (req, res) => {
-  var fileNames = [];
-  var filePath = [];
-  var fileName;
-  var extenstion;
-
-  if (typeof req.files.lectures !== "undefined") {
-    for (let i = 0; i < req.files.lectures.length; i++) {
-      filePath = req.files.lectures[i].path.split("/");
-      extenstion = req.files.lectures[i].originalname.split(".");
-      fileName =
-        extenstion.slice(0, -1).join("") +
-        "*" +
-        filePath[filePath.length - 1] +
-        "." +
-        extenstion[extenstion.length - 1];
-      fileNames.push(fileName);
-    }
-
-    var documentsList = [];
-    const id = req.params.id;
-
-    Modules.findById(id).then((result) => {
-      documentsList = result.lectures;
-      documentsList = documentsList.concat(fileNames);
-      Modules.findByIdAndUpdate(id, { lectures: documentsList }).then((x) =>
-        fs.rename(
-          `./server/documents/${filePath[filePath.length - 1]}`,
-          `./server/documents/${fileName}`,
-          () => {
-            res.sendStatus(200);
-          }
-        )
-      );
-    });
-  } else {
-    res.sendStatus(200);
-  }
-};
-
-const get_exact_module = (req, res) => {
-  Modules.findById(req.params.id).then((result) => {
-    myPop(result, "user").then((result2) => {
-      console.log("HEREEEEE", result2);
-      res.status(200).json(result2);
-    });
-  });
-
-  // if (!befModule) {
-  //   res.status(404).json({ msg: "could not find module" });
-  // }
-
-  // const module = await myPop(befModule, "user");
-
-  // res.status(200).json({ module });
-};
 
 module.exports = {
   create_assignment,
@@ -312,5 +159,6 @@ module.exports = {
   save_marked_document,
   get_all_entrepreneurs,
   get_assignment_id_name,
-  get_all_assignments
+  get_all_assignments,
+  get_all_assignments_instructor,
 };

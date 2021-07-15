@@ -58,6 +58,8 @@ router.put("/editModule/:id", moduleController.edit_module);
 router.post("/assignment/create", assignmentController.create_assignment);
 router.get("/assignment/:id", assignmentController.get_assignment_model);
 router.put("/assignment/edit/:id", assignmentController.edit_assignment);
+router.get("/assignments/:id", assignmentController.get_all_assignments_instructor);
+
 router.get(
   "/assignment/entrepreneurs",
   assignmentController.get_all_entrepreneurs
