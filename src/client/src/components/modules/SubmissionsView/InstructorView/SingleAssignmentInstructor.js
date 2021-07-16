@@ -64,9 +64,9 @@ export const SingleAssignmentInstructor = ({
     e.preventDefault();
 
     setAssignmentEdit({
-      ...assignmentEdit,
-      status: true,
-    });
+        ...assignmentEdit,
+        status: true,
+      });
 
     await Promise.all([
       new Promise((resolve, reject) => {

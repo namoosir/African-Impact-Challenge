@@ -38,14 +38,11 @@ const get_assignment_model = (req, res) => {
 };
 
 const edit_assignment = (req, res) => {
-  console.log("IN EDIT ASSIGNMENTS", req.body);
- 
-  if(req.body.submitted_document) {
+  if (req.body.submitted_document) {
     req.body.submitted_document = "";
-  } else if(req.body.marked_document) {
-    req.body.marked_document = ""
+  } else if (req.body.marked_document) {
+    req.body.marked_document = "";
   }
-  
 
   Assignments.findByIdAndUpdate({ _id: req.params.id }, req.body, {
     new: true,
