@@ -8,7 +8,10 @@ import {
   GET_CLICKED_MODULE,
   RELOAD_MODULE,
   RELOAD_MODULE_SUCCESS,
-  RELOAD_STOP_MODULE
+  RELOAD_STOP_MODULE,
+  LOAD_CONTENT,
+  LOAD_LECTURES,
+
 } from "./types";
 
 export const loadModules = (history) => (dispatch) => {
@@ -84,6 +87,37 @@ export const reloadModule = (module, history) => (dispatch) => {
 
 export const stopReload = () => (dispatch) => {
   dispatch({
-    type: RELOAD_STOP_MODULE
-  })
-}
+    type: RELOAD_STOP_MODULE,
+  });
+};
+
+export const loadContent = (id, history) => (dispatch) => {
+  axios
+    .get(`http://localhost:3001/modules/${id}`)
+    .then((res) => {
+      dispatch({
+        type: LOAD_CONTENT,
+        payload: res.data,
+      });
+    })
+    .catch((e) => {
+      console.log(e);
+      history.push("/module");
+    });
+};
+
+export const loadLecture = (id, history) => (dispatch) => {
+  axios
+    .get(`http://localhost:3001/lectures/${id}`)
+    .then((res) => {
+      dispatch({
+        type: LOAD_LECTURES,
+        payload: res.data,
+      });
+    })
+    .catch((e) => {
+      console.log(e);
+      history.push("/module");
+    });
+};
+

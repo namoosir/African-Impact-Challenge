@@ -11,6 +11,10 @@ import Content from "./ContentView/Content";
 import Videos from "./VideoView/Videos";
 import AssignmentView from "./StudentView/AssignmentView";
 
+import ContentView from "./StudentView/ContentView";
+import LectureView from "./StudentView/LectureView"
+
+
 import {
   instructorUpload,
   startReload,
@@ -24,6 +28,14 @@ import {
   loadModules,
   cancelCreatingModule,
 } from "../../actions/moduleAction";
+
+import {
+  getEntrepreneurs,
+  getAssignmentStudent,
+  loadAssignments,
+  afterCreateAssignment,
+} from "../../actions/assignmentAction";
+
 
 import moduleStylesheet from "../stylesheets/module.css";
 
@@ -44,6 +56,14 @@ const Module = ({
   cancelCreatingModule,
   createModules,
   loadModules,
+  assignments,
+  getEntrepreneurs,
+  entrepreneurs,
+  getAssignmentStudent,
+  loadAssignments,
+  afterCreateAssignment,
+  assignmentCreated,
+
   state,
 }) => {
   const [newModule, setNewModule] = useState({
@@ -53,8 +73,19 @@ const Module = ({
   const { nameModule } = newModule;
 
   useEffect(() => {
+    if (user) {
+      loadAssignments(user, history);
+    }
     loadModules(history);
   }, []);
+
+  useEffect(() => {
+    if (assignmentCreated) {
+      afterCreateAssignment();
+      window.location.reload();
+    }
+  }, [assignmentCreated]);
+
 
   const onSubmitModule = (e) => {
     e.preventDefault();
@@ -96,6 +127,17 @@ const Module = ({
   const onSubmit = (e) => {
     history.push("/module_edit");
   };
+
+  const onSubmitSubmission = (e) => {
+    e.preventDefault();
+
+    history.push("/submissions")
+  }
+
+  const generateKey = (pre) => {
+    return `${pre}_${new Date().getTime()}`;
+  };
+
 
   return (
     <div>
@@ -187,7 +229,10 @@ const Module = ({
           </div>
         </div>
 
+
         <div className="col-lg-6">
+
+
           {user && module && user.id === module.user._id ? (
             <>
               <div className="d-flex justify-content-center">
@@ -215,31 +260,74 @@ const Module = ({
                   </button>
                 </form>
               </div>
+
+              <div>
+              <div className="container text-center">
+                <form onSubmit={onSubmitSubmission}>
+                  <button type="submit" className="btn btn-light btn-block">
+                    Submissions
+                  </button>
+                </form>
+              </div>
+              </div>
             </>
           ) : (
             <>
+            
+              <div className="d-block justify-content-center mt-2">
 
-                <div className="d-flex justify-content-center mt-2">
-                  <div
-                    className="bg-light margins px-4 py-4"
-                    style={{ borderRadius: "25px" }}
-                  >
-                    
-                    <h1 className="text-dark text-center">Assignments</h1>
-                    <>
-                    {module.assignments.length > 0 ? module.assignments.map((assignment) => (
-                      <div className="d-flex justify-content-center">
-                        <div className="container margins">
-                          <AssignmentView assignment={assignment} />
-                        </div>
-                      </div>)) : <h3 className="text-dark text-center mt-4">No assignments have been submitted by instructor!</h3>}
-                    </>
-                    
+              <div className="d-flex justify-content-center">
+                  <div className="container margins">
+                    <LectureView user={user} history={history} module={module} />
                   </div>
                 </div>
+
+                <div className="d-flex justify-content-center">
+                  <div className="container margins">
+                    <ContentView user={user} history={history} module={module} />
+                  </div>
+                </div>
+
+                <div
+                  className="bg-light justify-content-center margins px-2 py-2"
+                  style={{ borderRadius: "25px" }}
+                >
+                  <h1 className="text-dark text-center">Assignments</h1>
+                  <>
+                    {module.assignments && module.assignments.length > 0 ? (
+                      module.assignments.map((assignment) => (
+                        <div
+                          key={generateKey(assignment)}
+                          className="d-flex justify-content-center"
+                        >
+                          <div
+                            key={generateKey(assignment)}
+                            className="container margins"
+                          >
+                            <AssignmentView
+                              key={generateKey(assignment)}
+                              ind={generateKey(assignment)}
+                              module={module}
+                              assignment={assignment}
+                              assignments={assignments}
+                              user={user}
+                              history={history}
+                            />
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <h3 className="text-dark text-center mt-4">
+                        No assignments have been submitted by instructor!
+                      </h3>
+                    )}
+                  </>
+                </div>
+              </div>
             </>
           )}
         </div>
+
 
         <div className="col-lg-3">
           <div className="container">
@@ -258,11 +346,15 @@ const Module = ({
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
   modules: state.module.modules,
+  assignments: state.assignment.assignments,
+  entrepreneurs: state.assignment.entrepreneurs,
   module: state.module.clickedModule,
   toReloadModule: state.module.reloadModule,
   isAuthenticated: state.user.isAuthenticated,
   isCreatingModule: state.module.isCreatingModule,
   hasCreatedModule: state.module.hasCreatedModule,
+  assignmentCreated: state.assignment.assignmentCreated,
+
   state: state,
 });
 
@@ -275,4 +367,8 @@ export default connect(mapStateToProps, {
   isCreating,
   loadModules,
   cancelCreatingModule,
+  getEntrepreneurs,
+  getAssignmentStudent,
+  loadAssignments,
+  afterCreateAssignment,
 })(Module);

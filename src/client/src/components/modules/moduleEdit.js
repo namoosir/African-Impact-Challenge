@@ -23,11 +23,8 @@ const ModuleEdit = ({
   isAuthenticated,
   history,
   module,
-  instructorUpload,
-  startReload,
+  compareModule,
   reloadModule,
-  toReloadModule,
-  stopReload,
   state,
 }) => {
   const [moduleEdit, setModuleEdit] = useState({
@@ -35,17 +32,17 @@ const ModuleEdit = ({
       ...module,
       assignmentFiles: [],
       contentFiles: [],
-      lectureFiles: []
+
+      lectureFiles: [],
     },
   });
 
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     await Promise.all([
-
       new Promise((resolve, reject) => {
-        
+
         const requestOptions = {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -53,9 +50,6 @@ const ModuleEdit = ({
             ...moduleEdit.moduleEdit,
           }),
         };
-
-        console.log("Module Edit",moduleEdit.moduleEdit);
-        console.log("Stringified Body",requestOptions.body);
 
         fetch(
           `http://localhost:3001/editModule/${moduleEdit.moduleEdit._id}`,
@@ -142,9 +136,9 @@ const ModuleEdit = ({
       }),
     ]);
 
-     // startReload();
-     reloadModule(module, history);
-     history.push("/module");
+    reloadModule(module, history);
+    history.push("/module");
+
   };
 
   const onCancel = (e) => {
@@ -231,6 +225,7 @@ const ModuleEdit = ({
 const mapStateToProps = (state) => ({
   user: state.user.user.sentUser,
   module: state.module.clickedModule,
+  compareModule: state.module.compareModule,
   toReloadModule: state.module.reloadModule,
   isAuthenticated: state.user.isAuthenticated,
   state: state,
