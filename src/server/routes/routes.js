@@ -13,6 +13,8 @@ const router = express.Router();
 const { registerUser } = require("../controllers/register");
 const { loginUser1 } = require("../controllers/login");
 const { loginUser2, updateUser } = require("../controllers/setting");
+const { updateCurrentUser } = require("../controllers/user");
+
 
 const moduleController = require("../controllers/modules");
 
@@ -36,6 +38,8 @@ router.post("/login", loginUser1);
 router.post("/profile/auth", loginUser2);
 
 router.put("/profile/update/settings", updateUser);
+
+router.get("/user/update/:id", updateCurrentUser);
 
 router.put("/post", postController.create_post);
 router.put("/comment", postController.add_comment);

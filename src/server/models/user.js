@@ -21,6 +21,7 @@ const UserSchema = new Schema({
   },
   image: {
     type: String, // Url of image
+    default: "default.jpeg"
   },
   biography: {
     type: String,
