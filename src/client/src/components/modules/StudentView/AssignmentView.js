@@ -15,6 +15,7 @@ import {
   createAssignmentSuccesful,
   afterCreateAssignment
 } from "../../../actions/assignmentAction";
+import Assignments from "../AssignmentsView/Assignments";
 
 export const AssignmentStudent = ({
   assignment,
@@ -182,6 +183,21 @@ export const AssignmentStudent = ({
     }
   }
 
+  function getAssignment() {
+    var a;
+    if (Array.isArray(assignments)) {
+      assignments.map((as) => {
+        if (as.userid === userid && as.name === name) {
+          if (as.mark !== "") {
+            a = as;
+          }
+        }
+      })
+    }
+    return a;
+  }
+
+
   function getAssignURL(doc) {
     return URL.createObjectURL(doc);
   }
@@ -288,6 +304,30 @@ export const AssignmentStudent = ({
               />
             </div>
           </div>
+
+          {getAssignment() ? 
+            <div>
+              <p>Mark: {getAssignment().mark}</p>
+              <p>Comments: {getAssignment().comments? getAssignment().comments: ""}</p>
+
+              {getAssignment().marked_document != "" ?  
+              
+              ( <div className="document_single">
+              <SvgDocument className="little-icon" />
+              <a href={getDocumentURL3(getAssignment().marked_document)} target="_blank">
+                {getDocumentURL3(getAssignment().marked_document).split("/").reverse()[0].length > 5
+                  ? getDocumentURL3(getAssignment().marked_document)
+                      .split("/")
+                      .reverse()[0]
+                      .slice(0, 5) + "..."
+                  : getDocumentURL3(getAssignment().marked_document).split("/").reverse()[0]}
+              </a> 
+              </div>)
+                : ""}
+              
+
+            </div> : ""}
+
           <div className="d-flex justify-content-center mt-2">
             <form onSubmit={onSubmitStud}>
               <button type="submit" className="btn btn-success">
