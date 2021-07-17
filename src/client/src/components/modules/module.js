@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import ModuleCard from "../HomePage/ModuleCard";
 
+
 import Assignments from "./AssignmentsView/Assignments";
 import Content from "./ContentView/Content";
 import Videos from "./VideoView/Videos";
@@ -66,7 +67,6 @@ const Module = ({
   const [newModule, setNewModule] = useState({
     nameModule: "",
   });
-
 
   const { nameModule } = newModule;
 
@@ -227,7 +227,6 @@ const Module = ({
 
 
         <div className="col-lg-6">
-
           {user && module && user.id === module.user._id ? (
             <>
               <div className="d-flex justify-content-center">
@@ -255,7 +254,6 @@ const Module = ({
                   </button>
                 </form>
               </div>
-
               <div>
               <div className="container text-center">
                 <form onSubmit={onSubmitSubmission}>
@@ -322,7 +320,6 @@ const Module = ({
             </>
           )}
         </div>
-
 
         <div className="col-lg-3">
           <div className="container">

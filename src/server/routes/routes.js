@@ -15,6 +15,7 @@ const { loginUser1 } = require("../controllers/login");
 const { loginUser2, updateUser } = require("../controllers/setting");
 
 const moduleController = require("../controllers/modules");
+
 const assignmentController = require("../controllers/assignments");
 
 
@@ -88,7 +89,6 @@ router.post(
 );
 
 router.post(
-  // is this still in use?????
   "/addAssignments/:id",
   uploadDocument.fields([{ name: "assignments" }]),
   moduleController.save_assignments

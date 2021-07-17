@@ -96,6 +96,22 @@ export default function (state = initialState, action) {
         reloadModule: false,
 
       };
+    case RELOAD_MODULE:
+      return {
+        ...state,
+        reloadModule: true,
+      };
+    case RELOAD_MODULE_SUCCESS:
+      return {
+        ...state,
+        reloadModule: false,
+        clickedModule: payload,
+      };
+    case RELOAD_STOP_MODULE:
+      return {
+        ...state,
+        reloadModule: false,
+      };
     default:
       return state;
   }

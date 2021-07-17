@@ -101,6 +101,11 @@ plus {
   fill: white;
 }
 
+#zmmtg-root {
+  display: none;
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

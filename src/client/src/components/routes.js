@@ -12,6 +12,8 @@ import Module from "./modules/module"
 import ModuleEdit from "./modules/moduleEdit"
 import Submission from "./modules/SubmissionsView/submission"
 import header from "./AuthHeader"
+import InstructorView from "./Zoom/InstructorView"
+import StudentView from "./Zoom/StudentView"
 import {connect} from "react-redux"
 
 
@@ -31,6 +33,10 @@ const Routes = ({user, isAuthenticated}) => {
 
             <Route exact path='/module' component={Module}></Route>
             <Route exact path='/module_edit' component={ModuleEdit}></Route>
+
+            <Route exact path='/zoom_instructor' component={InstructorView}></Route>
+            <Route exact path='/zoom_student' component={StudentView}></Route>
+
             <Route exact path='/submissions' component={Submission}></Route>
         </Router>
     );

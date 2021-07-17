@@ -163,10 +163,10 @@ export const AssignmentStudent = ({
     history.push("/module");
   };
 
-
   function getDocumentURL3(docName) {
     return `http://localhost:3001/getAssignment/${docName}`;
   }
+
 
   function getAssignmentName() {
     if (Array.isArray(assignments)) {
