@@ -42,6 +42,7 @@ router.get("/getrec", postController.get_recent_posts);
 router.put("/editpost", postController.edit_post);
 router.put("/deletepost", postController.remove_post);
 
+
 router.post("/createModule/:id", moduleController.create_module);
 router.get("/getrecmodules", moduleController.get_recent_modules);
 router.put("/deletemodule", moduleController.delete_module);
@@ -51,7 +52,6 @@ router.get("/getLecture/:name", moduleController.get_lecture);
 router.get("/getModule/:id", moduleController.get_exact_module);
 router.get("/modules/:id", moduleController.get_all_content);
 router.get("/lectures/:id", moduleController.get_all_lectures);
-
 
 router.put("/profile/edit/:id", userController.user_updates);
 
@@ -74,7 +74,6 @@ router.get(
   "/assignment/:id/:name",
   assignmentController.get_assignment_id_name
 );
-
 
 router.post(
   "/profile/editImage/:id",
@@ -117,13 +116,6 @@ router.post(
   "/assignment/marked/:id",
   uploadDocument.fields([{ name: "MarkedDocument" }]),
   assignmentController.save_marked_document
-
-);
-
-router.post(
-  "/addLectures/:id",
-  uploadDocument.fields([{ name: "lectures" }]),
-  moduleController.save_lectures
 );
 
 

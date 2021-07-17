@@ -38,12 +38,14 @@ const get_assignment_model = (req, res) => {
 };
 
 const edit_assignment = (req, res) => {
-  const assignmentToUpdate = {
-    userid: req.body.userid,
-    name: req.body.name,
-    submitted_document: req.body.submitted_document.name,
-  };
-  Assignments.findByIdAndUpdate({ _id: req.params.id }, assignmentToUpdate, {
+
+  if (req.body.submitted_document) {
+    req.body.submitted_document = "";
+  } else if (req.body.marked_document) {
+    req.body.marked_document = "";
+  }
+
+  Assignments.findByIdAndUpdate({ _id: req.params.id }, req.body, {
     new: true,
   }).then((result) => {
     res.status(200).json(result);
@@ -80,28 +82,31 @@ const save_submitted_document = (req, res) => {
 };
 
 const save_marked_document = (req, res) => {
-  expect(req.files.MarkedDocument, "file needed").to.exist;
-  const expensesFile = req.files.MarkedDocument[0];
-  const filePath = expensesFile.path.split("/");
-  const extenstion = expensesFile.originalname.split(".");
-  const fileName =
-    extenstion.slice(0, -1).join("") +
-    "*" +
-    filePath[filePath.length - 1] +
-    "." +
-    extenstion[extenstion.length - 1];
+  if (typeof req.files.MarkedDocument !== "undefined") {
+    const expensesFile = req.files.MarkedDocument[0];
+    const filePath = expensesFile.path.split("/");
+    const extenstion = expensesFile.originalname.split(".");
+    const fileName =
+      extenstion.slice(0, -1).join("") +
+      "*" +
+      filePath[filePath.length - 1] +
+      "." +
+      extenstion[extenstion.length - 1];
 
-  User.findByIdAndUpdate(req.params.id, {
-    marked_document: fileName,
-  }).then((result) =>
-    fs.rename(
-      `./server/documents/${filePath[filePath.length - 1]}`,
-      `./server/documents/${fileName}`,
-      () => {
-        res.sendStatus(200);
-      }
-    )
-  );
+    Assignments.findByIdAndUpdate(req.params.id, {
+      marked_document: fileName,
+    }).then((result) =>
+      fs.rename(
+        `./server/documents/${filePath[filePath.length - 1]}`,
+        `./server/documents/${fileName}`,
+        () => {
+          res.status(200).json(fileName);
+        }
+      )
+    );
+  } else {
+    res.status(200);
+  }
 };
 
 const get_all_entrepreneurs = async (req, res) => {
@@ -127,7 +132,8 @@ const get_all_assignments = async (req, res) => {
 };
 
 const get_all_assignments_instructor = async (req, res) => {
-  const assignments = await Assignments.find({moduleId: req.params.id});
+  const assignments = await Assignments.find({ moduleId: req.params.id });
+
   let populatedAssignments = [];
 
   for (const assignment of assignments) {
@@ -135,14 +141,13 @@ const get_all_assignments_instructor = async (req, res) => {
       return result;
     });
 
-    const populated2 = await myPop(assignment, "moduleId").then(function(res) {
-      return res
-    })
+    const populated2 = await myPop(assignment, "moduleId").then(function (res) {
+      return res;
+    });
 
     populatedAssignments.push(populated2);
   }
 
-  console.log(populatedAssignments);
   res.status(200).json(populatedAssignments);
 };
 

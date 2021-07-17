@@ -11,7 +11,6 @@ import {
   RELOAD_STOP_MODULE,
   LOAD_CONTENT,
   LOAD_LECTURES,
-
 } from "./types";
 
 export const loadModules = (history) => (dispatch) => {
@@ -120,4 +119,3 @@ export const loadLecture = (id, history) => (dispatch) => {
       history.push("/module");
     });
 };
-

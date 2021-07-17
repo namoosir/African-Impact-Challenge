@@ -171,7 +171,6 @@ const save_lectures = (req, res) => {
         filePath[filePath.length - 1] +
         "." +
         extenstion[extenstion.length - 1];
-
       fileNames.push(fileName);
     }
 
@@ -182,7 +181,6 @@ const save_lectures = (req, res) => {
       documentsList = result.lectures;
       documentsList = documentsList.concat(fileNames);
       Modules.findByIdAndUpdate(id, { lectures: documentsList }).then((x) =>
-
         fs.rename(
           `./server/documents/${filePath[filePath.length - 1]}`,
           `./server/documents/${fileName}`,
@@ -190,7 +188,6 @@ const save_lectures = (req, res) => {
             res.sendStatus(200);
           }
         )
-
       );
     });
   } else {
@@ -198,14 +195,12 @@ const save_lectures = (req, res) => {
   }
 };
 
-
 const get_exact_module = (req, res) => {
   Modules.findById(req.params.id).then((result) => {
     myPop(result, "user").then((result2) => {
       res.status(200).json(result2);
     });
   });
-
 };
 
 const edit_module = (req, res) => {
@@ -229,7 +224,6 @@ const get_all_lectures = async (req, res) => {
 
   res.status(200).json(lectures);
 };
-
 
 module.exports = {
   create_module,

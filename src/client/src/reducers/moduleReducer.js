@@ -9,7 +9,6 @@ import {
   RELOAD_STOP_MODULE,
   LOAD_CONTENT,
   LOAD_LECTURES,
-
 } from "../actions/types";
 
 const initialState = {
@@ -95,6 +94,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         reloadModule: false,
+
       };
     default:
       return state;

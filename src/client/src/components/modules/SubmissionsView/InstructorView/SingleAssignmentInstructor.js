@@ -13,97 +13,135 @@ import banner from "../../../../svgs/simple-blue.jpg";
 import {
   createAssignment,
   createAssignmentSuccesful,
+  grading,
+  gradingSuccessful,
 } from "../../../../actions/assignmentAction";
 
-export const SingleAssignmentInstructor = ({ user, assignment, ind, history }) => {
+export const SingleAssignmentInstructor = ({
+  user,
+  assignment,
+  ind,
+  history,
+  grading,
+  gradingSuccessful,
+}) => {
   const [assignmentEdit, setAssignmentEdit] = useState({
-    _id: assignment.id,
-    userid: assignment.userid._id,
-    submitted_document: assignment.submitted_document,
-    moduleId: assignment.moduleId._id,
-    name: assignment.name,
-    marked_document: "",
-    mark: -1,
-    status: false,
-    comments: "",
+    marked_document: assignment.marked_document
+      ? assignment.marked_document
+      : "",
+    mark: assignment.mark ? assignment.mark : -1,
+    status: assignment.status ? assignment.status : false,
+    comments: assignment.comments ? assignment.comments : "",
     marked_document_file: "",
-    markFile: -1,
-    statusFile: false,
-    commentFiles: "",
   });
 
-  const { _id, marked_document_file, markFile, statusFile, commentFiles } =
+  const [gradingEdit, setGradingEdit] = useState({
+    gradingAssignment: false,
+  });
+
+  const { marked_document_file, marked_document, mark, status, comments } =
     assignmentEdit;
 
-  function handleNewAssignment(event) {
+  const { gradingAssignment } = gradingEdit;
+
+  function handleNewFeedback(event) {
     setAssignmentEdit((prevState) => ({
       ...assignmentEdit,
-      submitted_document_file: event.target.files[0],
-      submitted_document: event.target.files[0],
+      marked_document_file: event.target.files[0],
+      marked_document: event.target.files[0],
+
     }));
   }
 
   function handleClick(event) {
     setAssignmentEdit((prevState) => ({
       ...assignmentEdit,
-      submitted_document_file: "",
-      submitted_document: "",
+      marked_document: "",
+      marked_document_file: "",
     }));
   }
 
-//   const onSubmitStud = async (e) => {
-//     e.preventDefault();
+  const onSubmitSubmission = async (e) => {
+    e.preventDefault();
 
-//     await Promise.all([
-//       new Promise((resolve, reject) => {
-//         const requestOptions = {
-//           method: "PUT",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({
-//             ...assignmentEdit,
-//           }),
-//         };
+    setAssignmentEdit({
+        ...assignmentEdit,
+        status: true,
+      });
 
-//         fetch(`http://localhost:3001/assignment/edit/${id}`, requestOptions)
-//           .then((response) => response.json())
-//           .then((data) => {
-//             //console.log("DATA handled",data)
-//             resolve();
-//           });
-//       }),
+    await Promise.all([
+      new Promise((resolve, reject) => {
+        const requestOptions = {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...assignmentEdit,
+          }),
+        };
 
-//       new Promise((resolve, reject) => {
-//         const url = `http://localhost:3001/assignment/submitted/${id}`;
+        fetch(
+          `http://localhost:3001/assignment/edit/${assignment._id}`,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            //console.log("DATA handled",data)
+            resolve();
+          });
+      }),
 
-//         let documentsFormData = new FormData();
-//         documentsFormData.append("SubmittedDocument", submitted_document);
+      new Promise((resolve, reject) => {
+        const url = `http://localhost:3001/assignment/marked/${assignment._id}`;
 
-//         const formData = documentsFormData;
+        let documentsFormData = new FormData();
+        documentsFormData.append("MarkedDocument", marked_document_file);
 
-//         const config = {
-//           headers: { "content-type": "multipart/form-data" },
-//         };
+        const formData = documentsFormData;
 
-//         axios
-//           .post(url, formData, config)
-//           .then((response) => {
-//             resolve();
-//           })
-//           .catch((error) => {
-//             resolve();
-//             console.log(error);
-//           });
-//         resolve();
-//       }),
-//     ]);
+        const config = {
+          headers: { "content-type": "multipart/form-data" },
+        };
 
-//     createAssignmentSuccesful();
-//     window.location.reload();
-//   };
+        axios
+          .post(url, formData, config)
+          .then((response) => {
+            resolve();
+          })
+          .catch((error) => {
+            resolve();
+            console.log(error);
+          });
+        resolve();
+      }),
+    ]);
+
+    window.location.reload();
+  };
 
   const onSubmit = (e) => {
-      e.preventDefault();
-  }
+    e.preventDefault();
+
+    setGradingEdit({
+      gradingAssignment: true,
+    });
+  };
+
+  const onCancelGrading = (e) => {
+    e.preventDefault();
+
+    setGradingEdit({
+      gradingAssignment: false,
+    });
+  };
+
+  const onChange = (e) => {
+    e.preventDefault();
+
+    setAssignmentEdit({
+      ...assignmentEdit,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   function getAssignmentURL(docName) {
     return `http://localhost:3001/getAssignment/${docName}`;
@@ -129,7 +167,9 @@ export const SingleAssignmentInstructor = ({ user, assignment, ind, history }) =
             <div className="document_single">
               <SvgDocument className="little-icon" />
               <a href={getAssignmentURL(assignment.name)} target="_blank">
-                {getAssignmentURL(assignment.name).split("/").reverse()[0].length > 5
+                {getAssignmentURL(assignment.name).split("/").reverse()[0]
+                  .length > 5
+
                   ? getAssignmentURL(assignment.name)
                       .split("/")
                       .reverse()[0]
@@ -140,38 +180,179 @@ export const SingleAssignmentInstructor = ({ user, assignment, ind, history }) =
 
             <div className="document_single">
               <SvgDocument className="little-icon" />
-              <a href={getAssignmentURL(assignment.submitted_document)} target="_blank">
-                {getAssignmentURL(assignment.submitted_document).split("/").reverse()[0].length > 5
+              <a
+                href={getAssignmentURL(assignment.submitted_document)}
+                target="_blank"
+              >
+                {getAssignmentURL(assignment.submitted_document)
+                  .split("/")
+                  .reverse()[0].length > 5
+
                   ? getAssignmentURL(assignment.submitted_document)
                       .split("/")
                       .reverse()[0]
                       .slice(0, 5) + "..."
-                  : getAssignmentURL(assignment.submitted_document).split("/").reverse()[0]}
+                  : getAssignmentURL(assignment.submitted_document)
+                      .split("/")
+                      .reverse()[0]}
               </a>
             </div>
-
-            
-
-            {/* <div class="image-upload">
-              <label for={`file-input ${ind}`}>
-                <SvgPlus className="little-icon plus" />
-              </label>
-
-              <input
-                id={`file-input ${ind}`}
-                key={ind}
-                type="file"
-                onChange={handleNewAssignment}
-              />
-            </div> */}
           </div>
-          <div className="d-flex justify-content-center mt-2">
-            <form onSubmit={onSubmit}>
-              <button type="submit" className="btn btn-success">
-                Grade
-              </button>
-            </form>
-          </div>
+
+          {!gradingAssignment ? (
+            <div className="d-flex justify-content-center mt-2">
+              <form onSubmit={onSubmit}>
+                <button type="submit" className="btn btn-success">
+                  Grade
+                </button>
+              </form>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {gradingAssignment ? (
+            <>
+              <hr></hr>
+              <div className="document_list mt-3">
+                {marked_document_file ? (
+                  <>
+                    <div className="document_single">
+                      <SvgDocument className="little-icon" />
+                      <a
+                        href={getAssignURL(marked_document_file)}
+                        target="_blank"
+                      >
+                        {getAssignURL(marked_document_file)
+                          .split("/")
+                          .reverse()[0].length > 5
+                          ? getAssignURL(marked_document_file)
+                              .split("/")
+                              .reverse()[0]
+                              .slice(0, 5) + "..."
+                          : getAssignURL(marked_document_file)
+                              .split("/")
+                              .reverse()[0]}
+                      </a>
+                      <SvgRedX
+                        className="little-icon4"
+                        onClick={handleClick}
+                        ind={ind}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {marked_document ? (
+                      <div className="document_single">
+                        <SvgDocument className="little-icon" />
+                        <a
+                          href={getAssignmentURL(marked_document)}
+                          target="_blank"
+                        >
+                          {getAssignmentURL(marked_document)
+                            .split("/")
+                            .reverse()[0].length > 5
+                            ? getAssignmentURL(marked_document)
+                                .split("/")
+                                .reverse()[0]
+                                .slice(0, 5) + "..."
+                            : getAssignmentURL(marked_document)
+                                .split("/")
+                                .reverse()[0]}
+                        </a>
+                        <SvgRedX
+                          className="little-icon4"
+                          onClick={handleClick}
+                          ind={ind}
+                        />
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </>
+                )}
+
+                <div class="image-upload">
+                  <label for={`file-input ${ind}`}>
+                    <SvgPlus className="little-icon plus" />
+                  </label>
+
+                  <input
+                    id={`file-input ${ind}`}
+                    type="file"
+                    onChange={handleNewFeedback}
+                  />
+                </div>
+              </div>
+
+              <form className="mb-0" onSubmit={onSubmitSubmission}>
+                <div className="mt-3">
+                  <div className="row mt-3 d-flex justify-content-center">
+                    <div className="col-lg-2">
+                      <label
+                        htmlFor={ind}
+                        className="mt-4 d-inline text-center"
+                      >
+                        <h3>Grade</h3>
+                      </label>
+                      <input
+                        type="number"
+                        id={ind}
+                        name="mark"
+                        className="form-control d-inline me-4"
+                        placeholder="0-100"
+                        value={mark !== -1 ? mark : ""}
+                        onChange={onChange}
+                      ></input>
+                    </div>
+                  </div>
+
+                  <div className="row mt-3 d-flex justify-content-center">
+                    <div className="col-lg-8">
+                      <label
+                        htmlFor={ind}
+                        className="mt-4 d-inline text-center"
+                      >
+                        <h3>Comments/Feedback</h3>
+                      </label>
+                      <textarea
+                        type=""
+                        id={ind}
+                        name="comments"
+                        className="form-control d-inline me-4"
+                        placeholder="Feedback..."
+                        value={comments}
+                        onChange={onChange}
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-center">
+                    <button type="submit" className="btn btn-success">
+                      Grade
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <div className="d-flex justify-content-center pt-0 mt-0">
+                <form id={ind} onSubmit={onCancelGrading}>
+                  <label htmlFor={ind} />
+                  <button
+                    id={ind}
+                    type="submit"
+                    className="btn btn-danger text-center"
+                  >
+                    Cancel
+                  </button>
+                </form>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+
         </div>
       </div>
     </div>
@@ -184,6 +365,12 @@ SingleAssignmentInstructor.propTypes = {
    */
 };
 
-export default connect(null, { createAssignment, createAssignmentSuccesful })(
-  SingleAssignmentInstructor
-);
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, {
+  createAssignment,
+  createAssignmentSuccesful,
+  grading,
+  gradingSuccessful,
+})(SingleAssignmentInstructor);
+

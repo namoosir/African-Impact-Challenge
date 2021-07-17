@@ -32,7 +32,6 @@ const ModuleEdit = ({
       ...module,
       assignmentFiles: [],
       contentFiles: [],
-
       lectureFiles: [],
     },
   });
