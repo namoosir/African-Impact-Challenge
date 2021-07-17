@@ -30,9 +30,9 @@ export const Documents = ({documents}) => {
                     <h1>Documents</h1>
 
                     <div className="document_list"> 
-                        {documents.map((document) => (
+                        {Array.isArray(documents) ? documents.map((document) => (
                             <SingleDoc document_url={getDocumentURL(document)}/>
-                        ))}
+                        )) : ""}
                     </div>
                 </div>
             </div>

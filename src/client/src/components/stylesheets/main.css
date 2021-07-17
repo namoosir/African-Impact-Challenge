@@ -99,6 +99,11 @@ body{
   margin-top: 10px;
 }
 
+.funding-check{
+  padding-top: 1em;
+
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

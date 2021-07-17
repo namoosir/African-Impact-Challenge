@@ -14,6 +14,9 @@ const ModulesSchema = new Schema({
     content: [{
         type: String, //array of assignment document names
     }],
+    lectures: [{
+        type: String, //array of assignment document names
+    }],
     date: {
         type: Date,
         default: Date.now,
