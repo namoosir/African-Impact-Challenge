@@ -10,8 +10,10 @@ import Assignments from "./AssignmentsView/Assignments";
 import Content from "./ContentView/Content";
 import Videos from "./VideoView/Videos";
 import AssignmentView from "./StudentView/AssignmentView";
+
 import ContentView from "./StudentView/ContentView";
 import LectureView from "./StudentView/LectureView"
+
 
 import {
   instructorUpload,
@@ -33,6 +35,7 @@ import {
   loadAssignments,
   afterCreateAssignment,
 } from "../../actions/assignmentAction";
+
 
 import moduleStylesheet from "../stylesheets/module.css";
 
@@ -60,6 +63,7 @@ const Module = ({
   loadAssignments,
   afterCreateAssignment,
   assignmentCreated,
+
   state,
 }) => {
   const [newModule, setNewModule] = useState({
@@ -81,6 +85,7 @@ const Module = ({
       window.location.reload();
     }
   }, [assignmentCreated]);
+
 
   const onSubmitModule = (e) => {
     e.preventDefault();
@@ -132,6 +137,7 @@ const Module = ({
   const generateKey = (pre) => {
     return `${pre}_${new Date().getTime()}`;
   };
+
 
   return (
     <div>
@@ -225,6 +231,7 @@ const Module = ({
 
 
         <div className="col-lg-6">
+
 
           {user && module && user.id === module.user._id ? (
             <>
@@ -347,6 +354,7 @@ const mapStateToProps = (state) => ({
   isCreatingModule: state.module.isCreatingModule,
   hasCreatedModule: state.module.hasCreatedModule,
   assignmentCreated: state.assignment.assignmentCreated,
+
   state: state,
 });
 

@@ -17,6 +17,7 @@ const { loginUser2, updateUser } = require("../controllers/setting");
 const moduleController = require("../controllers/modules");
 const assignmentController = require("../controllers/assignments");
 
+
 router.get("/profile/getUsers", userController.get_all_profiles);
 
 router.get("/profile/getImage/:id", userController.get_image);
@@ -51,6 +52,7 @@ router.get("/getModule/:id", moduleController.get_exact_module);
 router.get("/modules/:id", moduleController.get_all_content);
 router.get("/lectures/:id", moduleController.get_all_lectures);
 
+
 router.put("/profile/edit/:id", userController.user_updates);
 
 router.put("/editModule/:id", moduleController.edit_module);
@@ -72,6 +74,7 @@ router.get(
   "/assignment/:id/:name",
   assignmentController.get_assignment_id_name
 );
+
 
 router.post(
   "/profile/editImage/:id",
@@ -114,6 +117,23 @@ router.post(
   "/assignment/marked/:id",
   uploadDocument.fields([{ name: "MarkedDocument" }]),
   assignmentController.save_marked_document
+
 );
+
+router.post(
+  "/addLectures/:id",
+  uploadDocument.fields([{ name: "lectures" }]),
+  moduleController.save_lectures
+);
+
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../../swagger.json');
+
+router.use(
+	'/api-docs',
+	swaggerUi.serve, 
+	swaggerUi.setup(swaggerDocument)
+  );
 
 module.exports = router;

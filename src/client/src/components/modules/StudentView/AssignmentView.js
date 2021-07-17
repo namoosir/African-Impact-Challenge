@@ -147,9 +147,11 @@ export const AssignmentStudent = ({
     window.location.reload();
   };
 
+
   function getDocumentURL3(docName) {
     return `http://localhost:3001/getAssignment/${docName}`;
   }
+
 
   function getAssignmentName() {
     if (Array.isArray(assignments)) {
@@ -276,6 +278,7 @@ export const AssignmentStudent = ({
               </button>
             </form>
           </div>
+
         </div>
       </div>
     </div>

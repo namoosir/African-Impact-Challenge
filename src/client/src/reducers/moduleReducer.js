@@ -9,6 +9,7 @@ import {
   RELOAD_STOP_MODULE,
   LOAD_CONTENT,
   LOAD_LECTURES,
+
 } from "../actions/types";
 
 const initialState = {
@@ -78,6 +79,22 @@ export default function (state = initialState, action) {
       return {
         ...state,
         lectures: payload,
+      };
+    case RELOAD_MODULE:
+      return {
+        ...state,
+        reloadModule: true,
+      };
+    case RELOAD_MODULE_SUCCESS:
+      return {
+        ...state,
+        reloadModule: false,
+        clickedModule: payload,
+      };
+    case RELOAD_STOP_MODULE:
+      return {
+        ...state,
+        reloadModule: false,
       };
     default:
       return state;
