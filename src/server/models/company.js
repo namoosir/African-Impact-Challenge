@@ -13,6 +13,7 @@ const CompanySchema = new Schema({
         type: Number,
     },
     lookingFunding: {
+        default: false,
         type: Boolean,
     },
     documents: {
