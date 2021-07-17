@@ -6,8 +6,8 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   padding: 2em;
 }
 
@@ -26,9 +26,9 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  background-color: #4D4B48;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: #4d4b48;
   padding-left: 3em;
   padding-right: 3em;
 }
@@ -40,9 +40,15 @@
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  background: -webkit-gradient(linear, left top, right top, from(#414345), to(#232526));
+  -ms-flex-direction: row;
+  flex-direction: row;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#414345),
+    to(#232526)
+  );
   background: linear-gradient(to right, #414345, #232526);
   border-radius: 1em;
   margin-top: 2em;
@@ -58,16 +64,15 @@
 
 .profile_search_card .profile_search_body {
   padding-left: 2em;
-  font-family: 'Roboto';
+  font-family: "Roboto";
 }
 
 .profile_search_card .profile_search_p_location {
   font-size: small;
-  color: #FFF2D1;
+  color: #fff2d1;
 }
 
 .profile_search_card .profile_search_p_funding {
   font-size: medium;
-  color: #8AD976;
+  color: #8ad976;
 }
-/*# sourceMappingURL=main2.css.map */

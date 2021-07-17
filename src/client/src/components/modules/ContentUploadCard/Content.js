@@ -1,37 +1,38 @@
-import SingleVideo from "./SingleVideo";
+import { SingleContent } from "./SingleContent";
 import PropTypes from "prop-types";
 import { ReactComponent as SvgPlus } from "../../../svgs/Plus.svg";
 import banner from "../../../svgs/simple-blue.jpg";
 
-export const Videos = ({ module, moduleEdit, setModuleEdit }) => {
+export const Content = ({ module, moduleEdit, setModuleEdit }) => {
 
-  function handleNewFile3(event) {
+  function handleNewFile2(event) {
     setModuleEdit((prevState) => ({
       moduleEdit: {
         ...prevState.moduleEdit,
-        lectureFiles: [
-          ...prevState.moduleEdit.lectureFiles,
+        contentFiles: [
+          ...prevState.moduleEdit.contentFiles,
           event.target.files[0],
         ],
       },
     }));
   }
 
-  function getDocumentURL3(docName) {
-    return `http://localhost:3001/getLecture/${docName}`;
+  function getDocumentURL2(docName) {
+    return `http://localhost:3001/getContent/${docName}`;
   }
 
   return (
     <div className="">
       <div className="card">
         <div className="card-body">
-          <h1>Lectures</h1>
+          <h1>Content</h1>
 
           <div className="document_list">
-          {moduleEdit.moduleEdit.lectures.map((lecture) => (
+        
+          {moduleEdit.moduleEdit.content.map((content) => (
             <>
-              <SingleVideo
-                lecture={lecture}
+              <SingleContent
+                content={content}
                 module={module}
                 moduleEdit={moduleEdit}
                 type="Name"
@@ -39,10 +40,10 @@ export const Videos = ({ module, moduleEdit, setModuleEdit }) => {
               />
               </>
             ))}
-            {moduleEdit.moduleEdit.lectureFiles.map((lectureFile) => (
+            {moduleEdit.moduleEdit.contentFiles.map((contentFile) => (
               <>
-              <SingleVideo
-                lecture={lectureFile}
+              <SingleContent
+                content={contentFile}
                 module={module}
                 moduleEdit={moduleEdit}
                 type="File"
@@ -52,11 +53,10 @@ export const Videos = ({ module, moduleEdit, setModuleEdit }) => {
             ))}
 
             <div class="image-upload">
-              <label for="file-input3">
+              <label for="file-input2">
                 <SvgPlus className="little-icon plus" />
               </label>
-
-              <input id="file-input3" type="file" onChange={handleNewFile3} />
+              <input id="file-input2" type="file" onChange={handleNewFile2} />
             </div>
           </div>
         </div>
@@ -65,10 +65,10 @@ export const Videos = ({ module, moduleEdit, setModuleEdit }) => {
   );
 };
 
-Videos.propTypes = {
+Content.propTypes = {
   /**
    * This represents the URL of the document that will be seen
    */
 };
 
-export default Videos;
+export default Content;
