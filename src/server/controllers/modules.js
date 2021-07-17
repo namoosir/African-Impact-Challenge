@@ -161,12 +161,16 @@ const save_lectures = (req, res) => {
   var fileName;
   var extenstion;
 
-
   if (typeof req.files.lectures !== "undefined") {
     for (let i = 0; i < req.files.lectures.length; i++) {
       filePath = req.files.lectures[i].path.split("/");
-      extenstion = req.files.lectures[i].originalname.split(".")
-      fileName = extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1];
+      extenstion = req.files.lectures[i].originalname.split(".");
+      fileName =
+        extenstion.slice(0, -1).join("") +
+        "*" +
+        filePath[filePath.length - 1] +
+        "." +
+        extenstion[extenstion.length - 1];
       fileNames.push(fileName);
     }
 
@@ -177,7 +181,13 @@ const save_lectures = (req, res) => {
       documentsList = result.lectures;
       documentsList = documentsList.concat(fileNames);
       Modules.findByIdAndUpdate(id, { lectures: documentsList }).then((x) =>
-        fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)})
+        fs.rename(
+          `./server/documents/${filePath[filePath.length - 1]}`,
+          `./server/documents/${fileName}`,
+          () => {
+            res.sendStatus(200);
+          }
+        )
       );
     });
   } else {
@@ -185,31 +195,34 @@ const save_lectures = (req, res) => {
   }
 };
 
-
 const get_exact_module = (req, res) => {
   Modules.findById(req.params.id).then((result) => {
     myPop(result, "user").then((result2) => {
-      console.log(result2);
       res.status(200).json(result2);
     });
   });
-
-  // if (!befModule) {
-  //   res.status(404).json({ msg: "could not find module" });
-  // }
-
-  // const module = await myPop(befModule, "user");
-
-  // res.status(200).json({ module });
 };
 
 const edit_module = (req, res) => {
   Modules.findByIdAndUpdate({ _id: req.params.id }, req.body, {
     new: true,
   }).then((result) => {
-    console.log(req.body);
     res.status(200).json(result);
   });
+};
+
+const get_all_content = async (req, res) => {
+  const modules = await Modules.findById(req.params.id);
+  const content = modules.content;
+
+  res.status(200).json(content);
+};
+
+const get_all_lectures = async (req, res) => {
+  const modules = await Modules.findById(req.params.id);
+  const lectures = modules.lectures;
+
+  res.status(200).json(lectures);
 };
 
 module.exports = {
@@ -223,5 +236,7 @@ module.exports = {
   get_exact_module,
   edit_module,
   get_lecture,
-  save_lectures
+  save_lectures,
+  get_all_content,
+  get_all_lectures,
 };
