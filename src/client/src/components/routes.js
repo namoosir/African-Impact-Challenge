@@ -32,7 +32,6 @@ const Routes = ({user, isAuthenticated}) => {
             <Route exact path='/module' component={Module}></Route>
             <Route exact path='/module_edit' component={ModuleEdit}></Route>
             <Route exact path='/submissions' component={Submission}></Route>
-
         </Router>
     );
 };

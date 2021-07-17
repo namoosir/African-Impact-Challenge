@@ -49,6 +49,7 @@ export const SingleAssignmentInstructor = ({
       ...assignmentEdit,
       marked_document_file: event.target.files[0],
       marked_document: event.target.files[0],
+
     }));
   }
 
@@ -168,6 +169,7 @@ export const SingleAssignmentInstructor = ({
               <a href={getAssignmentURL(assignment.name)} target="_blank">
                 {getAssignmentURL(assignment.name).split("/").reverse()[0]
                   .length > 5
+
                   ? getAssignmentURL(assignment.name)
                       .split("/")
                       .reverse()[0]
@@ -185,6 +187,7 @@ export const SingleAssignmentInstructor = ({
                 {getAssignmentURL(assignment.submitted_document)
                   .split("/")
                   .reverse()[0].length > 5
+
                   ? getAssignmentURL(assignment.submitted_document)
                       .split("/")
                       .reverse()[0]
@@ -349,6 +352,7 @@ export const SingleAssignmentInstructor = ({
           ) : (
             ""
           )}
+
         </div>
       </div>
     </div>
@@ -369,3 +373,4 @@ export default connect(mapStateToProps, {
   grading,
   gradingSuccessful,
 })(SingleAssignmentInstructor);
+

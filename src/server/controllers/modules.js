@@ -204,7 +204,6 @@ const get_exact_module = (req, res) => {
 };
 
 const edit_module = (req, res) => {
-  console.log("IN EDIT MODULE",req.body);
   Modules.findByIdAndUpdate({ _id: req.params.id }, req.body, {
     new: true,
   }).then((result) => {

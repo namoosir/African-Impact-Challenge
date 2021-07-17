@@ -17,6 +17,7 @@ const { loginUser2, updateUser } = require("../controllers/setting");
 const moduleController = require("../controllers/modules");
 const assignmentController = require("../controllers/assignments");
 
+
 router.get("/profile/getUsers", userController.get_all_profiles);
 
 router.get("/profile/getImage/:id", userController.get_image);
@@ -40,6 +41,7 @@ router.put("/comment", postController.add_comment);
 router.get("/getrec", postController.get_recent_posts);
 router.put("/editpost", postController.edit_post);
 router.put("/deletepost", postController.remove_post);
+
 
 router.post("/createModule/:id", moduleController.create_module);
 router.get("/getrecmodules", moduleController.get_recent_modules);

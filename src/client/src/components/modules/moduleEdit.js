@@ -41,6 +41,7 @@ const ModuleEdit = ({
 
     await Promise.all([
       new Promise((resolve, reject) => {
+
         const requestOptions = {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -58,6 +59,7 @@ const ModuleEdit = ({
             //console.log("DATA handled",data)
             resolve();
           });
+
       }),
 
       new Promise((resolve, reject) => {
@@ -135,6 +137,7 @@ const ModuleEdit = ({
 
     reloadModule(module, history);
     history.push("/module");
+
   };
 
   const onCancel = (e) => {

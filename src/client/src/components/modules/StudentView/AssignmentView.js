@@ -27,6 +27,7 @@ export const AssignmentStudent = ({
   createAssignment,
   createAssignmentSuccesful,
   afterCreateAssignment
+
 }) => {
   const [assignmentEdit, setAssignmentEdit] = useState({
     id: "",
@@ -112,7 +113,6 @@ export const AssignmentStudent = ({
     } else {
       await Promise.all([
 
-       
         new Promise((resolve, reject) => {
 
           const requestOptions = {
@@ -122,7 +122,7 @@ export const AssignmentStudent = ({
               ...assignmentEdit,
             }),
           };
-          console.log(requestOptions.body);
+
 
           fetch(`http://localhost:3001/assignment/edit/${id}`, requestOptions)
             .then((response) => response.json())
@@ -162,6 +162,7 @@ export const AssignmentStudent = ({
     createAssignmentSuccesful();
     history.push("/module");
   };
+
 
   function getDocumentURL3(docName) {
     return `http://localhost:3001/getAssignment/${docName}`;
@@ -210,7 +211,9 @@ export const AssignmentStudent = ({
               </a>
             </div>
 
+
             {submitted_document_file && submitted_document_file !== "" ? (
+
               <>
                 <div className="document_list">
                   <div className="document_single">

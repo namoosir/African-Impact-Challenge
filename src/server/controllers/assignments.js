@@ -38,6 +38,7 @@ const get_assignment_model = (req, res) => {
 };
 
 const edit_assignment = (req, res) => {
+
   if (req.body.submitted_document) {
     req.body.submitted_document = "";
   } else if (req.body.marked_document) {
@@ -132,6 +133,7 @@ const get_all_assignments = async (req, res) => {
 
 const get_all_assignments_instructor = async (req, res) => {
   const assignments = await Assignments.find({ moduleId: req.params.id });
+
   let populatedAssignments = [];
 
   for (const assignment of assignments) {

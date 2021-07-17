@@ -8,7 +8,7 @@ const AssignmentSchema = new Schema({
     required: true,
   },
   status: {
-    type: Boolean, // References to Entrepreneursd
+    type: Boolean, // References to Entrepreneurs
   },
   mark: {
     type: Number,
