@@ -272,13 +272,13 @@ const Home = ({
             </div>
           </div>
           <div className="mt-4">
-            {posts.map((post) => (
+            {Array.isArray(posts) ? posts.map((post) => (
               <div className="row justify-content-center">
                 <div className="col-lg-5 mb-4">
                   <Post post={post} currentUser={user} history={history} />
                 </div>
               </div>
-            ))}
+            )) : ""}
           </div>
         </div>
 

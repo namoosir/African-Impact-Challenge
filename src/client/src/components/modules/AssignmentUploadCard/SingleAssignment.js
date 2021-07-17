@@ -1,49 +1,66 @@
-import { ReactComponent as SvgDocument } from '../../../svgs/document_icon.svg'
-import { ReactComponent as SvgRedX } from '../../../svgs/redX.svg'
+import { ReactComponent as SvgDocument } from "../../../svgs/document_icon.svg";
+import { ReactComponent as SvgRedX1 } from "../../../svgs/redX.svg";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-export const SingleAssignment = ({assignment_url, user, userEdit, setUserEdit}) => {
+export const SingleAssignment = ({
+  assignment,
+  user,
+  type,
+  moduleEdit,
+  setModuleEdit,
+}) => {
 
-
-    function handleClick(event){
-    //     setUserEdit(prevState => ({
-    //         userEdit: {
-    //             ...prevState.userEdit,
-    //             typeUser: {
-    //                 ...prevState.userEdit.typeUser,
-    //                 documents : [...prevState.userEdit.typeUser.documents.filter((document) => document !== document_url)]
-    //             }
-    //         }
-    //     }))
-        
+    function getDocumentURL(document){
+        if(type ==="File"){
+            return URL.createObjectURL(document);
+        }
+        return `http://localhost:3001/getAssignment/${document}`;
     }
 
-    return (
-        <div className="document_single">
-                <SvgDocument className="little-icon" />
-                <a href={assignment_url} target="_blank"> {assignment_url.split('/').reverse()[0].length > 5 ? 
-                                                        assignment_url.split('/').reverse()[0].slice(0,5) + '...' :
-                                                        assignment_url.split('/').reverse()[0]}</a>
-                
-                <SvgRedX className="little-icon" onClick={handleClick}/>
-                          
-        </div>
-    )
-}
+  function handleClick(event) {
+    setModuleEdit((prevState) => ({
+      moduleEdit: {
+        ...prevState.moduleEdit,
 
+        assignments: [
+          ...prevState.moduleEdit.assignments.filter(
+            (assignmentName) => assignmentName !== assignment
+          ),
+        ],
+        assignmentFiles: [
+          ...prevState.moduleEdit.assignmentFiles.filter(
+            (assignmentFile) => assignmentFile !== assignment
+          ),
+        ],
+      },
+    }));
+    console.log(moduleEdit.moduleEdit.assignments);
+  }
 
+  return (
+    <div className="document_single">
+      <SvgDocument className="little-icon" />
+      <a href={getDocumentURL(assignment)} target="_blank">
+        {getDocumentURL(assignment).split("/").reverse()[0].length > 5
+          ? getDocumentURL(assignment).split("/").reverse()[0].slice(0, 5) + "..."
+          : getDocumentURL(assignment).split("/").reverse()[0]}
+      </a>
+
+      <SvgRedX1 className="little-icon2" onClick={handleClick} />
+    </div>
+  );
+};
 
 SingleAssignment.propTypes = {
-    /**
-     * This represents the URL of the document that will be seen
-     */
-    assignment_url: PropTypes.string,
+  /**
+   * This represents the URL of the document that will be seen
+   */
+  assignment_url: PropTypes.string,
 };
 
 SingleAssignment.defaultProps = {
-    assignment_url: "/home/andy/Documents/1.mp4"
+  assignment_url: "/home/andy/Documents/1.mp4",
 };
 
-
-export default SingleAssignment
+export default SingleAssignment;

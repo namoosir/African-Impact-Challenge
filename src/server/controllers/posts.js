@@ -4,8 +4,6 @@ const Partner = require('../models/partner');
 const Company = require('../models/company');
 const User = require('../models/user');
 const Posts = require('../models/posts');
-const { post } = require('../routes/routes');
-
 
 const create_post = async (req, res) => {
 

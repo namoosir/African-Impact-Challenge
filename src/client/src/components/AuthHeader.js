@@ -62,7 +62,7 @@ const HeaderAuth = (props) => {
             src= {props.user ? getImageURL(props.user.id) : ""}
             width="50"
           ></img>
-          <li className="nav-item dropdown me-5">
+          <li className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
               href="#"
