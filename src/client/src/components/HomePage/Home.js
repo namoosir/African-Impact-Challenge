@@ -58,8 +58,7 @@ const Home = ({
   useEffect(() => {
     loadPosts(user, history);
     loadModules(history);
-    //console.log(modules, isCreatingModule, hasCreatedModule);
-    console.log(user);
+    console.log(posts);
   }, []);
 
   const onSubmitPost = (e) => {

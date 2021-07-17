@@ -19,7 +19,7 @@ const ModuleCard = ({ module, history, clickedModule }) => {
         <h4 className="mod-title">
           {module ? module.name : "CSCC01: Software Enginnering"}
         </h4>
-        <h5 className="inst">{module ? module.user.name : "Ilir Dema"}</h5>
+        <h5 className="inst">{module && module.user ? module.user.name : "Ilir Dema"}</h5>
       </button>
     </form>
   );
