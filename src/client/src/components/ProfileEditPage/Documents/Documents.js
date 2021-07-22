@@ -108,7 +108,6 @@ export const Documents = ({ user, userEdit, setUserEdit, loggedInUser }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
