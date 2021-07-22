@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, withRouter, Redirect } from "react-router-dom";
+import ModuleCreate from "../displayModule";
 
 import {
   createPost,
@@ -21,7 +22,6 @@ import {
   loadModules,
   cancelCreatingModule,
 } from "../../actions/moduleAction";
-import { has } from "express-mongo-sanitize";
 
 const Home = ({
   user,
@@ -48,18 +48,10 @@ const Home = ({
     image: "",
   });
 
-  const [newModule, setNewModule] = useState({
-    nameModule: "",
-  });
-
   const { title, text, image } = post;
-  const { nameModule } = newModule;
 
   useEffect(() => {
     loadPosts(user, history);
-    loadModules(history);
-    //console.log(modules, isCreatingModule, hasCreatedModule);
-    console.log(user);
   }, []);
 
   const onSubmitPost = (e) => {
@@ -79,46 +71,9 @@ const Home = ({
     window.location.reload();
   };
 
-  const onSubmitModule = (e) => {
-    e.preventDefault();
-
-    const module = {
-      name: nameModule,
-    };
-
-    setNewModule({
-      nameModule: "",
-    });
-
-    createModules(module, user, history);
-    onCancelCreateModule(e);
-    window.location.reload();
-  };
-
-  const onCreateModule = (e) => {
-    e.preventDefault();
-
-    isCreating();
-    history.push("/home");
-  };
-
-  const onCancelCreateModule = (e) => {
-    e.preventDefault();
-
-    cancelCreatingModule();
-    history.push("/home");
-  };
-
   const onChange = (e) => {
     setPost({
       ...post,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onChangeModule = (e) => {
-    setNewModule({
-      ...newModule,
       [e.target.name]: e.target.value,
     });
   };
@@ -132,72 +87,11 @@ const Home = ({
       />
       <div className="row d-flex justify-content-center">
         <div className="col-lg-3">
-          <div className="container">
-            <div className="card mt-5">
-              <div className="card-body">
-                <h2 className="card-title text-center">Modules</h2>
-                {user &&
-                user.typeOfUser === "Instructor" &&
-                !isCreatingModule ? (
-                  <form onSubmit={onCreateModule}>
-                    <div className="text-center">
-                      <button className="btn btn-success text-center">
-                        Create Module
-                      </button>
-                    </div>
-                  </form>
-                ) : (
-                  ""
-                )}
-
-                {isCreatingModule ? (
-                  <>
-                    <hr></hr>
-                    <form onSubmit={onSubmitModule} className="mt-3 text-left">
-                      <label htmlFor="nameModule" className="text-left mb-0">
-                        <h5>Name of Module</h5>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="nameModule"
-                        id="nameModule"
-                        value={nameModule}
-                        onChange={onChangeModule}
-                      ></input>
-                      <div className="text-center">
-                        <button type="submit" className="btn btn-success mt-3">
-                          Create Module
-                        </button>
-                      </div>
-                    </form>
-                    <form
-                      className="text-center"
-                      onSubmit={onCancelCreateModule}
-                    >
-                      <button type="submit" className="btn btn-danger mt-2">
-                        Cancel
-                      </button>
-                    </form>
-                    <hr></hr>
-                  </>
-                ) : (
-                  ""
-                )}
-
-                {modules.length > 0 ? (
-                  modules.map((module) => (
-                    <ModuleCard module={module} history={history} />
-                  ))
-                ) : (
-                  <div className="text-center mt-3">
-                    <h4 className="text-light">Modules on the work!</h4>
-                  </div>
-                )}
-              </div>
-            </div>
+          <div className="mt-5">
+          <ModuleCreate user={user} history={history} component="home"/>
           </div>
         </div>
+
         <div className="col-lg-5">
           <div className="container">
             <div className="card mt-5">
@@ -272,13 +166,15 @@ const Home = ({
             </div>
           </div>
           <div className="mt-4">
-            {Array.isArray(posts) ? posts.map((post) => (
-              <div className="row justify-content-center">
-                <div className="col-lg-5 mb-4">
-                  <Post post={post} currentUser={user} history={history} />
-                </div>
-              </div>
-            )) : ""}
+            {Array.isArray(posts)
+              ? posts.map((post) => (
+                  <div className="row justify-content-center">
+                    <div className="col-lg-5 mb-4">
+                      <Post post={post} currentUser={user} history={history} />
+                    </div>
+                  </div>
+                ))
+              : ""}
           </div>
         </div>
 

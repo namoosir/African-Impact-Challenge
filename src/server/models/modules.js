@@ -2,25 +2,35 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ModulesSchema = new Schema({
-    name: {
-        type: String,
+  name: {
+    type: String,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  description: {
+    type: String,
+  },
+  assignments: [
+    {
+      type: String, //array of assignment document names
     },
-    user: {
-        type: Schema.Types.ObjectId, ref: "User"
+  ],
+  content: [
+    {
+      type: String, //array of assignment document names
     },
-    assignments: [{
-        type: String, //array of assignment document names
-    }],
-    content: [{
-        type: String, //array of assignment document names
-    }],
-    lectures: [{
-        type: String, //array of assignment document names
-    }],
-    date: {
-        type: Date,
-        default: Date.now,
+  ],
+  lectures: [
+    {
+      type: String, //array of assignment document names
     },
+  ],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Modules", ModulesSchema);
