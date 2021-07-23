@@ -21,6 +21,8 @@ const ModuleCalendar = ({ user, module, setDisplay }) => {
     <>
       <div className="card map mt-3">
         <div className="card-body body-map">
+          <h5 className="text-center text-light"> {module.name} Calendar </h5>
+          <hr></hr>
           <FullCalendar
             plugins={[timeGridPlugin]}
             initialView="timeGridDay"
