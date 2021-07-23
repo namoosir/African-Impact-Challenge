@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 
-
 import AuthHeader from "../AuthHeader";
 import ModuleCalendar from "./moduleCalendar";
-import Calendar from "./calendar"
+import Calendar from "./calendar";
 import ModuleInfo from "./moduleInfo";
 import ModuleCreate from "../displayModule";
 import Assignments from "./AssignmentsView/Assignments";
@@ -34,18 +33,17 @@ const Module = ({
   assignmentCreated,
   state,
 }) => {
-
   const [display, setDisplay] = useState({
     displayCalendar: false,
   });
 
   const { displayCalendar } = display;
 
-
   useEffect(() => {
     if (user) {
       loadAssignments(user, history);
     }
+    console.log(module);
   }, []);
 
   useEffect(() => {
@@ -76,7 +74,6 @@ const Module = ({
         isAuthenticate={isAuthenticated}
         history={history}
       />
-
 
       {!displayCalendar ? (
         <div className="row d-flex justify-content-center mt-4">
@@ -116,36 +113,13 @@ const Module = ({
                     </button>
                   </form>
                 </div>
-              </div>
-
-              <div className="container text-center">
-                <form onSubmit={onSubmit}>
-                  <button type="submit" className="btn btn-success btn-block">
-                    Upload
-                  </button>
-                </form>
-              </div>
-              <div>
-                <div className="container text-center">
-                  <form onSubmit={onSubmitSubmission}>
-                    <button type="submit" className="btn btn-light btn-block">
-                      Submissions
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="d-block justify-content-center mt-2">
-                <div className="d-flex justify-content-center">
-                  <div className="container margins">
-                    <LectureView
-                      user={user}
-                      history={history}
-                      module={module}
-                    />
-
+                <div>
+                  <div className="container text-center">
+                    <form onSubmit={onSubmitSubmission}>
+                      <button type="submit" className="btn btn-light btn-block">
+                        Submissions
+                      </button>
+                    </form>
                   </div>
                 </div>
               </>
@@ -161,7 +135,6 @@ const Module = ({
                       />
                     </div>
                   </div>
-
 
                   <div className="d-flex justify-content-center">
                     <div className="container margins">
@@ -215,14 +188,16 @@ const Module = ({
 
           <div className="col-lg-3">
             <div className="container">
-              <ModuleCalendar module={module} user={user} setDisplay={setDisplay} />
+              <ModuleCalendar
+                module={module}
+                user={user}
+                setDisplay={setDisplay}
+              />
             </div>
           </div>
         </div>
       ) : (
-        <div className="container">
-        <Calendar module={module} user={user} setDisplay={setDisplay} />
-        </div>
+          <Calendar module={module} user={user} setDisplay={setDisplay} history={history}/>
       )}
     </div>
   );
