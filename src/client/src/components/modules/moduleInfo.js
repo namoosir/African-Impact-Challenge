@@ -1,7 +1,8 @@
 const ModuleInfo = ({ module }) => {
   return (
     <div className="d-flex justify-content-center mt-2">
-      <div className="container margins">
+
+      <div className="container mt-2">
         <div className="card">
           <div className="card-body">
             <h1 className="card-title text-center">
