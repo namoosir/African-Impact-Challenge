@@ -1,6 +1,7 @@
 const ModuleInfo = ({ module }) => {
   return (
     <div className="d-flex justify-content-center mt-2">
+
       <div className="container mt-2">
         <div className="card">
           <div className="card-body">

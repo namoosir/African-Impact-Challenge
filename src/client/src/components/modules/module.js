@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import ModuleCard from "../HomePage/ModuleCard";
+
 
 import AuthHeader from "../AuthHeader";
 import ModuleCalendar from "./moduleCalendar";
 import Calendar from "./calendar"
-
 import ModuleInfo from "./moduleInfo";
 import ModuleCreate from "../displayModule";
 import Assignments from "./AssignmentsView/Assignments";
@@ -13,21 +12,7 @@ import Content from "./ContentView/Content";
 import Videos from "./VideoView/Videos";
 import AssignmentView from "./StudentView/AssignmentView";
 import ContentView from "./StudentView/ContentView";
-import LectureView from "./StudentView/LectureView"
-
-import {
-  instructorUpload,
-  startReload,
-  reloadModule,
-  stopReload,
-} from "../../actions/moduleAction";
-
-import {
-  createModules,
-  isCreating,
-  loadModules,
-  cancelCreatingModule,
-} from "../../actions/moduleAction";
+import LectureView from "./StudentView/LectureView";
 
 import {
   getEntrepreneurs,
@@ -36,7 +21,6 @@ import {
   afterCreateAssignment,
 } from "../../actions/assignmentAction";
 
-
 import moduleStylesheet from "../stylesheets/module.css";
 
 const Module = ({
@@ -44,32 +28,19 @@ const Module = ({
   isAuthenticated,
   history,
   module,
-  instructorUpload,
-  startReload,
-  reloadModule,
-  toReloadModule,
-  stopReload,
-  modules,
-  isCreatingModule,
-  hasCreatedModule,
-  isCreating,
-  cancelCreatingModule,
-  createModules,
-  loadModules,
   assignments,
-  getEntrepreneurs,
-  entrepreneurs,
-  getAssignmentStudent,
   loadAssignments,
   afterCreateAssignment,
   assignmentCreated,
   state,
 }) => {
+
   const [display, setDisplay] = useState({
     displayCalendar: false,
   });
 
   const { displayCalendar } = display;
+
 
   useEffect(() => {
     if (user) {
@@ -84,43 +55,6 @@ const Module = ({
     }
   }, [assignmentCreated]);
 
-  const onSubmitModule = (e) => {
-    e.preventDefault();
-
-    const module = {
-      name: nameModule,
-    };
-
-    setNewModule({
-      nameModule: "",
-    });
-
-    createModules(module, user, history);
-    onCancelCreateModule(e);
-    window.location.reload();
-  };
-
-  const onCreateModule = (e) => {
-    e.preventDefault();
-
-    isCreating();
-    history.push("/module");
-  };
-
-  const onCancelCreateModule = (e) => {
-    e.preventDefault();
-
-    cancelCreatingModule();
-    history.push("/module");
-  };
-
-  const onChangeModule = (e) => {
-    setNewModule({
-      ...newModule,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const onSubmit = (e) => {
     history.push("/module_edit");
   };
@@ -128,8 +62,8 @@ const Module = ({
   const onSubmitSubmission = (e) => {
     e.preventDefault();
 
-    history.push("/submissions")
-  }
+    history.push("/submissions");
+  };
 
   const generateKey = (pre) => {
     return `${pre}_${new Date().getTime()}`;
@@ -142,19 +76,7 @@ const Module = ({
         isAuthenticate={isAuthenticated}
         history={history}
       />
-      <div className="d-flex justify-content-center mt-2">
-        <div className="container margins">
-          <div className="card">
-            <div className="card-body">
-              <h1 className="card-title text-center">
-                {module && module.name
-                  ? module.name
-                  : "CSCC01: Introduction to Software Engineering"}
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {!displayCalendar ? (
         <div className="row d-flex justify-content-center mt-4">
@@ -194,13 +116,36 @@ const Module = ({
                     </button>
                   </form>
                 </div>
-                <div>
-                  <div className="container text-center">
-                    <form onSubmit={onSubmitSubmission}>
-                      <button type="submit" className="btn btn-light btn-block">
-                        Submissions
-                      </button>
-                    </form>
+              </div>
+
+              <div className="container text-center">
+                <form onSubmit={onSubmit}>
+                  <button type="submit" className="btn btn-success btn-block">
+                    Upload
+                  </button>
+                </form>
+              </div>
+              <div>
+                <div className="container text-center">
+                  <form onSubmit={onSubmitSubmission}>
+                    <button type="submit" className="btn btn-light btn-block">
+                      Submissions
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="d-block justify-content-center mt-2">
+                <div className="d-flex justify-content-center">
+                  <div className="container margins">
+                    <LectureView
+                      user={user}
+                      history={history}
+                      module={module}
+                    />
+
                   </div>
                 </div>
               </>
@@ -216,6 +161,7 @@ const Module = ({
                       />
                     </div>
                   </div>
+
 
                   <div className="d-flex justify-content-center">
                     <div className="container margins">
@@ -288,23 +234,12 @@ const mapStateToProps = (state) => ({
   assignments: state.assignment.assignments,
   entrepreneurs: state.assignment.entrepreneurs,
   module: state.module.clickedModule,
-  toReloadModule: state.module.reloadModule,
   isAuthenticated: state.user.isAuthenticated,
-  isCreatingModule: state.module.isCreatingModule,
-  hasCreatedModule: state.module.hasCreatedModule,
   assignmentCreated: state.assignment.assignmentCreated,
   state: state,
 });
 
 export default connect(mapStateToProps, {
-  instructorUpload,
-  startReload,
-  reloadModule,
-  stopReload,
-  createModules,
-  isCreating,
-  loadModules,
-  cancelCreatingModule,
   getEntrepreneurs,
   getAssignmentStudent,
   loadAssignments,

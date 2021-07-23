@@ -23,6 +23,7 @@ const create_module = async (req, res) => {
   const module = new Modules({
     name: req.body.name,
     user: req.params.id,
+    description: req.body.description,
     assignments: [],
     content: [],
   });
