@@ -12,8 +12,8 @@ const ChatLogSchema = new Schema({
         type: String,
     },
     chatlogs:[{
-        messege :   {type : String, default : ''},
-        date :      {type : Date, default :Date.now},
+        message :   {type : String, default : ''},
+        date :      {type : String},
         userid:     {type: Schema.Types.ObjectId},
     }],
 })

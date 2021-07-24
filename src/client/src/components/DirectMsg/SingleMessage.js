@@ -1,6 +1,8 @@
 import React from 'react'
 
 const SingleMessage = ({username, imgURL, timestamp, msg}) => {
+    
+
     return (
         <div className="single_msg">
             <img className="img" src={imgURL}></img>

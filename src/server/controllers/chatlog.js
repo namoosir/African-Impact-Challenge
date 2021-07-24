@@ -22,14 +22,15 @@ const save_chat_log = async (req, res) => {
             usersid: reqUsers,
             user1: req.body.user1,
             user2: req.body.user2,
-            chatlogs: [{messege: req.body.msg, userid: req.body.msgUser}],
+            chatlogs: [{message: req.body.msg, userid: req.body.msgUser, date:req.body.date}],
           });
+          console.log(req.body.date);
           const refchatlog = await chatlog.save();
           res.status(200).json(refchatlog);
     } 
     else{
         newlog = found.chatlogs;
-        newlog = newlog.concat([{messege: req.body.msg, userid: req.body.msgUser}]);
+        newlog = newlog.concat([{message: req.body.msg, userid: req.body.msgUser, date:req.body.date}]);
         Chatlog.findByIdAndUpdate(found.id, {chatlogs: newlog}).then((x) =>
              {
                 res.status(200).json(x);
@@ -44,8 +45,8 @@ const get_chat_log = async (req, res) => {
     reqUsers.sort();
     reqUsers = reqUsers.toString();
 
+    console.log("MDSKFLDKS");
     //do users even exist?
-
     found = await Chatlog.findOne({usersid: reqUsers}).then(x=> {return x});
 
     if(found==null){

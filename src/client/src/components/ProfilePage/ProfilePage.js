@@ -72,7 +72,7 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
       <div className="profile_edit_page mt-4">
         <GeneralCard user={userProfile} loggedInUser={loggedInUser} />
         <Biography bioText={userProfile.biography} />
-        {loggedInUser && userProfile.typeUser && loggedInUser.typeOfUser === "Company" ? (
+        {loggedInUser && userProfile.typeOfUser === "Company" ? (
           <Documents documents={userProfile.typeUser.documents} />
         ) : (
           <h3></h3>
