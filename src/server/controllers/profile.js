@@ -20,21 +20,16 @@ const { expect } = require("chai");
 const user_details = (req, res) => {
   const id = req.params.id;
   //const name = req.params.typeOfUser;
-  const user = await User.findById(id);
+
+const user = await User.findById(id);
+
+const popu = user.myPop(Event,'events').then(function(result) {
+    return result 
+ }) 
+
+ res.status(200).json(popu);
 
 
-  // TODO:
-  for (const event of user.events) {
-    var populated = await myPop(event, "user").then( async function (result) {
-      let populated2 = await myPop(result, "events").then(function (result2) {
-        console.log(result2)
-        return result2;
-      })
-      return populated2;
-    });
-
-    ans.push(populated);
-  }
 
   User.findById(id)
     .then((result) => {
