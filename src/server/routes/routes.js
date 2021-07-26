@@ -68,7 +68,8 @@ router.get("/assignment/:id", assignmentController.get_assignment_model);
 router.put("/assignment/edit/:id", assignmentController.edit_assignment);
 router.get("/assignments/:id", assignmentController.get_all_assignments_instructor);
 
-router.post("/event/add", eventController.create_event);
+router.post("/event/add", eventController.create_event_module);
+router.post("/event/addCompany", eventController.create_event_company)
 
 router.get(
   "/assignment/entrepreneurs",

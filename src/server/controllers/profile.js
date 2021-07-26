@@ -4,7 +4,7 @@ const Partner = require("../models/partner");
 const Company = require("../models/company");
 const User = require("../models/user");
 const imagesPath = "./server/images";
-
+const Event = require("./models/event");
 const documentPath = "./server/documents";
 const fs = require("fs")
 
@@ -20,6 +20,22 @@ const { expect } = require("chai");
 const user_details = (req, res) => {
   const id = req.params.id;
   //const name = req.params.typeOfUser;
+  const user = await User.findById(id);
+
+
+  // TODO:
+  for (const event of user.events) {
+    var populated = await myPop(event, "user").then( async function (result) {
+      let populated2 = await myPop(result, "events").then(function (result2) {
+        console.log(result2)
+        return result2;
+      })
+      return populated2;
+    });
+
+    ans.push(populated);
+  }
+
   User.findById(id)
     .then((result) => {
       result.populate(
@@ -114,6 +130,11 @@ async function myPop2(post) {
   let itemPopulated = await post
     .populate({ path: "typeUser", model: post.typeOfUser })
     .execPopulate();
+  return itemPopulated;
+}
+
+async function myPop(model, field) {
+  let itemPopulated = await model.populate(field).execPopulate();
   return itemPopulated;
 }
 

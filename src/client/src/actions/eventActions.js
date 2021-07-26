@@ -16,6 +16,19 @@ export const createEvent = (event) => (dispatch) => {
 
 }
 
+export const createCompanyEvent = (event) => (dispatch) => {
+  axios
+    .post("http://localhost:3001/event/addCompany", event)
+    .then(res => {
+      dispatch({
+        type: CREATE_EVENT
+      })
+    })
+    .catch(e => {
+      console.log(e);
+    })
+}
+
 export const createEventSuccessful = () => (dispatch) => {
   dispatch({
     type: CREATE_EVENT_SUCCESSFUL
