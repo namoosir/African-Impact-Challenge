@@ -40,22 +40,16 @@ const Module = ({
 
   const { displayCalendar } = display;
 
+  const [events, setEvents] = useState({
+    currEvents: module ? module.events : ""
+  })
+
   useEffect(() => {
     if (user) {
       loadAssignments(user, history);
     }
     console.log(module);
   }, []);
-
-  useEffect(() => {
-    console.log(eventAdded);
-    if(eventAdded) {
-      setDisplay({
-        ...display,
-        displayCalendar: true
-      })
-    }
-  }, [eventAdded]);
 
   useEffect(() => {
     if (assignmentCreated) {
@@ -208,7 +202,7 @@ const Module = ({
           </div>
         </div>
       ) : (
-          <Calendar module={module} user={user} setDisplay={setDisplay} history={history}/>
+          <Calendar module={module} user={user} setDisplay={setDisplay} history={history} events={events} setEvents={setEvents}/>
       )}
     </div>
   );
@@ -222,7 +216,6 @@ const mapStateToProps = (state) => ({
   module: state.module.clickedModule,
   isAuthenticated: state.user.isAuthenticated,
   assignmentCreated: state.assignment.assignmentCreated,
-  eventAdded: state.event.eventAdded,
   state: state,
 });
 
