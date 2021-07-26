@@ -6,41 +6,20 @@ import ModuleCard from "./ModuleCard";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, withRouter, Redirect } from "react-router-dom";
 import ModuleCreate from "../displayModule";
+import Calendar from "./homeCalendar";
 
-import {
-  createPost,
-  loadPosts,
-  editPost,
-  deletePost,
-} from "../../actions/postAction";
-
-import {
-  createModules,
-  isCreating,
-  loadModules,
-  cancelCreatingModule,
-} from "../../actions/moduleAction";
+import { createPost, loadPosts } from "../../actions/postAction";
+import { updateUserHome } from "../../actions/userAction";
 
 const Home = ({
   user,
   posts,
-  modules,
   isAuthenticated,
-  isLoggedOut,
-  isDeleted,
   history,
   createPost,
   loadPosts,
-  editPost,
-  deletePost,
-  createModules,
-  loadModules,
-  isCreating,
-  isCreatingModule,
-  hasCreatedModule,
-  cancelCreatingModule,
+  updateUserHome,
 }) => {
   const [post, setPost] = useState({
     title: "",
@@ -52,6 +31,7 @@ const Home = ({
 
   useEffect(() => {
     loadPosts(user, history);
+    updateUserHome(user, history);
   }, []);
 
   const onSubmitPost = (e) => {
@@ -88,7 +68,7 @@ const Home = ({
       <div className="row d-flex justify-content-center">
         <div className="col-lg-3">
           <div className="mt-5">
-          <ModuleCreate user={user} history={history} component="home"/>
+            <ModuleCreate user={user} history={history} component="home" />
           </div>
         </div>
 
@@ -179,13 +159,8 @@ const Home = ({
         </div>
 
         <div className="col-lg-3">
-          <div className="card mt-5">
-            <div className="card-body">
-              <h3 className="card-title text-center mb-3"> Upcoming Events </h3>
-              <h5 className="text-center">
-                This section is currently under development!!
-              </h5>
-            </div>
+          <div className="ms-4 mt-5">
+            <Calendar user={user} history={history} />
           </div>
         </div>
       </div>
@@ -214,10 +189,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   createPost,
   loadPosts,
-  editPost,
-  deletePost,
-  createModules,
-  isCreating,
-  loadModules,
-  cancelCreatingModule,
+  updateUserHome,
 })(Home);
