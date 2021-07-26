@@ -2,16 +2,11 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 
-import { useState, useEffect} from "react";
-
-import { createEventSuccessful } from "../../actions/eventActions";
-import {connect} from "react-redux"
+import { useState } from "react";
 
 import AddEvent from "./addEvent";
 
-import map from "../stylesheets/calendar.css";
-
-const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
+const Calendar = ({ user, loggedInUser, setDisplay, history }) => {
   const [editing, setEditing] = useState({
     isEditingCalendar: false,
   });
@@ -46,7 +41,7 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
           <div className="card map mt-3">
             <div className="card-body body-map">
               <h2 className="text-center">
-                {module ? module.name : "Calendar"} Calendar
+                {user ? user.name : "Calendar"} Calendar
               </h2>
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin]}
@@ -59,14 +54,13 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
                   center: "title",
                   right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
-                events= {events.currEvents}
+                events={user.events}
               />
 
               <div className="text-center">
                 {user &&
-                module &&
                 !isEditingCalendar &&
-                user.id === module.user._id ? (
+                user.id === loggedInUser.id ? (
                   <form onSubmit={onSubmitAddEvent} className="d-inline">
                     <button type="submit" className="btn btn-success me-2">
                       Add Event
@@ -77,7 +71,7 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
                 )}
                 <form onSubmit={onCancelCalendar} className="d-inline">
                   <button type="submit" className="btn btn-light ms-2">
-                    Go To Module
+                    Go To Company
                   </button>
                 </form>
               </div>
@@ -87,11 +81,9 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
         {isEditingCalendar ? (
           <>
             <AddEvent
-              module={module}
+              user={user}
               setEditing={setEditing}
               history={history}
-              events={events}
-              setEvents={setEvents}
             />
           </>
         ) : (
@@ -102,5 +94,4 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
   );
 };
 
-
-export default connect(null, {})(Calendar);
+export default Calendar;

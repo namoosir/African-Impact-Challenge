@@ -31,6 +31,7 @@ const Module = ({
   loadAssignments,
   afterCreateAssignment,
   assignmentCreated,
+  eventAdded,
   state,
 }) => {
   const [display, setDisplay] = useState({
@@ -38,6 +39,10 @@ const Module = ({
   });
 
   const { displayCalendar } = display;
+
+  const [events, setEvents] = useState({
+    currEvents: module ? module.events : ""
+  })
 
   useEffect(() => {
     if (user) {
@@ -197,7 +202,7 @@ const Module = ({
           </div>
         </div>
       ) : (
-          <Calendar module={module} user={user} setDisplay={setDisplay} history={history}/>
+          <Calendar module={module} user={user} setDisplay={setDisplay} history={history} events={events} setEvents={setEvents}/>
       )}
     </div>
   );

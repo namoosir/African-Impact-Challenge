@@ -21,6 +21,7 @@ export const getProfile = (profiler, history) => (dispatch) => {
         biography: res.data.biography,
         typeUser: res.data.typeUser,
         image: res.data.image,
+        events: res.data.events,
       };
       dispatch({
         type: LOAD_PROFILE,
@@ -46,6 +47,7 @@ export const loadSelfProfile = (profile) => (dispatch) => {
       biography: res.data.biography,
       typeUser: res.data.typeUser,
       image: res.data.image,
+      events: res.data.events,
     };
     dispatch({
       type: LOAD_SELF_PROFILE,
@@ -68,6 +70,7 @@ export const loadSelfProfileAfterEdit = (profile) => (dispatch) => {
       biography: res.data.biography,
       typeUser: res.data.typeUser,
       image: res.data.image,
+      events: res.data.events,
     };
     dispatch({
       type: LOAD_SELF_AFTER_EDIT,

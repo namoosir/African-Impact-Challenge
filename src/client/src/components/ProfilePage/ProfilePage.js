@@ -5,17 +5,25 @@ import GeneralCard from "./GeneralCard/GeneralCard";
 import Biography from "./Biography/Biography";
 import Employees from "./Employees/Employees";
 import Documents from "./Documents/Documents";
+import CompanyCalendar from "./Calendar/companyCalendar";
+import Calendar from "./Calendar/calendar";
 import { connect } from "react-redux";
 import AuthHeader from "../AuthHeader";
-import { reloadAfterEdit } from "../../actions/profileAction"
+import { reloadAfterEdit } from "../../actions/profileAction";
 import { updateUser } from "../../actions/userAction";
 
 import PropTypes from "prop-types";
 
-
-const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, history, toReload, reloadAfterEdit, updateUser}) => {
-    
-  
+const ProfilePage = ({
+  userProfile,
+  loggedInUser,
+  isAuthenticated,
+  isLoggedOut,
+  history,
+  toReload,
+  reloadAfterEdit,
+  updateUser,
+}) => {
   /*
     const [user, setUser] = useState({
       "_id": "60dbc77aeda7da46a1baa945",
@@ -46,21 +54,25 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
       "__v": 0
   });
   */
+  const [display, setDisplay] = useState({
+    displayCalendar: false,
+  });
 
-    useEffect(() => {
-      if (!isAuthenticated) {
-        history.push('/login');
-      }
-    }, [isAuthenticated])
+  const { displayCalendar } = display;
 
-    useEffect(() => {
-      if(toReload) {
-        reloadAfterEdit();
-        updateUser(loggedInUser, history)
-        window.location.reload();
-      }
-    }, [toReload])
+  useEffect(() => {
+    if (!isAuthenticated) {
+      history.push("/login");
+    }
+  }, [isAuthenticated]);
 
+  useEffect(() => {
+    if (toReload) {
+      reloadAfterEdit();
+      updateUser(loggedInUser, history);
+      window.location.reload();
+    }
+  }, [toReload]);
 
   return (
     <>
@@ -69,15 +81,31 @@ const ProfilePage = ({userProfile, loggedInUser, isAuthenticated, isLoggedOut, h
         isAuthenticated={isAuthenticated}
         history={history}
       />
+
+      {!displayCalendar ? (
       <div className="profile_edit_page mt-4">
         <GeneralCard user={userProfile} loggedInUser={loggedInUser} />
         <Biography bioText={userProfile.biography} />
-        {loggedInUser && userProfile.typeUser && loggedInUser.typeOfUser === "Company" ? (
-          <Documents documents={userProfile.typeUser.documents} />
+        {loggedInUser &&
+        userProfile.typeUser &&
+        userProfile.typeOfUser === "Company" ? (
+            <Documents documents={userProfile.typeUser.documents} />
         ) : (
           <h3></h3>
         )}
+
+        <div className="col-lg-3">
+          <div className="container">
+            <CompanyCalendar
+              user={userProfile}
+              setDisplay={setDisplay}
+            />
+          </div>
+        </div>
       </div>
+      ) : (
+        <Calendar user={userProfile} loggedInUser={loggedInUser} setDisplay={setDisplay} history={history}/>
+      ) }
     </>
   );
 };
@@ -88,9 +116,10 @@ const mapStateToProps = (state) => ({
   isLoggedOut: state.user.isLoggedOut,
   userProfile: state.profile.profile,
   toReload: state.profile.toReload,
-
 });
 
-export default connect(mapStateToProps, {reloadAfterEdit, updateUser})(ProfilePage);
+export default connect(mapStateToProps, { reloadAfterEdit, updateUser })(
+  ProfilePage
+);
 
 // export default ProfilePage
