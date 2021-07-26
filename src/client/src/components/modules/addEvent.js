@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
 import { createEvent } from "../../actions/eventActions";
+import { reloadModule } from "../../actions/moduleAction";
 
-const AddEvent = ({ module, setEditing, history, createEvent }) => {
+const AddEvent = ({
+  module,
+  setEditing,
+  history,
+  createEvent,
+  events,
+  setEvents,
+  reloadModule,
+}) => {
   const [event, setEvent] = useState({
     title: "",
     start: "",
     end: "",
   });
+
+  const { currEvents } = events;
 
   const { title, start, end } = event;
 
@@ -30,6 +41,10 @@ const AddEvent = ({ module, setEditing, history, createEvent }) => {
   const onAddEvent = (e) => {
     e.preventDefault();
 
+    setEvents({
+      currEvents: [...currEvents, event],
+    });
+
     const send = {
       ...event,
       moduleId: module._id,
@@ -37,13 +52,9 @@ const AddEvent = ({ module, setEditing, history, createEvent }) => {
 
     createEvent(send);
 
-    module.events.push(event);
-
     setEditing({
       isEditingCalendar: false,
     });
-
-    history.push("/module");
   };
 
   return (
@@ -110,4 +121,4 @@ const AddEvent = ({ module, setEditing, history, createEvent }) => {
   );
 };
 
-export default connect(null, {createEvent})(AddEvent);
+export default connect(null, { createEvent, reloadModule })(AddEvent);
