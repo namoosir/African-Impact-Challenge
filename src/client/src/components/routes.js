@@ -11,9 +11,10 @@ import ProfileEditPage from './ProfileEditPage/ProfileEditPage'
 import Module from "./modules/module"
 import ModuleEdit from "./modules/moduleEdit"
 import Submission from "./modules/SubmissionsView/submission"
-import header from "./AuthHeader"
 import InstructorView from "./Zoom/InstructorView"
 import StudentView from "./Zoom/StudentView"
+import Calendar from "./HomePage/calendar"
+
 import {connect} from "react-redux"
 
 
@@ -22,6 +23,8 @@ const Routes = ({user, isAuthenticated}) => {
 
         <Router>
             <Route exact path='/home' component={Home}/>
+            <Route exact path='/calendar' component={Calendar}/>
+
             <Route exact path='/register' component={Register}/>
             <Route exact path='/login' component={Login}></Route>
             <Route exact path='/update/settings' component={UpdateSettings}></Route>

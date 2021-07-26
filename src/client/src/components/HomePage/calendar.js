@@ -17,7 +17,6 @@ const Calendar = ({ user, isAuthenticated, history }) => {
 
   const { isEditingCalendar } = editing;
 
-
   const onSubmitAddEvent = (e) => {
     e.preventDefault();
 

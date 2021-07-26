@@ -19,9 +19,13 @@ const UserSchema = new Schema({
     type: String, //Entrepreneur, Partner
     required: true,
   },
+  events: [{
+    type: Schema.Types.ObjectId,
+    ref: "Events",
+  }],
   image: {
     type: String, // Url of image
-    default: "default.jpeg"
+    default: "default.jpeg",
   },
   biography: {
     type: String,

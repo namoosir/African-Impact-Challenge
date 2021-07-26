@@ -13,42 +13,42 @@ const saltRounds = 10;
 let id = 0;
 
 module.exports.loginUser1 = async (req, res) => {
-    const { email, password } = req.body;
-  
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ user: "user does not exist" });
-    }
-  
-    const passwordCheck = await bcrypt.compare(password, user.password);
-    if (passwordCheck) {
+  const { email, password } = req.body;
 
-      const sentUser = {
-        id: user._id,
-        email: user.email,
-        username: user.username,
-        name: user.name,
-        typeOfUser: user.typeOfUser,
-        typeUser: user.typeUser
-      };
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json({ user: "user does not exist" });
+  }
 
-      const payload = {
-        username: user.username,
-      };
-      jwt.sign(
-        payload,
-        process.env.secretOrKey,
-        {
-          expiresIn: 604800,
-        },
-        (err, token) => {
-          res.status(200).json({
-            sentUser,
-            token
-          });
-        }
-      );
-    } else {
-      res.status(400).json({ password: "incorrect password" });
-    }
-  };
+  const passwordCheck = await bcrypt.compare(password, user.password);
+  if (passwordCheck) {
+    const sentUser = {
+      id: user._id,
+      email: user.email,
+      username: user.username,
+      name: user.name,
+      events: user.events,
+      typeOfUser: user.typeOfUser,
+      typeUser: user.typeUser,
+    };
+
+    const payload = {
+      username: user.username,
+    };
+    jwt.sign(
+      payload,
+      process.env.secretOrKey,
+      {
+        expiresIn: 604800,
+      },
+      (err, token) => {
+        res.status(200).json({
+          sentUser,
+          token,
+        });
+      }
+    );
+  } else {
+    res.status(400).json({ password: "incorrect password" });
+  }
+};

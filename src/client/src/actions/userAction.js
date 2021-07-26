@@ -63,7 +63,6 @@ export const updateUser = (user, history) => (dispatch) => {
   axios
     .get(`http://localhost:3001/user/update/${user.id}`)
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: UPDATE_UPDATED_USER,
         payload: res.data,
@@ -71,6 +70,20 @@ export const updateUser = (user, history) => (dispatch) => {
     })
     .catch((e) => {
       history.push("/profile");
+    });
+};
+
+export const updateUserHome = (user, history) => (dispatch) => {
+  axios
+    .get(`http://localhost:3001/user/update/${user.id}`)
+    .then((res) => {
+      dispatch({
+        type: UPDATE_UPDATED_USER,
+        payload: res.data,
+      });
+    })
+    .catch((e) => {
+      history.push("/home");
     });
 };
 

@@ -15,6 +15,7 @@ module.exports.updateCurrentUser = async (req, res) => {
     username: user.username,
     name: user.name,
     email: user.email,
+    events: user.events, 
     typeOfUser: user.typeOfUser,
     typeUser: user.typeUser,
   };
