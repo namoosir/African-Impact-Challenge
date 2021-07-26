@@ -2,21 +2,21 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 
-import { useState, useEffect} from "react";
+import { useState } from "react";
+import { connect } from "react-redux";
 
-import { createEventSuccessful } from "../../actions/eventActions";
-import {connect} from "react-redux"
-
-import AddEvent from "./addEvent";
+import AddEvent from "./event";
+import AuthHeader from "../AuthHeader";
 
 import map from "../stylesheets/calendar.css";
 
-const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
+const Calendar = ({ user, isAuthenticated, history }) => {
   const [editing, setEditing] = useState({
     isEditingCalendar: false,
   });
 
   const { isEditingCalendar } = editing;
+
 
   const onSubmitAddEvent = (e) => {
     e.preventDefault();
@@ -27,16 +27,14 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
     });
   };
 
-  const onCancelCalendar = (e) => {
-    e.preventDefault();
-
-    setDisplay({
-      displayCalendar: false,
-    });
-  };
-
   return (
     <>
+      <AuthHeader
+        user={user}
+        isAuthenticated={isAuthenticated}
+        history={history}
+      />
+
       <div
         className={
           isEditingCalendar ? "row justify-content-center" : "container"
@@ -45,9 +43,7 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
         <div className={isEditingCalendar ? "col-lg-8 ms-4" : ""}>
           <div className="card map mt-3">
             <div className="card-body body-map">
-              <h2 className="text-center">
-                {module ? module.name : "Calendar"} Calendar
-              </h2>
+              <h2 className="text-center">{user.name}'s Calendar</h2>
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin]}
                 initialView="dayGridMonth"
@@ -59,14 +55,11 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
                   center: "title",
                   right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
-                events= {events.currEvents}
+                events={module.events}
               />
 
               <div className="text-center">
-                {user &&
-                module &&
-                !isEditingCalendar &&
-                user.id === module.user._id ? (
+                {user && !isEditingCalendar ? (
                   <form onSubmit={onSubmitAddEvent} className="d-inline">
                     <button type="submit" className="btn btn-success me-2">
                       Add Event
@@ -75,11 +68,6 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
                 ) : (
                   ""
                 )}
-                <form onSubmit={onCancelCalendar} className="d-inline">
-                  <button type="submit" className="btn btn-light ms-2">
-                    Go To Module
-                  </button>
-                </form>
               </div>
             </div>
           </div>
@@ -90,8 +78,6 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
               module={module}
               setEditing={setEditing}
               history={history}
-              events={events}
-              setEvents={setEvents}
             />
           </>
         ) : (
@@ -102,5 +88,9 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  user: state.user.user.sentUser,
+  isAuthenticated: state.user.isAuthenticated,
+});
 
-export default connect(null, {})(Calendar);
+export default connect(mapStateToProps, {})(Calendar);
