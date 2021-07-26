@@ -31,6 +31,7 @@ const Module = ({
   loadAssignments,
   afterCreateAssignment,
   assignmentCreated,
+  eventAdded,
   state,
 }) => {
   const [display, setDisplay] = useState({
@@ -45,6 +46,16 @@ const Module = ({
     }
     console.log(module);
   }, []);
+
+  useEffect(() => {
+    console.log(eventAdded);
+    if(eventAdded) {
+      setDisplay({
+        ...display,
+        displayCalendar: true
+      })
+    }
+  }, [eventAdded]);
 
   useEffect(() => {
     if (assignmentCreated) {
@@ -211,6 +222,7 @@ const mapStateToProps = (state) => ({
   module: state.module.clickedModule,
   isAuthenticated: state.user.isAuthenticated,
   assignmentCreated: state.assignment.assignmentCreated,
+  eventAdded: state.event.eventAdded,
   state: state,
 });
 

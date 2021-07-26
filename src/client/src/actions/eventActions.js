@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { CREATE_EVENT } from "./types";
+import { CREATE_EVENT, CREATE_EVENT_SUCCESSFUL } from "./types";
 
 export const createEvent = (event) => (dispatch) => {
     axios
@@ -14,4 +14,10 @@ export const createEvent = (event) => (dispatch) => {
           console.log(e);
       })
 
+}
+
+export const createEventSuccessful = () => (dispatch) => {
+  dispatch({
+    type: CREATE_EVENT_SUCCESSFUL
+  })
 }

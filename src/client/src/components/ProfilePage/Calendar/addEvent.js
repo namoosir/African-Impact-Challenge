@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import { connect } from "react-redux";
-import { createEvent } from "../../actions/eventActions";
+import { createEvent } from "../../../actions/eventActions";
 
-const AddEvent = ({ module, setEditing, history, createEvent }) => {
+const AddEvent = ({ user, setEditing, createEvent }) => {
   const [event, setEvent] = useState({
     title: "",
     start: "",
@@ -32,18 +32,14 @@ const AddEvent = ({ module, setEditing, history, createEvent }) => {
 
     const send = {
       ...event,
-      moduleId: module._id,
+      userId: user.id,
     };
 
     createEvent(send);
 
-    module.events.push(event);
-
     setEditing({
       isEditingCalendar: false,
     });
-
-    history.push("/module");
   };
 
   return (
