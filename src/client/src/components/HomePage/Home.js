@@ -11,6 +11,7 @@ import Calendar from "./homeCalendar";
 
 import { createPost, loadPosts } from "../../actions/postAction";
 import { updateUserHome } from "../../actions/userAction";
+import { afterCreateEvent } from "../../actions/eventActions";
 
 const Home = ({
   user,
@@ -20,6 +21,9 @@ const Home = ({
   createPost,
   loadPosts,
   updateUserHome,
+  eventAdded,
+  afterCreateEvent,
+  location
 }) => {
   const [post, setPost] = useState({
     title: "",
@@ -27,12 +31,27 @@ const Home = ({
     image: "",
   });
 
+  const [events, setEvents] = useState({
+    currEvents: user ? user.events : ""
+  })
+
   const { title, text, image } = post;
+  const {currEvents} = events
 
   useEffect(() => {
     loadPosts(user, history);
     updateUserHome(user, history);
+    
   }, []);
+
+  useEffect(() => {
+    if(eventAdded) {
+      afterCreateEvent();
+      setEvents({
+         currEvents: location.state.events.currEvents
+      })
+    }
+  }, [eventAdded])
 
   const onSubmitPost = (e) => {
     e.preventDefault();
@@ -160,7 +179,7 @@ const Home = ({
 
         <div className="col-lg-3">
           <div className="ms-4 mt-5">
-            <Calendar user={user} history={history} />
+            <Calendar user={user} history={history} events={events}/>
           </div>
         </div>
       </div>
@@ -184,10 +203,12 @@ const mapStateToProps = (state) => ({
   isLoggedOut: state.user.isLoggedOut,
   isCreatingModule: state.module.isCreatingModule,
   hasCreatedModule: state.module.hasCreatedModule,
+  eventAdded: state.event.eventAdd
 });
 
 export default connect(mapStateToProps, {
   createPost,
   loadPosts,
   updateUserHome,
+  afterCreateEvent
 })(Home);
