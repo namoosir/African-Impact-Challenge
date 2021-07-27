@@ -46,6 +46,7 @@ const AddEvent = ({
       ...event,
       userId: user.id,
     };
+
     createCompanyEvent(send);
 
     setEditing({

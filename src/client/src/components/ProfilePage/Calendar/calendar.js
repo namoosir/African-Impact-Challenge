@@ -55,7 +55,7 @@ const Calendar = ({ user, loggedInUser, setDisplay, history, events, setEvents }
                   center: "title",
                   right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
-                events={user.events}
+                events={events.currEvents}
               />
 
               <div className="text-center">
