@@ -41,17 +41,11 @@ const AddEvent = ({
     setEvents({
       currEvents: [...currEvents, event],
     });
-    
-    const send = {
-      ...event,
-      userId: user._id,
-    };
 
     const send = {
       ...event,
       userId: user.id,
     };
-
     createCompanyEvent(send);
 
     setEditing({
