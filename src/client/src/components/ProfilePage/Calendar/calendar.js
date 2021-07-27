@@ -2,7 +2,8 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { connect } from "react-redux"
 
 import AddEvent from "./addEvent";
 
@@ -96,4 +97,4 @@ const Calendar = ({ user, loggedInUser, setDisplay, history, events, setEvents }
   );
 };
 
-export default Calendar;
+export default connect(null, {})(Calendar);
