@@ -60,6 +60,10 @@ const ProfilePage = ({
 
   const { displayCalendar } = display;
 
+  const [events, setEvents] = useState({
+    currEvents: userProfile ? userProfile.events : "",
+  });
+
   useEffect(() => {
     if (!isAuthenticated) {
       history.push("/login");
@@ -83,29 +87,37 @@ const ProfilePage = ({
       />
 
       {!displayCalendar ? (
-      <div className="profile_edit_page mt-4">
-        <GeneralCard user={userProfile} loggedInUser={loggedInUser} />
-        <Biography bioText={userProfile.biography} />
-        {loggedInUser &&
-        userProfile.typeUser &&
-        userProfile.typeOfUser === "Company" ? (
+        <div className="profile_edit_page mt-4">
+          <GeneralCard user={userProfile} loggedInUser={loggedInUser} />
+          <Biography bioText={userProfile.biography} />
+          {loggedInUser &&
+          userProfile.typeUser &&
+          userProfile.typeOfUser === "Company" ? (
             <Documents documents={userProfile.typeUser.documents} />
-        ) : (
-          <h3></h3>
-        )}
+          ) : (
+            <h3></h3>
+          )}
 
-        <div className="col-lg-3">
-          <div className="container">
-            <CompanyCalendar
-              user={userProfile}
-              setDisplay={setDisplay}
-            />
-          </div>
+          {userProfile.typeOfUser === "Company" ? (
+            <div className="col-lg-3">
+              <div className="container">
+                <CompanyCalendar user={userProfile} setDisplay={setDisplay} />
+              </div>
+            </div>
+          ) : (
+            <h1></h1>
+          )}
         </div>
-      </div>
       ) : (
-        <Calendar user={userProfile} loggedInUser={loggedInUser} setDisplay={setDisplay} history={history}/>
-      ) }
+        <Calendar
+          user={userProfile}
+          loggedInUser={loggedInUser}
+          setDisplay={setDisplay}
+          history={history}
+          events={events}
+          setEvents={setEvents}
+        />
+      )}
     </>
   );
 };
@@ -116,6 +128,7 @@ const mapStateToProps = (state) => ({
   isLoggedOut: state.user.isLoggedOut,
   userProfile: state.profile.profile,
   toReload: state.profile.toReload,
+  state: state,
 });
 
 export default connect(mapStateToProps, { reloadAfterEdit, updateUser })(
