@@ -26,9 +26,13 @@ export const createCompanyEvent = (event) => (dispatch) => {
   axios
     .post("http://localhost:3001/event/addCompany", event)
     .then(res => {
-      dispatch({
-        type: CREATE_EVENT
-      })
+      axios
+        .get(`http://localhost:3001/profile/${event.userId}`)
+        .then((res2) => {
+          dispatch({
+            type: CREATE_EVENT,
+          });
+        })
     })
     .catch(e => {
       console.log(e);

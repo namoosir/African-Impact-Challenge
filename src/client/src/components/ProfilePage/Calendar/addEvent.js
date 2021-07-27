@@ -34,14 +34,8 @@ const AddEvent = ({ user, setEditing, createCompanyEvent, events, setEvents }) =
 
     const send = {
       ...event,
-      userId: user._id,
-    };
-    
-    const send = {
-      ...event,
       userId: user.id,
     };
-
     createCompanyEvent(send);
 
     setEditing({
