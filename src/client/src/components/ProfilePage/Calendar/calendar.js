@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import AddEvent from "./addEvent";
 
-const Calendar = ({ user, loggedInUser, setDisplay, history }) => {
+const Calendar = ({ user, loggedInUser, setDisplay, history, events, setEvents }) => {
   const [editing, setEditing] = useState({
     isEditingCalendar: false,
   });
@@ -84,6 +84,8 @@ const Calendar = ({ user, loggedInUser, setDisplay, history }) => {
               user={user}
               setEditing={setEditing}
               history={history}
+              events={events}
+              setEvents={setEvents}
             />
           </>
         ) : (

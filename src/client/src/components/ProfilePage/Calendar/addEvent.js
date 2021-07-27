@@ -3,12 +3,14 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { createCompanyEvent } from "../../../actions/eventActions";
 
-const AddEvent = ({ user, setEditing, createCompanyEvent }) => {
+const AddEvent = ({ user, setEditing, createCompanyEvent, events, setEvents }) => {
   const [event, setEvent] = useState({
     title: "",
     start: "",
     end: "",
   });
+
+  const { currEvents } = events;
 
   const { title, start, end } = event;
 
@@ -30,6 +32,11 @@ const AddEvent = ({ user, setEditing, createCompanyEvent }) => {
   const onAddEvent = (e) => {
     e.preventDefault();
 
+    const send = {
+      ...event,
+      userId: user._id,
+    };
+    
     const send = {
       ...event,
       userId: user.id,
