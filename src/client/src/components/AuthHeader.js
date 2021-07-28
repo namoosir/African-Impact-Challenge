@@ -9,7 +9,7 @@ import { loadSelfProfile } from "../actions/profileAction";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}) => {
+const HeaderAuth = (props) => {
 
   useEffect(() => {
     if (props.isLoggedOut && !props.isAuthenticated) {
@@ -19,7 +19,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}
 
   const onClickLogout = (e) => {
     e.preventDefault();
-    props.logout(props.user, history);
+    props.logout(props.user, props.history);
   };
 
   const onClickProfile = (e) => {
@@ -61,7 +61,7 @@ const HeaderAuth = (props, {logout, user, history, isLoggedOut, loadSelfProfile}
             src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
             width="50"
           ></img>
-          <li className="nav-item dropdown me-5">
+          <li className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
               href="#"
