@@ -13,7 +13,11 @@ import ModuleEdit from "./modules/moduleEdit"
 import header from "./AuthHeader"
 import InstructorView from "./Zoom/InstructorView"
 import StudentView from "./Zoom/StudentView"
+import JoinZoom from "./Zoom/JoinZoom"
 import {connect} from "react-redux"
+import { BrowserRouter, Switch } from "react-router-dom";
+import Meeting from "./Meetings/Meeting"
+import CreateMeeting from "./Meetings/CreateMeeting"
 
 
 const Routes = ({user, isAuthenticated}) => {
@@ -36,8 +40,16 @@ const Routes = ({user, isAuthenticated}) => {
 
             <Route exact path='/zoom_instructor' component={InstructorView}></Route>
             <Route exact path='/zoom_student' component={StudentView}></Route>
+            <Route exact path='/join_zoom' component={JoinZoom}></Route>
 
         </Router>
+
+        <BrowserRouter>
+            <Switch>
+                <Route path="/room/create" exact component={CreateMeeting} />
+                <Route path="/room/:roomID" component={Meeting} />
+            </Switch>
+        </BrowserRouter>
         </div>
     );
 };
