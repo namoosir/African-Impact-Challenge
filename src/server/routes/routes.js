@@ -15,8 +15,8 @@ const { loginUser1 } = require("../controllers/login");
 const { loginUser2, updateUser } = require("../controllers/setting");
 
 const moduleController = require("../controllers/modules");
-
 const assignmentController = require("../controllers/assignments");
+const videoController = require("../controllers/video")
 
 
 router.get("/profile/getUsers", userController.get_all_profiles);
@@ -62,6 +62,9 @@ router.post("/assignment/create", assignmentController.create_assignment);
 router.get("/assignment/:id", assignmentController.get_assignment_model);
 router.put("/assignment/edit/:id", assignmentController.edit_assignment);
 router.get("/assignments/:id", assignmentController.get_all_assignments_instructor);
+
+router.post("/room/create", videoController.createRoom);
+router.get("/rooms", videoController.loadRooms);
 
 router.get(
   "/assignment/entrepreneurs",

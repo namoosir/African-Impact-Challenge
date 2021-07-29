@@ -18,7 +18,7 @@ const Video = (props) => {
     });
   }, []);
 
-  return <video className="videopeer" playsInline autoPlay ref={ref} />;
+  return <video className="videopeer w-50" playsInline autoPlay ref={ref} />;
 };
 
 const videoConstraints = {
@@ -108,11 +108,15 @@ const Meeting = (props) => {
 
   return (
     <div className="containerpeer">
-      <video className="videopeer" muted ref={userVideo} autoPlay playsInline />
+      <div className="card w-100 d-flex justify-content-between py-2">
+        <div className="card-body"> 
+      <video className="videopeer w-50" muted ref={userVideo} autoPlay playsInline />
 
       {peers.map((peer, index) => {
         return <Video key={index} peer={peer} />;
       })}
+      </div>
+      </div>
     </div>
   );
 };
