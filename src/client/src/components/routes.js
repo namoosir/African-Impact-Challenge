@@ -15,7 +15,6 @@ import header from "./AuthHeader"
 import {connect} from "react-redux"
 import { BrowserRouter, Switch } from "react-router-dom";
 import Meeting from "./Meetings/Meeting"
-import CreateMeeting from "./Meetings/CreateMeeting"
 import MeetingView from "./Meetings/MeetingView"
 
 
@@ -38,13 +37,12 @@ const Routes = ({user, isAuthenticated}) => {
 
 
                 <Route exact path='/submissions' component={Submission}></Route>
+                <Route exact path="/meetings" component={MeetingView}/>
                 
             </Router>
 
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/meetings" component={MeetingView}/>
-                    <Route path="/room/create" exact component={CreateMeeting} />
                     <Route path="/room/:roomID" component={Meeting} />
                 </Switch>
             </BrowserRouter>

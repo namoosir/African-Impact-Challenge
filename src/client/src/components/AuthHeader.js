@@ -53,6 +53,9 @@ const HeaderAuth = (props) => {
             <Link className="nav-link" to="/messages">
               Messages
             </Link>
+            <Link className="nav-link" to="/meetings">
+              Meetings
+            </Link>
           </div>
         </div>
         <div className="navbar-nav mx-5 offset-3">
