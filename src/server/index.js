@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const socketio = require('socket.io');
+const http = require('http');
 const userRoutes = require('./routes/routes');
 const Instructor = require('./models/instructor');
 const Partner = require('./models/partner')
@@ -12,6 +14,39 @@ const bodyParser = require('body-parser');
 
 
 const app = express();
+
+/* Socket.io Code (START) */
+const server = http.createServer(app);
+const io = socketio(server, {cors: {origin: '*',}});
+
+io.on('connection', socket => {
+  console.log('New Connection');
+  socket.emit("serverSuccess", "Sucess")
+
+
+  // Regegister socket the chatRoom
+  socket.on("startChat", (chatroomId) => {
+    console.log("ROOMID", chatroomId);
+    socket.join(chatroomId)
+    socket.broadcast.to(chatroomId).emit('serverWelcome', `Another user has joined ${chatroomId}`)
+  });
+
+  // When send client1's Msg to client2 (only 2 people in the room)
+  socket.on("clientSenderMsg", (msg, chatRoomId) => {
+    console.log("ClientMsg", msg);
+    socket.broadcast.to(chatRoomId).emit('serverReciverMsg', msg);
+  });
+  
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+  
+
+})
+
+/* Socket.io Code (END) */
+
+
 /* app.use(
   bodyParser.urlencoded({
     extended: false
@@ -94,6 +129,6 @@ app.get('/add', (req, res) => {
 //app.use('/profile', userRoutes);
 app.use('', userRoutes)
 
-app.listen(3001, () => {
+server.listen(3001, () => {
   console.log("Serving on port 3001");
 });

@@ -57,6 +57,7 @@ const ProfilePage = ({
         history={history}
       />
 
+
       {!displayCalendar ? (
         <div className="profile_edit_page mt-4">
           <GeneralCard user={userProfile} loggedInUser={loggedInUser} />

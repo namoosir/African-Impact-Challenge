@@ -15,6 +15,7 @@ import header from "./AuthHeader"
 import InstructorView from "./Zoom/InstructorView"
 import StudentView from "./Zoom/StudentView"
 import {connect} from "react-redux"
+import DirectMsgPage from './DirectMsg/DirectMsgPage';
 
 
 const Routes = ({user, isAuthenticated}) => {
@@ -30,6 +31,8 @@ const Routes = ({user, isAuthenticated}) => {
             <Route exact path='/profile' component={ProfilePage}></Route>
             <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
             <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
+            <Route exact path='/msg' component={DirectMsgPage}></Route>
+
 
             <Route exact path='/module' component={Module}></Route>
             <Route exact path='/module_edit' component={ModuleEdit}></Route>
