@@ -6,6 +6,7 @@ const uploadImage = multer({ dest: "server/images/" });
 
 const userController = require("../controllers/profile");
 const postController = require("../controllers/posts");
+const eventController = require("../controllers/event")
 
 const express = require("express");
 const router = express.Router();
@@ -75,6 +76,10 @@ router.get("/msg/getLogs/:user1/:user2", chatlogController.get_chat_log);
 
 router.post("/msg/saveLogs", chatlogController.save_chat_log);
 
+
+
+router.post("/event/add", eventController.create_event_module);
+router.post("/event/addCompany", eventController.create_event_company)
 
 
 router.get(

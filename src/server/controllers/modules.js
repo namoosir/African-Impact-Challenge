@@ -4,6 +4,7 @@ const Partner = require("../models/partner");
 const Company = require("../models/company");
 const User = require("../models/user");
 const Modules = require("../models/modules");
+const Event = require("../models/event")
 const fs = require("fs");
 
 const imagesPath = "./server/images";
@@ -23,6 +24,7 @@ const create_module = async (req, res) => {
   const module = new Modules({
     name: req.body.name,
     user: req.params.id,
+    description: req.body.description,
     assignments: [],
     content: [],
   });
@@ -38,13 +40,17 @@ const get_recent_modules = async (req, res) => {
   var ans = [];
 
   for (const module of result) {
-    var populated = await myPop(module, "user").then(function (result) {
-      return result;
+    var populated = await myPop(module, "user").then( async function (result) {
+      let populated2 = await myPop(result, "events").then(function (result2) {
+        console.log(result2)
+        return result2;
+      })
+      return populated2;
     });
 
     ans.push(populated);
   }
-
+  console.log(ans);
   const sentModules = ans;
 
   res.status(200).json(sentModules);
@@ -198,7 +204,10 @@ const save_lectures = (req, res) => {
 const get_exact_module = (req, res) => {
   Modules.findById(req.params.id).then((result) => {
     myPop(result, "user").then((result2) => {
-      res.status(200).json(result2);
+      myPop(result2, "event").then((result3) => {
+        console.log(result3);
+        res.status(200).json(result3);
+      });      
     });
   });
 };

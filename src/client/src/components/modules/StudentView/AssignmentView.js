@@ -4,8 +4,9 @@ import { ReactComponent as SvgPlus } from "../../../svgs/Plus.svg";
 import { ReactComponent as SvgDocument } from "../../../svgs/document_icon.svg";
 import { ReactComponent as SvgRedX1 } from "../../../svgs/redX.svg";
 import { ReactComponent as SvgRedX } from "../../../svgs/redX.svg";
+import { Document } from 'react-pdf'
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import banner from "../../../svgs/simple-blue.jpg";
@@ -13,7 +14,7 @@ import banner from "../../../svgs/simple-blue.jpg";
 import {
   createAssignment,
   createAssignmentSuccesful,
-  afterCreateAssignment
+  afterCreateAssignment,
 } from "../../../actions/assignmentAction";
 
 export const AssignmentStudent = ({
@@ -26,8 +27,7 @@ export const AssignmentStudent = ({
   assignmentCreated,
   createAssignment,
   createAssignmentSuccesful,
-  afterCreateAssignment
-
+  afterCreateAssignment,
 }) => {
   const [assignmentEdit, setAssignmentEdit] = useState({
     id: "",
@@ -38,17 +38,19 @@ export const AssignmentStudent = ({
     submitted_document_file: "",
   });
 
-
   const { id, userid, name, submitted_document, submitted_document_file } =
     assignmentEdit;
 
+  const [url, setUrl] = useState({
+    url: "",
+    type: "",
+  });
 
   useEffect(() => {
-    if(assignmentCreated) {
+    if (assignmentCreated) {
       afterCreateAssignment();
     }
-  }, [assignmentCreated])
-
+  }, [assignmentCreated]);
 
   useEffect(() => {
     getAssignmentName();
@@ -59,7 +61,10 @@ export const AssignmentStudent = ({
       ...assignmentEdit,
       submitted_document_file: event.target.files[0],
       submitted_document: event.target.files[0],
+
     }));
+    
+    setUrl({url: URL.createObjectURL(event.target.files[0]), type: event.target.files[0].type});
   }
 
   function handleClick(event) {
@@ -68,6 +73,8 @@ export const AssignmentStudent = ({
       submitted_document_file: "",
       submitted_document: "",
     }));
+
+    setUrl({url: '', type: ''})
   }
 
   const onSubmitStud = async (e) => {
@@ -112,9 +119,7 @@ export const AssignmentStudent = ({
       ]);
     } else {
       await Promise.all([
-
         new Promise((resolve, reject) => {
-
           const requestOptions = {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -122,7 +127,6 @@ export const AssignmentStudent = ({
               ...assignmentEdit,
             }),
           };
-
 
           fetch(`http://localhost:3001/assignment/edit/${id}`, requestOptions)
             .then((response) => response.json())
@@ -133,7 +137,6 @@ export const AssignmentStudent = ({
         }),
 
         new Promise((resolve, reject) => {
-
           const url = `http://localhost:3001/assignment/submitted/${id}`;
 
           let documentsFormData = new FormData();
@@ -167,7 +170,6 @@ export const AssignmentStudent = ({
     return `http://localhost:3001/getAssignment/${docName}`;
   }
 
-
   function getAssignmentName() {
     if (Array.isArray(assignments)) {
       assignments.map((as) => {
@@ -180,6 +182,20 @@ export const AssignmentStudent = ({
         }
       });
     }
+  }
+
+  function getAssignment() {
+    var a;
+    if (Array.isArray(assignments)) {
+      assignments.map((as) => {
+        if (as.userid === userid && as.name === name) {
+          if (as.mark !== "" || as.mark != null) {
+            a = as;
+          }
+        }
+      });
+    }
+    return a;
   }
 
   function getAssignURL(doc) {
@@ -211,9 +227,7 @@ export const AssignmentStudent = ({
               </a>
             </div>
 
-
             {submitted_document_file && submitted_document_file !== "" ? (
-
               <>
                 <div className="document_list">
                   <div className="document_single">
@@ -288,6 +302,50 @@ export const AssignmentStudent = ({
               />
             </div>
           </div>
+
+          {getAssignment() ? (
+            <div>
+              <hr></hr>
+              <p>Mark: {getAssignment().mark}</p>
+              <p>
+                Comments:{" "}
+                {getAssignment().comments ? getAssignment().comments : ""}
+              </p>
+
+              {getAssignment().marked_document != "" ? (
+                <div className="document_single">
+                  <SvgDocument className="little-icon" />
+                  <a
+                    href={getDocumentURL3(getAssignment().marked_document)}
+                    target="_blank"
+                  >
+                    {getDocumentURL3(getAssignment().marked_document)
+                      .split("/")
+                      .reverse()[0].length > 5
+                      ? getDocumentURL3(getAssignment().marked_document)
+                          .split("/")
+                          .reverse()[0]
+                          .slice(0, 5) + "..."
+                      : getDocumentURL3(getAssignment().marked_document)
+                          .split("/")
+                          .reverse()[0]}
+                  </a>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+          ) : (
+            ""
+          )}
+
+          {url.url ? 
+            <div className="d-flex flex-column justify-content-center mt-2">
+              {url.type.split('/')[0] == 'image' ? <img className="img-thumbnail" src={url.url}></img> : <Document file={url.url} />}             
+            </div>  
+            : <h1></h1>}
+          
+
           <div className="d-flex justify-content-center mt-2">
             <form onSubmit={onSubmitStud}>
               <button type="submit" className="btn btn-success">
@@ -308,9 +366,11 @@ AssignmentStudent.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  assignmentCreated: state.assignment.assignmentCreated
-})
+  assignmentCreated: state.assignment.assignmentCreated,
+});
 
-export default connect(mapStateToProps, { createAssignment, createAssignmentSuccesful, afterCreateAssignment })(
-  AssignmentStudent
-);
+export default connect(mapStateToProps, {
+  createAssignment,
+  createAssignmentSuccesful,
+  afterCreateAssignment,
+})(AssignmentStudent);
