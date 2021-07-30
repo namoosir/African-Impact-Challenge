@@ -6,6 +6,7 @@ const uploadImage = multer({ dest: "server/images/" });
 
 const userController = require("../controllers/profile");
 const postController = require("../controllers/posts");
+const eventController = require("../controllers/event")
 
 const express = require("express");
 const router = express.Router();
@@ -66,6 +67,9 @@ router.post("/assignment/create", assignmentController.create_assignment);
 router.get("/assignment/:id", assignmentController.get_assignment_model);
 router.put("/assignment/edit/:id", assignmentController.edit_assignment);
 router.get("/assignments/:id", assignmentController.get_all_assignments_instructor);
+
+router.post("/event/add", eventController.create_event_module);
+router.post("/event/addCompany", eventController.create_event_company)
 
 router.get(
   "/assignment/entrepreneurs",
