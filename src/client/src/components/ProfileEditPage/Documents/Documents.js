@@ -95,13 +95,7 @@ export const Documents = ({ user, userEdit, setUserEdit, loggedInUser }) => {
                       }
 
                       <label className="form-check-label edit_profile_funding_label">Looking for Funding</label> 
-                    </div>
-                      
-                    
-                    
-           
-
-                    
+                    </div>          
                 </div>
               <input id="file-input" type="file" onChange={handleNewFile} />
             </div>
