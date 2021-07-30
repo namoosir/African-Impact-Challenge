@@ -6,6 +6,7 @@ const uploadImage = multer({ dest: "server/images/" });
 
 const userController = require("../controllers/profile");
 const postController = require("../controllers/posts");
+const eventController = require("../controllers/event")
 
 const express = require("express");
 const router = express.Router();
@@ -13,10 +14,15 @@ const router = express.Router();
 const { registerUser } = require("../controllers/register");
 const { loginUser1 } = require("../controllers/login");
 const { loginUser2, updateUser } = require("../controllers/setting");
+const { updateCurrentUser } = require("../controllers/user");
+
 
 const moduleController = require("../controllers/modules");
+
 const assignmentController = require("../controllers/assignments");
 const videoController = require("../controllers/video")
+
+const chatlogController = require("../controllers/chatlog");
 
 
 router.get("/profile/getUsers", userController.get_all_profiles);
@@ -36,6 +42,8 @@ router.post("/login", loginUser1);
 router.post("/profile/auth", loginUser2);
 
 router.put("/profile/update/settings", updateUser);
+
+router.get("/user/update/:id", updateCurrentUser);
 
 router.put("/post", postController.create_post);
 router.put("/comment", postController.add_comment);
@@ -65,6 +73,17 @@ router.get("/assignments/:id", assignmentController.get_all_assignments_instruct
 
 router.post("/room/create", videoController.createRoom);
 router.get("/rooms", videoController.loadRooms);
+router.get("/msg/getLogs/:user1/:user2", chatlogController.get_chat_log);
+
+
+
+router.post("/msg/saveLogs", chatlogController.save_chat_log);
+
+
+
+router.post("/event/add", eventController.create_event_module);
+router.post("/event/addCompany", eventController.create_event_company)
+
 
 router.get(
   "/assignment/entrepreneurs",

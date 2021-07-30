@@ -1,7 +1,6 @@
 import { UPDATE_USER_SUCCESSFUL } from "../actions/types";
 
   const initialState = {
-    isUpdated: false,
     user: {},
   };
 
@@ -11,7 +10,6 @@ import { UPDATE_USER_SUCCESSFUL } from "../actions/types";
       case UPDATE_USER_SUCCESSFUL:
         return {
           ...state,
-          isUpdated: true,
           user: payload
         };
       default:

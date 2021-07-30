@@ -1,0 +1,36 @@
+.msg_header{
+    background-color: black;
+}
+
+.msg_box{
+    width: 80%;
+}
+
+.single_msg{
+    display: flex;
+
+    .img{
+        height: 75px;
+        width: 75px;
+    }
+
+    .textbody{
+        padding-left: 1em;
+
+        .text_heading{
+            display: flex;
+            align-items: center;
+    
+            .username{
+                padding-right: 1.5em;
+                font-size: x-large;
+            }
+    
+            .timestamp{
+                font-size: small;
+            }
+        }
+    }
+    
+}
+

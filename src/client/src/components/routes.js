@@ -12,14 +12,19 @@ import Module from "./modules/module"
 import ModuleEdit from "./modules/moduleEdit"
 import Submission from "./modules/SubmissionsView/submission"
 import header from "./AuthHeader"
+import InstructorView from "./Zoom/InstructorView"
+import StudentView from "./Zoom/StudentView"
 import {connect} from "react-redux"
 import { BrowserRouter, Switch } from "react-router-dom";
 import Meeting from "./Meetings/Meeting"
 import MeetingView from "./Meetings/MeetingView"
+import DirectMsgPage from './DirectMsg/DirectMsgPage';
+
 
 
 const Routes = ({user, isAuthenticated}) => {
     return (
+
         <div>
             <Router>
                 <Route exact path='/home' component={Home}/>
@@ -31,6 +36,7 @@ const Routes = ({user, isAuthenticated}) => {
                 <Route exact path='/profile' component={ProfilePage}></Route>
                 <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
                 <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
+                <Route exact path='/msg' component={DirectMsgPage}></Route>
 
                 <Route exact path='/module' component={Module}></Route>
                 <Route exact path='/module_edit' component={ModuleEdit}></Route>
@@ -47,6 +53,7 @@ const Routes = ({user, isAuthenticated}) => {
                 </Switch>
             </BrowserRouter>
         </div>
+
     );
 };
 

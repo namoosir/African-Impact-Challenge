@@ -8,7 +8,7 @@ export const updateUser = (user, history) => (dispatch) => {
     .then(res => {
       dispatch({
         type: UPDATE_USER_SUCCESSFUL,
-        payload: res.data.user,
+        payload: res.data,
       });
     })
     .catch((err) => {

@@ -6,6 +6,7 @@ import { logout } from "../actions/userAction";
 
 import { Link, withRouter } from "react-router-dom";
 import { loadSelfProfile } from "../actions/profileAction";
+import { getImageURL } from "../utils/getImage"
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -61,7 +62,7 @@ const HeaderAuth = (props) => {
         <div className="navbar-nav mx-5 offset-3">
           <img
             className="profilepic"
-            src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+            src= {props.user ? getImageURL(props.user.id) : ""}
             width="50"
           ></img>
           <li className="nav-item dropdown">
@@ -104,4 +105,4 @@ const mapStateToProps = (state) => ({
   isLoggedOut: state.user.isLoggedOut,
 });
 
-export default connect(mapStateToProps, { logout, loadSelfProfile })(HeaderAuth);
+export default connect(mapStateToProps, { logout, loadSelfProfile})(HeaderAuth);

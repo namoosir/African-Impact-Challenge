@@ -1,8 +1,9 @@
-import { LOADING_USER, LOADING_USER_SUCCESSFUL, LOGOUT_USER_SUCCESSFUL } from "../actions/types";
+import { LOADING_USER, LOADING_USER_SUCCESSFUL, LOGOUT_USER_SUCCESSFUL, USER_UPDATED_SUCCESFUL, UPDATE_UPDATED_USER } from "../actions/types";
 
   const initialState = {
     isAuthenticated: false,
     isLoggedOut: false,
+    hasUpdatedUser: false,
     user: {},
     loading: false
   };
@@ -31,6 +32,17 @@ import { LOADING_USER, LOADING_USER_SUCCESSFUL, LOGOUT_USER_SUCCESSFUL } from ".
           ...state,
           loading: true
         };
+      case USER_UPDATED_SUCCESFUL: 
+        return {
+          ...state,
+          hasUpdatedUser: true
+        }
+      case UPDATE_UPDATED_USER:
+        return {
+          ...state,
+          hasUpdatedUser: false,
+          user: payload
+        }
       default:
         return state;
     }

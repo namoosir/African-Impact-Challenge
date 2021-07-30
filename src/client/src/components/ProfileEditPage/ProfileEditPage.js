@@ -12,6 +12,9 @@ import {
   loadSelfProfileAfterEdit,
 } from "../../actions/profileAction";
 
+import { updateProfileSuccessful } from "../../actions/userAction";
+
+
 const ProfileEditPage = ({
   user,
   userProfile,
@@ -19,7 +22,12 @@ const ProfileEditPage = ({
   history,
   loadSelfProfile,
   loadSelfProfileAfterEdit,
+  updateProfileSuccessful,
 }) => {
+
+  console.log("USER", user)
+  
+
   const [user2, setUser2] = useState({
     id: "60dbc77aeda7da46a1baa945",
     image: "5ef7c4986f5bab2e3b01580989de5ba8",
@@ -140,6 +148,7 @@ const ProfileEditPage = ({
     ]);
 
     loadSelfProfileAfterEdit(userProfile);
+    updateProfileSuccessful();
     history.push("/profile");
   }
 
@@ -185,4 +194,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   loadSelfProfile,
   loadSelfProfileAfterEdit,
+  updateProfileSuccessful,
 })(ProfileEditPage);

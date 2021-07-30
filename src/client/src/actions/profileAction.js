@@ -21,8 +21,8 @@ export const getProfile = (profiler, history) => (dispatch) => {
         biography: res.data.biography,
         typeUser: res.data.typeUser,
         image: res.data.image,
+        events: res.data.events,
       };
-      console.log(user);
       dispatch({
         type: LOAD_PROFILE,
         payload: user,
@@ -47,8 +47,8 @@ export const loadSelfProfile = (profile) => (dispatch) => {
       biography: res.data.biography,
       typeUser: res.data.typeUser,
       image: res.data.image,
+      events: res.data.events,
     };
-    console.log("THIS IS USERLOAD",user);
     dispatch({
       type: LOAD_SELF_PROFILE,
       payload: user,
@@ -57,6 +57,7 @@ export const loadSelfProfile = (profile) => (dispatch) => {
 };
 
 export const loadSelfProfileAfterEdit = (profile) => (dispatch) => {
+  console.log(profile);
   let user;
   axios.get(`http://localhost:3001/profile/${profile.id}`).then((res) => {
     user = {
@@ -69,6 +70,7 @@ export const loadSelfProfileAfterEdit = (profile) => (dispatch) => {
       biography: res.data.biography,
       typeUser: res.data.typeUser,
       image: res.data.image,
+      events: res.data.events,
     };
     dispatch({
       type: LOAD_SELF_AFTER_EDIT,

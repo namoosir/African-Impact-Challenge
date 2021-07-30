@@ -6,6 +6,7 @@ import moduleReducer from "./moduleReducer";
 import profileReducer from "./profileReducer";
 import assignmentReducer from "./assignmentReducer";
 import videoReducer from "./videoReducer";
+import eventReducer from "./eventReducer";
 
 export default combineReducers({
   user: userReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   profile: profileReducer,
   assignment: assignmentReducer,
   video: videoReducer,
+  event: eventReducer
 });

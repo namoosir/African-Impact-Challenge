@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const socketio = require('socket.io');
+const http = require('http');
 const userRoutes = require('./routes/routes');
 const Instructor = require('./models/instructor');
 const Partner = require('./models/partner')
@@ -20,7 +22,6 @@ const server = http.createServer(app);
 const io = socketio(server, {cors: {origin: '*'}})
 
 const users = {};
-
 const socketToRoom = {};
 
 io.on('connection', socket => {
@@ -52,6 +53,23 @@ io.on('connection', socket => {
       io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
   });
 
+  //    DM
+  socket.emit("serverSuccess", "Sucess")
+  
+  // Regegister socket the chatRoom
+  socket.on("startChat", (chatroomId) => {
+    console.log("ROOMID", chatroomId);
+    socket.join(chatroomId)
+    socket.broadcast.to(chatroomId).emit('serverWelcome', `Another user has joined ${chatroomId}`)
+  });
+
+  // When send client1's Msg to client2 (only 2 people in the room)
+  socket.on("clientSenderMsg", (msg, chatRoomId) => {
+    console.log("ClientMsg", msg);
+    socket.broadcast.to(chatRoomId).emit('serverReciverMsg', msg);
+  });
+   //     DM
+
   socket.on('disconnect', () => {
       const roomID = socketToRoom[socket.id];
       let room = users[roomID];
@@ -62,6 +80,15 @@ io.on('connection', socket => {
   });
 
 });
+
+
+
+/* app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json()); */
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
