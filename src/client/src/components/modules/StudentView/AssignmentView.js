@@ -4,8 +4,9 @@ import { ReactComponent as SvgPlus } from "../../../svgs/Plus.svg";
 import { ReactComponent as SvgDocument } from "../../../svgs/document_icon.svg";
 import { ReactComponent as SvgRedX1 } from "../../../svgs/redX.svg";
 import { ReactComponent as SvgRedX } from "../../../svgs/redX.svg";
+import { Document } from 'react-pdf'
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import banner from "../../../svgs/simple-blue.jpg";
@@ -42,6 +43,10 @@ export const AssignmentStudent = ({
   const { id, userid, name, submitted_document, submitted_document_file } =
     assignmentEdit;
 
+  const [url, setUrl] = useState({
+    url: "",
+    type: "",
+  });
 
   useEffect(() => {
     if(assignmentCreated) {
@@ -59,7 +64,10 @@ export const AssignmentStudent = ({
       ...assignmentEdit,
       submitted_document_file: event.target.files[0],
       submitted_document: event.target.files[0],
+
     }));
+    
+    setUrl({url: URL.createObjectURL(event.target.files[0]), type: event.target.files[0].type});
   }
 
   function handleClick(event) {
@@ -68,6 +76,8 @@ export const AssignmentStudent = ({
       submitted_document_file: "",
       submitted_document: "",
     }));
+
+    setUrl({url: '', type: ''})
   }
 
   const onSubmitStud = async (e) => {
@@ -288,6 +298,12 @@ export const AssignmentStudent = ({
               />
             </div>
           </div>
+          {url.url ? 
+            <div className="d-flex flex-column justify-content-center mt-2">
+              {url.type.split('/')[0] == 'image' ? <img className="img-thumbnail" src={url.url}></img> : <Document file={url.url} />}             
+            </div>  
+            : <h1></h1>}
+          
           <div className="d-flex justify-content-center mt-2">
             <form onSubmit={onSubmitStud}>
               <button type="submit" className="btn btn-success">
