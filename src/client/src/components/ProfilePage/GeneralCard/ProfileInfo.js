@@ -35,9 +35,11 @@ const ProfileInfo = ({ user, loggedInUser }) => {
             </Link>
           </>
         ) : (
-          <button type="button" className="btn btn-primary">
-            <Link to=""></Link>Message
-          </button>
+          <Link to="/msg">
+              <button type="button" className="btn btn-primary">
+                Message
+              </button>
+          </Link>
         )
       ) : (
         ""

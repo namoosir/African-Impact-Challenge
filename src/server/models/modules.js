@@ -1,3 +1,4 @@
+const { object } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -27,6 +28,11 @@ const ModulesSchema = new Schema({
       type: String, //array of assignment document names
     },
   ],
+  events: [{
+    type: Schema.Types.ObjectId,
+    ref: "Events",
+    default: [],
+  }],
   date: {
     type: Date,
     default: Date.now,

@@ -6,6 +6,7 @@ const uploadImage = multer({ dest: "server/images/" });
 
 const userController = require("../controllers/profile");
 const postController = require("../controllers/posts");
+const eventController = require("../controllers/event")
 
 const express = require("express");
 const router = express.Router();
@@ -19,6 +20,9 @@ const { updateCurrentUser } = require("../controllers/user");
 const moduleController = require("../controllers/modules");
 
 const assignmentController = require("../controllers/assignments");
+const videoController = require("../controllers/video")
+
+const chatlogController = require("../controllers/chatlog");
 
 
 router.get("/profile/getUsers", userController.get_all_profiles);
@@ -66,6 +70,20 @@ router.post("/assignment/create", assignmentController.create_assignment);
 router.get("/assignment/:id", assignmentController.get_assignment_model);
 router.put("/assignment/edit/:id", assignmentController.edit_assignment);
 router.get("/assignments/:id", assignmentController.get_all_assignments_instructor);
+
+router.post("/room/create", videoController.createRoom);
+router.get("/rooms", videoController.loadRooms);
+router.get("/msg/getLogs/:user1/:user2", chatlogController.get_chat_log);
+
+
+
+router.post("/msg/saveLogs", chatlogController.save_chat_log);
+
+
+
+router.post("/event/add", eventController.create_event_module);
+router.post("/event/addCompany", eventController.create_event_company)
+
 
 router.get(
   "/assignment/entrepreneurs",

@@ -45,30 +45,8 @@ export const Documents = ({ user, userEdit, setUserEdit, loggedInUser }) => {
       <div className="card">
         <div className="card-body">
           <h1>Documents</h1>
-
-          <div className="document_list">
-            {userEdit.userEdit.typeUser.documents.map((document) => (
-              <SingleDoc
-                document={document}
-                type="Name"
-                user={user}
-                userEdit={userEdit}
-                setUserEdit={setUserEdit}
-              />
-            ))}
-            {userEdit.userEdit.typeUser.documentFiles.map((documentFile) => (
-              <SingleDoc
-                document={documentFile}
-                type="File"
-                user={user}
-                userEdit={userEdit}
-                setUserEdit={setUserEdit}
-              />
-            ))}
+          
             <div class="image-upload">
-              <label for="file-input">
-                <SvgPlus className="little-icon plus" />
-              </label>
 
                     <div className="document_list"> 
                         {userEdit.userEdit.typeUser.documents.map((document) => (
@@ -95,17 +73,9 @@ export const Documents = ({ user, userEdit, setUserEdit, loggedInUser }) => {
                       }
 
                       <label className="form-check-label edit_profile_funding_label">Looking for Funding</label> 
-                    </div>
-                      
-                    
-                    
-           
-
-                    
+                    </div>          
                 </div>
-              <input id="file-input" type="file" onChange={handleNewFile} />
             </div>
-          </div>
         </div>
       </div>
   );
