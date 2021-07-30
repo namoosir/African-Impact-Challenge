@@ -13,6 +13,7 @@ const ModuleCalendar = ({ user, module, setDisplay }) => {
     e.preventDefault();
 
     setDisplay({
+
       displayCalendar: true,
     });
   };

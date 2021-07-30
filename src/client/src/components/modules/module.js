@@ -34,6 +34,7 @@ const Module = ({
   eventAdded,
   state,
 }) => {
+
   const [display, setDisplay] = useState({
     displayCalendar: false,
   });
@@ -48,7 +49,6 @@ const Module = ({
     if (user) {
       loadAssignments(user, history);
     }
-    console.log(module);
   }, []);
 
   useEffect(() => {
@@ -79,6 +79,7 @@ const Module = ({
         isAuthenticate={isAuthenticated}
         history={history}
       />
+
 
       {!displayCalendar ? (
         <div className="row d-flex justify-content-center mt-4">

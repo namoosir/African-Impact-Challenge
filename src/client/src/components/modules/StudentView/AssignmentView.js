@@ -170,7 +170,6 @@ export const AssignmentStudent = ({
     return `http://localhost:3001/getAssignment/${docName}`;
   }
 
-
   function getAssignmentName() {
     if (Array.isArray(assignments)) {
       assignments.map((as) => {

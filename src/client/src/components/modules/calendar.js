@@ -33,6 +33,7 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
     });
   };
 
+
   return (
     <>
       <div
@@ -99,6 +100,5 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
     </>
   );
 };
-
 
 export default connect(null, {})(Calendar);
