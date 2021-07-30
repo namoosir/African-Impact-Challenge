@@ -17,7 +17,7 @@ const CreateRoom = ({ videos, user, history, createConference }) => {
   });
 
   const [rooms, setRooms] = useState({
-    videoRooms: videos ? videos: "",
+    videoRooms: videos ? videos : "",
   });
 
   const { isCreating } = createMeeting;
@@ -34,12 +34,16 @@ const CreateRoom = ({ videos, user, history, createConference }) => {
     const video = {
       name: meetingName,
       link: link,
-      owner: user
+      owner: user,
     };
 
     setRooms({
       ...rooms,
       videoRooms: [...videoRooms, video],
+    });
+
+    setCreateMeeting({
+      isCreating: false,
     });
 
     createConference(video);
@@ -76,9 +80,8 @@ const CreateRoom = ({ videos, user, history, createConference }) => {
       <div className="mb-3">
         {Array.isArray(videoRooms)
           ? videoRooms.map((rom) => (
-              
               <div className="">
-                  <hr></hr>
+                <hr></hr>
                 <a
                   className="btn w-100"
                   target="_blank"
