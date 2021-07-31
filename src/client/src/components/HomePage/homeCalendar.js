@@ -2,26 +2,27 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 
-import { useState } from "react";
-
-import AddEvent from "./addEvent";
+import { useState, useEffect } from "react";
 
 import map from "../stylesheets/calendar.css";
 
-const ModuleCalendar = ({ user, module, setDisplay }) => {
-  const onSubmitCalendar = (e) => {
-    e.preventDefault();
+const HomeCalendar = ({ user, history, events }) => {
 
-    setDisplay({
-      displayCalendar: true,
-    });
-  };
+  useEffect(() => {
+    console.log(events);
+  }, [])
+
+    const onSubmitCalendar = (e) => {
+        e.preventDefault();
+
+        history.push("/calendar");
+    }
 
   return (
     <>
       <div className="card map mt-3">
         <div className="card-body body-map">
-          <h5 className="text-center text-light"> {module.name} Calendar </h5>
+          <h2 className="text-center text-light"> Upcoming Events </h2>
           <hr></hr>
           <FullCalendar
             plugins={[timeGridPlugin]}
@@ -29,7 +30,7 @@ const ModuleCalendar = ({ user, module, setDisplay }) => {
             height="50vh"
             slotDuration="00:30:00"
             slotLabelInterval="01:00"
-            events={module.events}
+            events={events.currEvents}
           />
 
           <div className="text-center">
@@ -43,4 +44,4 @@ const ModuleCalendar = ({ user, module, setDisplay }) => {
   );
 };
 
-export default ModuleCalendar;
+export default HomeCalendar;

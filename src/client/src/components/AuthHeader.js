@@ -42,7 +42,7 @@ const HeaderAuth = (props) => {
         </a>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <div className="navbar-nav">
-            <Link className="nav-link" to="/home">
+            <Link className="nav-link" to={{pathname: "/home", state: {events: props.events}}}>
               Home
             </Link>
             <Link className="nav-link" to="/calendar">

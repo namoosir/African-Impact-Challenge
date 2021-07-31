@@ -71,6 +71,7 @@ router.get("/assignment/:id", assignmentController.get_assignment_model);
 router.put("/assignment/edit/:id", assignmentController.edit_assignment);
 router.get("/assignments/:id", assignmentController.get_all_assignments_instructor);
 
+router.post("/user/event/add", eventController.create_event_user);
 router.post("/room/create", videoController.createRoom);
 router.get("/rooms", videoController.loadRooms);
 router.get("/msg/getLogs/:user1/:user2", chatlogController.get_chat_log);

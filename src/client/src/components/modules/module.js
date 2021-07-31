@@ -34,7 +34,6 @@ const Module = ({
   eventAdded,
   state,
 }) => {
-
   const [display, setDisplay] = useState({
     displayCalendar: false,
   });
@@ -80,7 +79,6 @@ const Module = ({
         history={history}
       />
 
-
       {!displayCalendar ? (
         <div className="row d-flex justify-content-center mt-4">
           <div className="col-lg-3">
@@ -89,7 +87,7 @@ const Module = ({
 
           <div className="col-lg-6">
             <ModuleInfo module={module} />
-            {user && module && user.id === module.user._id ? (
+            {user && module && module.user && user.id === module.user._id ? (
               <>
                 <div className="d-flex justify-content-center">
                   <div className="container mb-3 mt-3">

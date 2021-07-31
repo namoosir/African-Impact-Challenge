@@ -4,10 +4,12 @@ import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 
 import { useState, useEffect} from "react";
 
+import { createEventSuccessful } from "../../actions/eventActions";
 import {connect} from "react-redux"
 
 import AddEvent from "./addEvent";
 
+import map from "../stylesheets/calendar.css";
 
 const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
   const [editing, setEditing] = useState({
@@ -32,7 +34,6 @@ const Calendar = ({ user, module, setDisplay, history, events, setEvents }) => {
       displayCalendar: false,
     });
   };
-
 
   return (
     <>

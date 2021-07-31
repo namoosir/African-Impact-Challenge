@@ -12,24 +12,30 @@ const Company = require("../models/company");
 const saltRounds = 10;
 let id = 0;
 
-module.exports.loginUser1 = async (req, res) => {
-    const { email, password } = req.body;
-  
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ user: "user does not exist" });
-    }
-  
-    const passwordCheck = await bcrypt.compare(password, user.password);
-    if (passwordCheck) {
+async function myPop(module, field) {
+  let itemPopulated = await module.populate(field).execPopulate();
+  return itemPopulated;
+}
 
+module.exports.loginUser1 = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json({ user: "user does not exist" });
+  }
+
+  const passwordCheck = await bcrypt.compare(password, user.password);
+  if (passwordCheck) {
+    myPop(user, "events").then(function (result2) {
       const sentUser = {
         id: user._id,
         email: user.email,
         username: user.username,
         name: user.name,
+        events: result2.events,
         typeOfUser: user.typeOfUser,
-        typeUser: user.typeUser
+        typeUser: user.typeUser,
       };
 
       const payload = {
@@ -44,11 +50,12 @@ module.exports.loginUser1 = async (req, res) => {
         (err, token) => {
           res.status(200).json({
             sentUser,
-            token
+            token,
           });
         }
       );
-    } else {
-      res.status(400).json({ password: "incorrect password" });
-    }
-  };
+    });
+  } else {
+    res.status(400).json({ password: "incorrect password" });
+  }
+};

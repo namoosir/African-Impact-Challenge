@@ -106,3 +106,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { reloadAfterEdit, updateUser })(
   ProfilePage
 );
+
+// export default ProfilePage

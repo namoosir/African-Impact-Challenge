@@ -74,6 +74,7 @@ module.exports.registerUser = async (req, res) => {
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,
+    events: savedUser.events,
     typeOfUser: req.body.typeOfUser,
     typeUser: refUser._id,
   };
