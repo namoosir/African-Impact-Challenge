@@ -10,8 +10,6 @@ const Company = require('./models/company')
 const User = require('./models/user');
 const Entrepreneur = require('./models/entrepreneur')
 
-const http = require('http');
-const socketio = require('socket.io');
 
 const bodyParser = require('body-parser');
 
