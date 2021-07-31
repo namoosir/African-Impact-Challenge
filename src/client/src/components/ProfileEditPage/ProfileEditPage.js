@@ -24,6 +24,8 @@ const ProfileEditPage = ({
   loadSelfProfileAfterEdit,
   updateProfileSuccessful,
 }) => {
+
+  console.log("USER", user)
   
 
   const [user2, setUser2] = useState({

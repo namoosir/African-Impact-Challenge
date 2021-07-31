@@ -19,7 +19,7 @@ const ModuleInfo = ({ module }) => {
                 >
                   <h5 className="text-dark mb-3">{module.description}</h5>
                   <footer className="blockquote-footer mb-0">
-                    {module.user.name}
+                    {module.user ? module.user.name : ""}
                   </footer>
                 </blockquote>
               </>

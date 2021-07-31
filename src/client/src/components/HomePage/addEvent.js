@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 
 import { connect } from "react-redux";
-import { createEvent } from "../../actions/eventActions";
-import { reloadModule } from "../../actions/moduleAction";
+import { createEventUser, createEventSuccessful } from "../../actions/eventActions";
 
 const AddEvent = ({
-  module,
+  user,
   setEditing,
   history,
-  createEvent,
+  createEventUser,
+  createEventSuccessful,
   events,
   setEvents,
-  reloadModule,
+  state
 }) => {
   const [event, setEvent] = useState({
     title: "",
@@ -47,9 +47,13 @@ const AddEvent = ({
 
     const send = {
       ...event,
-      moduleId: module._id,
+      userId: user.id,
     };
-    createEvent(send);
+
+    console.log(state);
+    createEventUser(send);
+    createEventSuccessful();
+    console.log(state);
 
     setEditing({
       isEditingCalendar: false,
@@ -120,4 +124,8 @@ const AddEvent = ({
   );
 };
 
-export default connect(null, { createEvent, reloadModule })(AddEvent);
+const mapStateToProps = (state) => ({
+    state: state
+})
+
+export default connect(mapStateToProps, { createEventUser, createEventSuccessful })(AddEvent);

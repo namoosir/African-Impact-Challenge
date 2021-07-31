@@ -2,11 +2,15 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import map from "../stylesheets/calendar.css";
 
-const HomeCalendar = ({ user, history }) => {
+const HomeCalendar = ({ user, history, events }) => {
+
+  useEffect(() => {
+    console.log(events);
+  }, [])
 
     const onSubmitCalendar = (e) => {
         e.preventDefault();
@@ -26,7 +30,7 @@ const HomeCalendar = ({ user, history }) => {
             height="50vh"
             slotDuration="00:30:00"
             slotLabelInterval="01:00"
-            events={user.events}
+            events={events.currEvents}
           />
 
           <div className="text-center">
