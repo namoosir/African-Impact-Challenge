@@ -1,0 +1,13 @@
+ .videopeer {
+     height: 40%;
+     width: 50%;
+ }
+
+ .containerpeer {
+    padding: 20px;
+    display: flex;
+    height: 100vh;
+    width: 90%;
+    margin: auto;
+    flex-wrap: wrap;
+ }

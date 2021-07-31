@@ -1,0 +1,40 @@
+.map,
+.map-body {
+  background: #f0f0f0;
+  color: white;
+}
+
+.fc-col-header-cell-cushion,
+.fc-daygrid-day-number,
+.fc-daygrid-day-top,
+.fc-timegrid-axis-cushion {
+  color: black;
+}
+
+.fc-col-header-cell-cushion:hover,
+.fc-daygrid-day-number:hover,
+.fc-daygrid-day-top:hover {
+  color: #253529;
+}
+
+.fc-scrollgrid-sync-inner,
+.fc-daygrid-day-events,
+.fc-daygrid-body,
+.fc-daygrid-body-unbalanced,
+.fc-timegrid-axis {
+  background-color: white;
+}
+
+.fc-timegrid-slot,
+.fc-timegrid-slot-lane,
+.fc-timegrid-slot-minor {
+  background-color: white;
+  color: black;
+}
+
+.fc-day-today,
+.fc-day-today .fc-scrollgrid-sync-inner,
+.fc-day-today .fc-daygrid-day-events,
+.fc-day-today .fc-timegrid-axis {
+  background: #dddddd !important;
+}
