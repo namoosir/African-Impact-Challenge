@@ -13,6 +13,7 @@ import { createPost, loadPosts } from "../../actions/postAction";
 import { updateUserHome } from "../../actions/userAction";
 import { afterCreateEvent } from "../../actions/eventActions";
 
+
 const Home = ({
   user,
   posts,

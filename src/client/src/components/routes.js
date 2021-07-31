@@ -16,32 +16,46 @@ import StudentView from "./Zoom/StudentView"
 import Calendar from "./HomePage/calendar"
 
 import {connect} from "react-redux"
+import { BrowserRouter, Switch } from "react-router-dom";
+import Meeting from "./Meetings/Meeting"
+import MeetingView from "./Meetings/MeetingView"
+import DirectMsgPage from './DirectMsg/DirectMsgPage';
+
 
 
 const Routes = ({user, isAuthenticated}) => {
     return (
 
-        <Router>
-            <Route exact path='/home' component={Home}/>
-            <Route exact path='/calendar' component={Calendar}/>
+        <div>
+            <Router>
+                <Route exact path='/calendar' component={Calendar}/>
+                <Route exact path='/home' component={Home}/>
+                <Route exact path='/register' component={Register}/>
+                <Route exact path='/login' component={Login}></Route>
+                <Route exact path='/update/settings' component={UpdateSettings}></Route>
+                <Route exact path='/auth/settings' component={AuthSettings}></Route>
 
-            <Route exact path='/register' component={Register}/>
-            <Route exact path='/login' component={Login}></Route>
-            <Route exact path='/update/settings' component={UpdateSettings}></Route>
-            <Route exact path='/auth/settings' component={AuthSettings}></Route>
+                <Route exact path='/profile' component={ProfilePage}></Route>
+                <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
+                <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
+                <Route exact path='/msg' component={DirectMsgPage}></Route>
 
-            <Route exact path='/profile' component={ProfilePage}></Route>
-            <Route exact path='/profile_search' component={ProfileSearchPage}></Route>
-            <Route exact path='/profile_edit' component={ProfileEditPage}></Route>
+                <Route exact path='/module' component={Module}></Route>
+                <Route exact path='/module_edit' component={ModuleEdit}></Route>
 
-            <Route exact path='/module' component={Module}></Route>
-            <Route exact path='/module_edit' component={ModuleEdit}></Route>
 
-            <Route exact path='/zoom_instructor' component={InstructorView}></Route>
-            <Route exact path='/zoom_student' component={StudentView}></Route>
+                <Route exact path='/submissions' component={Submission}></Route>
+                <Route exact path="/meetings" component={MeetingView}/>
+                
+            </Router>
 
-            <Route exact path='/submissions' component={Submission}></Route>
-        </Router>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/room/:roomID" component={Meeting} />
+                </Switch>
+            </BrowserRouter>
+        </div>
+
     );
 };
 

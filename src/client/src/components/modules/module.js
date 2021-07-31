@@ -48,7 +48,6 @@ const Module = ({
     if (user) {
       loadAssignments(user, history);
     }
-    console.log(module);
   }, []);
 
   useEffect(() => {

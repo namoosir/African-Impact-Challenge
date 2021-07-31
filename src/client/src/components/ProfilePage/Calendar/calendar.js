@@ -2,11 +2,12 @@ import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { connect } from "react-redux"
 
 import AddEvent from "./addEvent";
 
-const Calendar = ({ user, loggedInUser, setDisplay, history }) => {
+const Calendar = ({ user, loggedInUser, setDisplay, history, events, setEvents }) => {
   const [editing, setEditing] = useState({
     isEditingCalendar: false,
   });
@@ -54,7 +55,7 @@ const Calendar = ({ user, loggedInUser, setDisplay, history }) => {
                   center: "title",
                   right: "dayGridMonth,timeGridWeek,timeGridDay",
                 }}
-                events={user.events}
+                events={events.currEvents}
               />
 
               <div className="text-center">
@@ -84,6 +85,8 @@ const Calendar = ({ user, loggedInUser, setDisplay, history }) => {
               user={user}
               setEditing={setEditing}
               history={history}
+              events={events}
+              setEvents={setEvents}
             />
           </>
         ) : (
@@ -94,4 +97,4 @@ const Calendar = ({ user, loggedInUser, setDisplay, history }) => {
   );
 };
 
-export default Calendar;
+export default connect(null, {})(Calendar);

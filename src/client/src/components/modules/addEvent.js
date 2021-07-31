@@ -49,7 +49,6 @@ const AddEvent = ({
       ...event,
       moduleId: module._id,
     };
-
     createEvent(send);
 
     setEditing({

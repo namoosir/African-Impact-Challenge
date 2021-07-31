@@ -39,6 +39,26 @@ export const createEventUser = (event) => (dispatch) => {
     });
 };
 
+export const createCompanyEvent = (event) => (dispatch) => {
+  axios
+    .post("http://localhost:3001/event/addCompany", event)
+    .then((res) => {
+      axios
+        .get(`http://localhost:3001/profile/${event.userId}`)
+        .then((res2) => {
+          dispatch({
+            type: CREATE_EVENT,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
 export const createEventSuccessful = () => (dispatch) => {
   dispatch({
     type: CREATE_EVENT_SUCCESSFUL,

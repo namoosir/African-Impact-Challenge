@@ -4,7 +4,7 @@ const Partner = require("../models/partner");
 const Company = require("../models/company");
 const User = require("../models/user");
 const imagesPath = "./server/images";
-
+const Event = require("../models/event");
 const documentPath = "./server/documents";
 const fs = require("fs")
 
@@ -17,22 +17,24 @@ const userType = {
 
 const { expect } = require("chai");
 
-const user_details = (req, res) => {
+const user_details = async (req, res) => {
   const id = req.params.id;
-  //const name = req.params.typeOfUser;
+
   User.findById(id)
     .then((result) => {
       result.populate(
         { path: "typeUser", model: result.typeOfUser },
-        function (err, result) {
-          console.log(result);
-          res.status(200).json(result);
+        async function (err, result) {
+          const popEvent = await myPop(result, "events").then(async function (resultp) {
+            return resultp
+          })
+          res.status(200).json(popEvent);
         }
       ); // always makes sure that the client sends the general user
     })
     .catch((err) => {
       console.log(err);
-    });
+    }); 
 };
 
 /* documentsList = result.documents;
@@ -100,20 +102,25 @@ const get_image = (req, res) => {
 
 const save_image = (req, res) => {
   expect(req.files.imageURL, "file needed").to.exist;
-  const expensesFile = req.files.imageURL[0]; 
+  const expensesFile = req.files.imageURL[0];
   const filePath = expensesFile.path.split("/");
   const extenstion = expensesFile.originalname.split(".")
-  const fileName =  extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1]
+  const fileName = extenstion.slice(0, -1).join("") + "*" + filePath[filePath.length - 1] + "." + extenstion[extenstion.length - 1]
 
   User.findByIdAndUpdate(req.params.id, {
     image: fileName,
-  }).then((result) => fs.rename(`./server/images/${filePath[filePath.length - 1]}`, `./server/images/${fileName}`, ()=>{res.sendStatus(200)}));
+  }).then((result) => fs.rename(`./server/images/${filePath[filePath.length - 1]}`, `./server/images/${fileName}`, () => { res.sendStatus(200) }));
 };
 
 async function myPop2(post) {
   let itemPopulated = await post
     .populate({ path: "typeUser", model: post.typeOfUser })
     .execPopulate();
+  return itemPopulated;
+}
+
+async function myPop(model, field) {
+  let itemPopulated = await model.populate(field).execPopulate();
   return itemPopulated;
 }
 
@@ -132,7 +139,7 @@ const save_documents = (req, res) => {
     for (let i = 0; i < req.files.documents.length; i++) {
       filePath = req.files.documents[i].path.split("/");
       extenstion = req.files.documents[i].originalname.split(".")
-      fileName = extenstion.slice(0,-1).join("")+ "*"+filePath[filePath.length - 1]+ "." + extenstion[extenstion.length-1];
+      fileName = extenstion.slice(0, -1).join("") + "*" + filePath[filePath.length - 1] + "." + extenstion[extenstion.length - 1];
       fileNames.push(fileName);
     }
 
@@ -145,7 +152,7 @@ const save_documents = (req, res) => {
         documentsList = documentsList.concat(fileNames);
         userType[result.typeOfUser]
           .findByIdAndUpdate(result.typeUser, { documents: documentsList })
-          .then((x) => fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, ()=>{res.sendStatus(200)}));
+          .then((x) => fs.rename(`./server/documents/${filePath[filePath.length - 1]}`, `./server/documents/${fileName}`, () => { res.sendStatus(200) }));
       });
     });
   } else {

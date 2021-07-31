@@ -2,7 +2,7 @@ const Event = require("../models/event");
 const Modules = require("../models/modules");
 const User = require("../models/user")
 
-const create_event = (req, res) => {
+const create_event_module = (req, res) => {
   const event = new Event({
     title: req.body.title,
     start: req.body.start,
@@ -14,8 +14,7 @@ const create_event = (req, res) => {
       const module = Modules.findById(req.body.moduleId)
         .then((result) => {
           result.events.push(ref._id);
-          result.save();
-          res.status(200).json({msg: "Succesful event add"})
+          result.save().then(()=>{ res.status(200).send("Successfully added event!");})
         })
         .catch((e) => res.status(404).send("Module not found"));
     })
@@ -45,7 +44,27 @@ const create_event_user = (req, res) => {
     .catch((e) => res.status(400).send("Could not save event"));
 }
 
+const create_event_company = (req, res) => {
+  const event = new Event({
+    title: req.body.title,
+    start: req.body.start,
+    end: req.body.end,
+  });
+  const refEvent = event
+    .save()
+    .then((ref) => {
+      const user = User.findById(req.body.userId)
+        .then((result) => {
+          result.events.push(ref._id);
+          result.save().then(()=> {res.status(200).send("Successfully added event!")})
+        })
+        .catch((e) => res.status(404).send("User not found"));
+    })
+    .catch((e) => res.status(400).send("Could not save event"));
+}
+
 module.exports = {
-  create_event,
-  create_event_user
+  create_event_user,
+  create_event_module,
+  create_event_company,
 };

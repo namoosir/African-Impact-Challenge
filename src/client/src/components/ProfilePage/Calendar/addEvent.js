@@ -1,14 +1,22 @@
 import { useState } from "react";
 
 import { connect } from "react-redux";
-import { createEvent } from "../../../actions/eventActions";
+import { createCompanyEvent } from "../../../actions/eventActions";
 
-const AddEvent = ({ user, setEditing, createEvent }) => {
+const AddEvent = ({
+  user,
+  setEditing,
+  createCompanyEvent,
+  events,
+  setEvents,
+}) => {
   const [event, setEvent] = useState({
     title: "",
     start: "",
     end: "",
   });
+
+  const { currEvents } = events;
 
   const { title, start, end } = event;
 
@@ -30,12 +38,16 @@ const AddEvent = ({ user, setEditing, createEvent }) => {
   const onAddEvent = (e) => {
     e.preventDefault();
 
+    setEvents({
+      currEvents: [...currEvents, event],
+    });
+
     const send = {
       ...event,
       userId: user.id,
     };
 
-    createEvent(send);
+    createCompanyEvent(send);
 
     setEditing({
       isEditingCalendar: false,
@@ -106,4 +118,4 @@ const AddEvent = ({ user, setEditing, createEvent }) => {
   );
 };
 
-export default connect(null, {createEvent})(AddEvent);
+export default connect(null, { createCompanyEvent })(AddEvent);

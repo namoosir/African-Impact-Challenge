@@ -17,7 +17,7 @@ const CompanyCalendar = ({ user, setDisplay }) => {
     <>
       <div className="card map mt-3">
         <div className="card-body body-map">
-          <h5 className="text-center text-light"> {user.name} Calendar </h5>
+          <h3 className="text-center text-light"> {user.name} Calendar </h3>
           <hr></hr>
           <FullCalendar
             plugins={[timeGridPlugin]}

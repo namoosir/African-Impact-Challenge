@@ -31,6 +31,7 @@ const ModulesSchema = new Schema({
   events: [{
     type: Schema.Types.ObjectId,
     ref: "Events",
+    default: [],
   }],
   date: {
     type: Date,

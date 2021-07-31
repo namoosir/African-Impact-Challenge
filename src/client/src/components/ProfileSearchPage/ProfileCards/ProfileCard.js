@@ -13,13 +13,13 @@ const ProfileCard = ({user, history, getProfile}) => {
         history.push("/profile");
     }
 
-    function getImage(imageName){
-        return 
+    function getImageURL92(user){
+        return `http://localhost:3001/profile/getImage/${user._id}`;
     }
 
     return (
         <div className="profile_search_card">
-            <img className="profile_search_profile_img" src={user.image}></img>
+            <img className="profile_search_profile_img" src={getImageURL92(user)}></img>
             <div className="profile_search_body">
                 <h1>{user.name}-{user.typeOfUser}</h1>
                 <form onSubmit={onSubmit}>
