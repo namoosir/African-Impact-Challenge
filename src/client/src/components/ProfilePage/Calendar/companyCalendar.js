@@ -4,7 +4,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 
 import { useState } from "react";
 
-const CompanyCalendar = ({ user, setDisplay }) => {
+const CompanyCalendar = ({ user, events, setDisplay }) => {
   const onSubmitCalendar = (e) => {
     e.preventDefault();
 
@@ -25,7 +25,7 @@ const CompanyCalendar = ({ user, setDisplay }) => {
             height="50vh"
             slotDuration="00:30:00"
             slotLabelInterval="01:00"
-            events={user.events}
+            events={events.currEvents}
           />
 
           <div className="text-center">

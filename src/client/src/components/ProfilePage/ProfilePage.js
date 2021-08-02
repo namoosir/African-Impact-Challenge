@@ -73,7 +73,7 @@ const ProfilePage = ({
           {userProfile.typeOfUser === "Company" ? (
             <div className="container margins">
               <div className="container">
-                <CompanyCalendar user={userProfile} setDisplay={setDisplay} />
+                <CompanyCalendar user={userProfile} setDisplay={setDisplay} events={events}/>
               </div>
             </div>
           ) : (
