@@ -216,7 +216,8 @@ const DirectMsgPage = ({
                 className="d-flex justify-content-center px-4 bg-light my-2 mb-2"
                 style={{ borderRadius: "25px" }}
               >
-                <h1 className="msg_header text-center bg-light text-dark my-2">
+                <img className="w-25 my-2 me-3" src={getImageURL101(user3.id)} style={{height: "50px", width: "100px"}}></img>
+                <h1 className="msg_header text-center bg-light text-dark my-2 mt-2">
                   {user3.username}
                 </h1>
               </div>
@@ -234,8 +235,8 @@ const DirectMsgPage = ({
             </div>
 
             <form className="mt-4" onSubmit={SendMessage2}>
-              <div className="row">
-                <div className="col-lg-9">
+              <div className="row d-flex justify-content-center">
+                <div className="col-lg-9 d-flex justify-content-center w-100">
                   <input
                     className="msgbox form-control mt-2"
                     type="text"
@@ -246,7 +247,7 @@ const DirectMsgPage = ({
                     value={message}
                   />
                 </div>
-                <div className="col-lg-2 mt-0">
+                <div className="col-lg-2 mt-0 text-center w-25">
                   <button type="submit" className="btn btn-primary">
                     Send
                   </button>

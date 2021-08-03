@@ -42,7 +42,7 @@ const get_recent_modules = async (req, res) => {
   for (const module of result) {
     var populated = await myPop(module, "user").then( async function (result) {
       let populated2 = await myPop(result, "events").then(function (result2) {
-        console.log(result2)
+  
         return result2;
       })
       return populated2;
@@ -50,7 +50,7 @@ const get_recent_modules = async (req, res) => {
 
     ans.push(populated);
   }
-  console.log(ans);
+
   const sentModules = ans;
 
   res.status(200).json(sentModules);

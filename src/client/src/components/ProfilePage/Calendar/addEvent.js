@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { connect } from "react-redux";
 import { createCompanyEvent } from "../../../actions/eventActions";
+import { loadSelfProfile } from "../../../actions/profileAction";
 
 const AddEvent = ({
   user,

@@ -18,8 +18,6 @@ export default function (state = initialState, action) {
         ...state,
         profile: payload,
       };
-
-
     case LOAD_SELF_AFTER_EDIT: 
       return  {
         ...state,

@@ -191,7 +191,7 @@ export const AssignmentStudent = ({
     if (Array.isArray(assignments)) {
       assignments.map((as) => {
         if (as.userid === userid && as.name === name) {
-          if (as.mark !== "" || as.mark != null) {
+          if (as.mark !== "" && as.mark !== undefined && as.mark !== null) {
             a = as;
           }
         }
