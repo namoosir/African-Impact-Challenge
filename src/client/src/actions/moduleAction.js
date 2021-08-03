@@ -29,7 +29,6 @@ export const loadModules = (history) => (dispatch) => {
 };
 
 export const createModules = (module, user, history) => (dispatch) => {
-  alert("HERE");
   axios
     .post(`http://localhost:3001/createModule/${user.id}`, module)
     .then((res) => {

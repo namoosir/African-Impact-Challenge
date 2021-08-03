@@ -345,7 +345,7 @@ export const AssignmentStudent = ({
             <div className="d-flex flex-column justify-content-center mt-2">
               {url.type.split('/')[0] == 'image' ? <img className="img-thumbnail" src={url.url}></img> : 
               <>
-              <Document file={assignmentEdit.submitted_document}>
+              <Document className="d-flex justify-content-center" file={assignmentEdit.submitted_document}>
                 <Page pageNumber={1}></Page>
               </Document>
               </>
