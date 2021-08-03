@@ -4,7 +4,7 @@ import { ReactComponent as SvgPlus } from "../../../svgs/Plus.svg";
 import { ReactComponent as SvgDocument } from "../../../svgs/document_icon.svg";
 import { ReactComponent as SvgRedX1 } from "../../../svgs/redX.svg";
 import { ReactComponent as SvgRedX } from "../../../svgs/redX.svg";
-import { Document } from 'react-pdf'
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
@@ -65,6 +65,8 @@ export const AssignmentStudent = ({
     }));
     
     setUrl({url: URL.createObjectURL(event.target.files[0]), type: event.target.files[0].type});
+    console.log(URL.createObjectURL(event.target.files[0]), event.target.files[0].type)
+
   }
 
   function handleClick(event) {
@@ -341,7 +343,13 @@ export const AssignmentStudent = ({
 
           {url.url ? 
             <div className="d-flex flex-column justify-content-center mt-2">
-              {url.type.split('/')[0] == 'image' ? <img className="img-thumbnail" src={url.url}></img> : <Document file={url.url} />}             
+              {url.type.split('/')[0] == 'image' ? <img className="img-thumbnail" src={url.url}></img> : 
+              <>
+              <Document file={assignmentEdit.submitted_document}>
+                <Page pageNumber={1}></Page>
+              </Document>
+              </>
+              }             
             </div>  
             : <h1></h1>}
           
