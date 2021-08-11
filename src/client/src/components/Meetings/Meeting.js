@@ -112,9 +112,9 @@ const Meeting = (props) => {
         <div className="card-body"> 
       <video className="videopeer w-50" muted ref={userVideo} autoPlay playsInline />
 
-      {peers.map((peer, index) => {
+      {Array.isArray(peers) ? peers.map((peer, index) => {
         return <Video key={index} peer={peer} />;
-      })}
+      }) : ""}
       </div>
       </div>
     </div>

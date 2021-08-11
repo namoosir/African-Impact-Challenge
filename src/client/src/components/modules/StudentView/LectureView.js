@@ -24,7 +24,7 @@ export const LectureStudent = ({ user, module, lectures, history, loadLecture}) 
       {user && user.typeOfUser === "Entrepreneur" ? (
         <div className="card">
           <div className="card-body">
-            <h2>Lectures</h2>
+            <h1>Lectures</h1>
 
             {lectures && Array.isArray(lectures)
               ? lectures.map((lecture) => (

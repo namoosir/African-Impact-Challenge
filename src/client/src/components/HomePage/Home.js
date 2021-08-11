@@ -41,8 +41,6 @@ const Home = ({
 
   useEffect(() => {
     loadPosts(user, history);
-    updateUserHome(user, history);
-    
   }, []);
 
   useEffect(() => {

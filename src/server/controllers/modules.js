@@ -31,6 +31,8 @@ const create_module = async (req, res) => {
 
   const refModule = await module.save();
 
+  console.log(refModule);
+
   res.status(200).json(refModule);
 };
 

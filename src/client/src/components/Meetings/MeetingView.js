@@ -5,13 +5,18 @@ import { connect } from "react-redux";
 import AuthHeader from "../AuthHeader";
 import CreateMeeting from "./CreateMeeting";
 import ModuleCreate from "../displayModule";
+import Calendar from "../HomePage/homeCalendar";
 
 import { loadRooms } from "../../actions/videoAction";
 
 const MeetingView = ({ user, isAuthenticated, history, loadRooms }) => {
+  const [events, setEvents] = useState({
+    currEvents: user ? user.events : "",
+  });
+
   useEffect(() => {
     loadRooms();
-  }, [])
+  }, []);
 
   return (
     <>
@@ -56,7 +61,9 @@ const MeetingView = ({ user, isAuthenticated, history, loadRooms }) => {
         </div>
 
         <div className="col-lg-3">
-        
+          <div className="ms-4 mt-4">
+            <Calendar user={user} history={history} events={events} />
+          </div>
         </div>
       </div>
     </>
@@ -68,4 +75,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
 });
 
-export default connect(mapStateToProps, {loadRooms})(MeetingView);
+export default connect(mapStateToProps, { loadRooms })(MeetingView);

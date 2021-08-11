@@ -25,8 +25,6 @@ module.exports.updateCurrentUser = async (req, res) => {
         typeUser: user.typeUser,
       };
 
-      console.log("In user.js", sentUser)
-
       res.status(200).json({sentUser});
     })
   }

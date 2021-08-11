@@ -131,7 +131,7 @@ const Module = ({
               <>
                 <div className="d-block justify-content-center mt-2">
                   <div className="d-flex justify-content-center">
-                    <div className="container margins">
+                    <div className="container mb-3 mt-2">
                       <LectureView
                         user={user}
                         history={history}
@@ -141,7 +141,7 @@ const Module = ({
                   </div>
 
                   <div className="d-flex justify-content-center">
-                    <div className="container margins">
+                    <div className="container mb-3">
                       <ContentView
                         user={user}
                         history={history}

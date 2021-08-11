@@ -71,7 +71,7 @@ const ModuleCreate = ({
       nameModule: "",
     });
 
-    createModules(module, user, history);
+    createModules(module, user, history)
     onCancelCreateModule(e);
     window.location.reload();
   };

@@ -25,7 +25,7 @@ export const ContentStudent = ({ user, module, content, history, loadContent }) 
       {user && user.typeOfUser === "Entrepreneur" ? (
         <div className="card">
           <div className="card-body">
-            <h2>Content</h2>
+            <h1>Content</h1>
 
             {content && Array.isArray(content)
               ? content.map((cont) => (
